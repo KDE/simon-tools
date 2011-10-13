@@ -94,4 +94,31 @@ Rectangle {
             btKeyCalcButtonImage: ("../img/keyboard.png")
         }
     }
+
+    Rectangle {
+        id: closebutton
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        width: 50
+        height: 50
+        color: Qt.darker("#FFFBC7", 2.0)
+        Text {
+            anchors.centerIn: parent
+            text: "Quit"
+
+        }
+
+        MouseArea{
+            id: buttonMouseArea
+            x: 0
+            y: 0
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
+            //onClicked handles valid mouse button clicks
+            onClicked: Qt.quit()
+        }
+    }
 }
