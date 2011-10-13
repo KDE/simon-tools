@@ -1,5 +1,4 @@
 import QtQuick 1.1
-
 import "parts"
 
 Rectangle {
@@ -13,7 +12,7 @@ Rectangle {
     Text {
         font.pointSize: 20
         font.bold: true
-        text: qsTr("Information")
+        text: qsTr("Bestellung")
         anchors.horizontalCenter: parent.horizontalCenter
         y: 40
     }
@@ -27,45 +26,43 @@ Rectangle {
 
         MainButton {
             id: btMainButton1
-            objectName: "btInformationVideo"
+            objectName: "btAnfrageBestellung"
             width: 240
             height: 250
             radius: 10
-            buttonText: qsTr("Video")
+            buttonText: qsTr("Getränk")
             buttonNumber: "1"
-            buttonImage: ("../img/Button_Information_Video.png")
+            buttonImage: ("../img/Button_Anfragen_Bestellung_Getraenk.png")
         }
         MainButton {
             id: btMainButton2
-            objectName: "btInformationMusik"
+            objectName: "btAnfrageUnterstuetzung"
             width: 240
             height: 250
             radius: 10
-            buttonText: qsTr("Musik")
+            buttonText: qsTr("Lebensmittel")
             buttonNumber: "2"
-            buttonImage: ("../img/Button_Information_Musik.png")
+            buttonImage: ("../img/Button_Anfragen_Bestellung_Lebensmittel.png")
         }
         MainButton {
             id: btMainButton3
-            objectName: "btInformationBilder"
+            objectName: "btAnfrageTransport"
             width: 240
             height: 250
             radius: 10
-            buttonText: qsTr("Bilder")
+            buttonText: qsTr("Medizin")
             buttonNumber: "3"
-            buttonImage: ("../img/Button_Information_Bilder.png")
+            buttonImage: ("../img/Button_Anfragen_Bestellung_Medizin.png")
         }
-        MainButton {
-            id: btMainbutton4
-            objectName: "btInformationZeitungen"
-            width: 240
-            height: 250
-            radius: 10
-            buttonText: qsTr("Zeitungen")
-            buttonNumber: "4"
-            buttonImage: ("../img/Button_Information_Zeitung_Zeitung.png")
-            onButtonClick: screen.showScreen("MainInformationZeitung.qml")
-        }
+//        MainButton {
+//            id: btMainbutton4
+//            width: 240
+//            height: 250
+//            radius: 10
+//            buttonText: qsTr("Zeitungen")
+//            buttonNumber: "4"
+//            buttonImage: ("../img/rss.png")
+//        }
     }
 
 //    Backbutton
@@ -73,12 +70,12 @@ Rectangle {
         id: btBack
         x: 1
         y: 0
-        onButtonClick: screen.showScreen("Mainscreen.qml")
+        onButtonClick: screen.showScreen("MainAnfrage.qml")
     }
 
 ////    Keyboard and Calculator
 //    Grid {
-////        y: 678
+//        y: 678
 //        anchors.horizontalCenterOffset: 0
 //        anchors.horizontalCenter: parent.horizontalCenter
 //        anchors.bottom: parent.bottom
@@ -87,11 +84,11 @@ Rectangle {
 
 //        KeyCalcButton {
 //            btKeyCalcButtonText: qsTr("Taschenrechner")
-//            btKeyCalcButtonImage: ("img/calculator.png")
+//            btKeyCalcButtonImage: ("../img/calculator.png")
 //        }
 //        KeyCalcButton {
 //            btKeyCalcButtonText: qsTr("Tastatur")
-//            btKeyCalcButtonImage: ("img/keyboard.png")
+//            btKeyCalcButtonImage: ("../img/keyboard.png")
 //        }
 //    }
 }

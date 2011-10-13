@@ -13,7 +13,7 @@ Rectangle {
     Text {
         font.pointSize: 20
         font.bold: true
-        text: qsTr("Information")
+        text: qsTr("Zeitung")
         anchors.horizontalCenter: parent.horizontalCenter
         y: 40
     }
@@ -33,7 +33,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Video")
             buttonNumber: "1"
-            buttonImage: ("../img/Button_Information_Video.png")
+            buttonImage: ("../img/Button_Information_Zeitung_Rss1.png")
         }
         MainButton {
             id: btMainButton2
@@ -43,7 +43,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Musik")
             buttonNumber: "2"
-            buttonImage: ("../img/Button_Information_Musik.png")
+            buttonImage: ("../img/Button_Information_Zeitung_RSS2.png")
         }
         MainButton {
             id: btMainButton3
@@ -53,7 +53,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Bilder")
             buttonNumber: "3"
-            buttonImage: ("../img/Button_Information_Bilder.png")
+            buttonImage: ("../img/Button_Information_Zeitung_Internet3.png")
         }
         MainButton {
             id: btMainbutton4
@@ -63,8 +63,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Zeitungen")
             buttonNumber: "4"
-            buttonImage: ("../img/Button_Information_Zeitung_Zeitung.png")
-            onButtonClick: screen.showScreen("MainInformationZeitung.qml")
+            buttonImage: ("../img/Button_Information_Zeitung_Internet4.png")
         }
     }
 
@@ -73,7 +72,7 @@ Rectangle {
         id: btBack
         x: 1
         y: 0
-        onButtonClick: screen.showScreen("Mainscreen.qml")
+        onButtonClick: screen.showScreen("MainInformation.qml")
     }
 
 ////    Keyboard and Calculator

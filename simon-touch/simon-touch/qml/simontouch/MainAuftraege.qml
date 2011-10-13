@@ -33,6 +33,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Wasser")
             buttonNumber: "1"
+            buttonImage: ("../img/Button_Auftraege_Wasser.png")
         }
         MainButton {
             id: btMainButton2
@@ -42,6 +43,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Türen")
             buttonNumber: "2"
+            buttonImage: ("../img/Button_Auftraege_Tueren.png")
         }
         MainButton {
             id: btMainButton3
@@ -51,6 +53,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Herd")
             buttonNumber: "3"
+            buttonImage: ("../img/Button_Auftraege_Herd.png")
         }
         MainButton {
             id: btMainbutton4
@@ -60,7 +63,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Gas")
             buttonNumber: "4"
-            buttonImage: ("../img/rss.png")
+            buttonImage: ("../img/Button_Auftraege_Gas.png")
         }
     }
 

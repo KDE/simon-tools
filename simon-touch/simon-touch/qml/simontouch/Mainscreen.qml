@@ -99,9 +99,9 @@ Rectangle {
         id: closebutton
         anchors.bottom: parent.bottom
         anchors.left: parent.left
-        width: 50
+        width: 75
         height: 50
-        color: Qt.darker("#FFFBC7", 2.0)
+        color: Qt.darker("#FFFBC7", 1.1)
         Text {
             anchors.centerIn: parent
             text: "Quit"

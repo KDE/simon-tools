@@ -32,6 +32,8 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Bestellung")
             buttonNumber: "1"
+            buttonImage: ("../img/Button_Anfragen_Bestellung.png")
+            onButtonClick: screen.showScreen("MainAnfragenBestellung.qml")
         }
         MainButton {
             id: btMainButton2
@@ -41,6 +43,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Unterstützung")
             buttonNumber: "2"
+            buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
         }
         MainButton {
             id: btMainButton3
@@ -50,6 +53,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Transport")
             buttonNumber: "3"
+            buttonImage: ("../img/Button_Anfragen_Transport.png")
         }
 //        MainButton {
 //            id: btMainbutton4

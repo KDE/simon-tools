@@ -33,6 +33,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("Telefon")
             buttonNumber: "1"
+            buttonImage: ("../img/Button_Kommunikation_Telefon.png")
         }
         MainButton {
             id: btMainButton2
@@ -42,6 +43,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("E-Mail")
             buttonNumber: "2"
+            buttonImage: ("../img/Button_Kommunikation_EMail.png")
         }
         MainButton {
             id: btMainButton3
@@ -51,6 +53,7 @@ Rectangle {
             radius: 10
             buttonText: qsTr("SMS")
             buttonNumber: "3"
+            buttonImage: ("../img/Button_Kommunikation_Sms.png")
         }
 //        MainButton {
 //            id: btMainbutton4
