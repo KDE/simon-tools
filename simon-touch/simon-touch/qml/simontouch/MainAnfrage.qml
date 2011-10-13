@@ -72,7 +72,7 @@ Rectangle {
 
 ////    Keyboard and Calculator
 //    Grid {
-////        y: 678
+//        y: 678
 //        anchors.horizontalCenterOffset: 0
 //        anchors.horizontalCenter: parent.horizontalCenter
 //        anchors.bottom: parent.bottom
