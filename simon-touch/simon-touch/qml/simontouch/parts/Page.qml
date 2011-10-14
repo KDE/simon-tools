@@ -14,4 +14,8 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         y: 40
     }
+
+    Behavior on opacity {
+        NumberAnimation {properties: "opacity"; duration: 500}
+    }
 }
