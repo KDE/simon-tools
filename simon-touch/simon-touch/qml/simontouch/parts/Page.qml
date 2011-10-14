@@ -1,9 +1,11 @@
 import QtQuick 1.1
 
 Item {
+    id: page
     objectName: "MainScreen"
     property alias title: lbTitle.text
     anchors.fill: parent
+    opacity:0
 
     signal showScreen(string msg)
 

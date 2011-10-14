@@ -25,12 +25,10 @@ import QtQuick 1.0
      }
 
      function setOpacities() {
-         console.debug(objectName + " - "+current)
          for (var i = 0; i < tabWidget.children.length; ++i) {
              if (tabWidget.children[i] == btBack)
                  continue;
 
-             console.debug(tabWidget.children[i].objectName+" - "+tabWidget.children[i].opacity)
              if (tabWidget.children[i].objectName == current) {
                  tabWidget.children[i].opacity = 1
                  tabWidget.title = tabWidget.children[i].title

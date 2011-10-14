@@ -30,7 +30,14 @@ symbian:TARGET.CAPABILITY += NetworkServices
 # CONFIG += qt-components
 
 # The .cpp file which was generated for your project. Feel free to hack it.
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    simontouchview.cpp \
+    qmlsimontouchview.cpp \
+    simontouch.cpp \
+    imagesmodel.cpp \
+    videosmodel.cpp \
+    musicmodel.cpp \
+    flatfilesystemmodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -40,6 +47,33 @@ qtcAddDeployment()
 
 
 TRANSLATIONS = messages/simontouch_de.ts
+
+HEADERS += \
+    qmlview.h \
+    simontouchview.h \
+    qmlsimontouchview.h \
+    simontouch.h \
+    imagesmodel.h \
+    videosmodel.h \
+    musicmodel.h \
+    flatfilesystemmodel.h
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

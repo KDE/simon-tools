@@ -8,6 +8,7 @@ Rectangle {
     color: "#FFFBC7"
 
     TabPage {
+        opacity: 1
         id: tabs
         backAvailable: false
 
