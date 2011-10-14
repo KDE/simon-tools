@@ -1,97 +1,51 @@
 import QtQuick 1.1
-
 import "parts"
 
-Rectangle {
-    id: screen
-    width: main.width
-    height: main.height
-    color: "#FFFBC7"
-
-    signal showScreen(string msg)
-
-    Text {
-        font.pointSize: 20
-        font.bold: true
-        text: qsTr("Information")
-        anchors.horizontalCenter: parent.horizontalCenter
-        y: 40
-    }
+TabPage {
+    id: mainInformation
+    objectName: "MainInformation"
 
     /* Grid for the Mainbuttons */
-    Grid {
-        rows: 2
-        columns: 2
-        anchors.centerIn: parent
-        spacing: 20
+    Page {
+        title: qsTr("Information")
+        Grid {
+            rows: 2
+            columns: 2
+            anchors.centerIn: parent
+            spacing: 20
 
-        MainButton {
-            id: btMainButton1
-            objectName: "btInformationVideo"
-            width: 240
-            height: 250
-            radius: 10
-            buttonText: qsTr("Video")
-            buttonNumber: "1"
-            buttonImage: ("../img/Button_Information_Video.png")
-        }
-        MainButton {
-            id: btMainButton2
-            objectName: "btInformationMusik"
-            width: 240
-            height: 250
-            radius: 10
-            buttonText: qsTr("Musik")
-            buttonNumber: "2"
-            buttonImage: ("../img/Button_Information_Musik.png")
-        }
-        MainButton {
-            id: btMainButton3
-            objectName: "btInformationBilder"
-            width: 240
-            height: 250
-            radius: 10
-            buttonText: qsTr("Bilder")
-            buttonNumber: "3"
-            buttonImage: ("../img/Button_Information_Bilder.png")
-        }
-        MainButton {
-            id: btMainbutton4
-            objectName: "btInformationZeitungen"
-            width: 240
-            height: 250
-            radius: 10
-            buttonText: qsTr("Zeitungen")
-            buttonNumber: "4"
-            buttonImage: ("../img/Button_Information_Zeitung_Zeitung.png")
-            onButtonClick: screen.showScreen("MainInformationZeitung.qml")
+            MainButton {
+                objectName: "btInformationImages"
+                buttonText: qsTr("Images")
+                buttonNumber: "1"
+                buttonImage: ("../img/Button_Information_Bilder.png")
+    //            onButtonClick: mainInformation.showScreen("MainInformation")
+            }
+            MainButton {
+                objectName: "btInformationMusic"
+                buttonText: qsTr("Music")
+                buttonNumber: "2"
+                buttonImage: ("../img/Button_Information_Musik.png")
+    //            onButtonClick: mainInformation.showScreen("MainInformationMusic")
+            }
+            MainButton {
+                objectName: "btInformationVideo"
+                buttonText: qsTr("Orders")
+                buttonNumber: "3"
+                buttonImage: ("../img/Button_Information_Video.png")
+    //            onButtonClick: mainInformation.showScreen("MainInformationVideo")
+            }
+            MainButton {
+                objectName: "btInformationNews"
+                buttonText: qsTr("News")
+                buttonNumber: "4"
+                buttonImage: ("../img/Button_Information_Zeitung.png")
+                onButtonClick: setScreen("MainInformationNews") // mainInformation.showScreen("MainInformationNews")
+            }
         }
     }
 
-//    Backbutton
-    BackButton {
-        id: btBack
-        x: 1
-        y: 0
-        onButtonClick: screen.showScreen("Mainscreen.qml")
+    MainInformationNews {
+        objectName: "MainInformationNews"
     }
-
-////    Keyboard and Calculator
-//    Grid {
-////        y: 678
-//        anchors.horizontalCenterOffset: 0
-//        anchors.horizontalCenter: parent.horizontalCenter
-//        anchors.bottom: parent.bottom
-//        columns: 2
-//        spacing: 20
-
-//        KeyCalcButton {
-//            btKeyCalcButtonText: qsTr("Taschenrechner")
-//            btKeyCalcButtonImage: ("img/calculator.png")
-//        }
-//        KeyCalcButton {
-//            btKeyCalcButtonText: qsTr("Tastatur")
-//            btKeyCalcButtonImage: ("img/keyboard.png")
-//        }
-//    }
 }
