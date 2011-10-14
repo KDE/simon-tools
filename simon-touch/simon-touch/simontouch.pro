@@ -39,6 +39,7 @@ qtcAddDeployment()
 
 
 
+TRANSLATIONS = messages/simontouch_de.ts
 
 
 
