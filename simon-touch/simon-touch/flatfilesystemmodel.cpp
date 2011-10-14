@@ -8,6 +8,7 @@ FlatFilesystemModel::FlatFilesystemModel(const QString& path, const QStringList&
     QHash<int, QByteArray> names = roleNames();
     names.insert(Qt::UserRole, "index");
     names.insert(Qt::UserRole+1, "filePathRole");
+    names.insert(Qt::UserRole+2, "niceFileName");
     setRoleNames(names);
 
     QDir d(path);
@@ -27,6 +28,10 @@ QVariant FlatFilesystemModel::data (const QModelIndex & index, int role) const
         return index.row();
     if (role == Qt::UserRole+1)
         return m_path+QDir::separator()+m_files[index.row()];
+    if (role == Qt::UserRole+2) {
+        QString fileName = m_files[index.row()];
+        return fileName.remove(QRegExp("\\.(^\\.)*$"));
+    }
     return QVariant();
 }
 

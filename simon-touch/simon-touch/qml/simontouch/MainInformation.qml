@@ -26,14 +26,14 @@ TabPage {
                 buttonText: qsTr("Music")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Information_Musik.png")
-    //            onButtonClick: mainInformation.showScreen("MainInformationMusic")
+                onButtonClick: setScreen("MainInformationMusic")
             }
             MainButton {
                 objectName: "btInformationVideo"
                 buttonText: qsTr("Orders")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Information_Video.png")
-    //            onButtonClick: mainInformation.showScreen("MainInformationVideo")
+                onButtonClick: setScreen("MainInformationVideos")
             }
             MainButton {
                 objectName: "btInformationNews"
@@ -47,6 +47,12 @@ TabPage {
 
     MainInformationImages {
         objectName: "MainInformationImages"
+    }
+    MainInformationMusic {
+        objectName: "MainInformationMusic"
+    }
+    MainInformationVideos {
+        objectName: "MainInformationVideos"
     }
     MainInformationNews {
         objectName: "MainInformationNews"

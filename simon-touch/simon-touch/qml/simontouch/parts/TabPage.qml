@@ -46,4 +46,10 @@ import QtQuick 1.0
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
      }
+
+     /*
+     Keys.onPressed: {
+         if (event.key == Qt.Key_Escape)
+             back()
+     }*/
  }

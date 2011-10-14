@@ -21,12 +21,10 @@ TabPage {
             }
 
 
-            ListView {
+            SelectionListView {
                 id: lvImages
                 objectName: "lvImages"
 
-                anchors.fill: parent
-                clip: true
                 model: imagesModel
 
                 delegate:
@@ -43,13 +41,9 @@ TabPage {
                             }
                         }
                     }
-                highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-                focus: true
-                spacing: 20
 
-                onCurrentItemChanged: {
-                    imImage.source = currentItem.source
-                }
+                onCurrentItemChanged: imImage.source = currentItem.source
+
             }
         }
 

@@ -7,6 +7,7 @@ Rectangle {
     property color onHoverColor: "#FEF57B"
     property color normalColor: "#FFFBC7"
     property string buttonNumber: qsTr("1")
+
     width: 240
     height: 250
     radius: 10
@@ -17,11 +18,16 @@ Rectangle {
     Text {
         id: mainButtonText
         text: buttonText
-        x: 50
+
         font.family: "Arial"
         font.pointSize: 16
         anchors.bottom: parent.bottom
         anchors.margins: 6
+
+        /*
+        anchors.leftMargin: 50
+        anchors.left: parent.left*/
+        anchors.horizontalCenter: parent.horizontalCenter
     }
     Text {
         id: mainButtonNumber
@@ -35,10 +41,14 @@ Rectangle {
     Image {
         id: mainButtonImage
         source: buttonImage
-        width: 165
-        height: 165
-        anchors.rightMargin: 25
+        anchors.left: parent.left
+        anchors.leftMargin: 37
+        anchors.rightMargin: 38
         anchors.topMargin: 25
+
+        fillMode: Image.PreserveAspectFit
+        smooth: true
+
         anchors.right: parent.right
         anchors.top: parent.top
     }
