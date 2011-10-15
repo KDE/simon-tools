@@ -6,7 +6,7 @@ ListView {
     anchors.fill: parent
     clip: true
     highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-    focus: true
+
     spacing: 20
 
     Keys.onPressed: {

@@ -4,10 +4,15 @@ import "parts"
 
 TabPage {
     objectName: "MainInformationVideos"
-    onOpacityChanged: playVideos.stop()
+
+    onOpacityChanged: {
+        playVideos.stop()
+        lvVideos.focus = (opacity == 1)
+    }
+
     Page {
         title: qsTr("Videos")
-        anchors.fill: parent
+
 
         AutoFlippable {
             id: videoFlip

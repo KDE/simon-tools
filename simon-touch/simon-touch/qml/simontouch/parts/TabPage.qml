@@ -31,6 +31,7 @@ import QtQuick 1.0
 
              if (tabWidget.children[i].objectName == current) {
                  tabWidget.children[i].opacity = 1
+
                  tabWidget.title = tabWidget.children[i].title
              } else {
                  tabWidget.children[i].opacity = 0
@@ -47,9 +48,11 @@ import QtQuick 1.0
          onButtonClick: back()
      }
 
-     /*
+
      Keys.onPressed: {
-         if (event.key == Qt.Key_Escape)
+         if (event.key == Qt.Key_Escape) {
              back()
-     }*/
+             event.accepted = true
+         }
+     }
  }

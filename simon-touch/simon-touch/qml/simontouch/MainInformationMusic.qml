@@ -4,12 +4,15 @@ import "parts"
 
 TabPage {
     objectName: "MainInformationMusic"
-    onOpacityChanged: playMusic.stop()
+
+    onOpacityChanged: {
+        playMusic.stop()
+        lvMusic.focus = (opacity == 1)
+    }
 
     Page {
         title: qsTr("Music")
         anchors.fill: parent
-
 
         SelectionListView {
             id: lvMusic

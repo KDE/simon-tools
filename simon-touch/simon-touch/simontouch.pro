@@ -6,6 +6,8 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
+QT += xml
+
 symbian:TARGET.UID3 = 0xEAB67D3B
 
 # Smart Installer package's UID
@@ -37,7 +39,9 @@ SOURCES += main.cpp \
     imagesmodel.cpp \
     videosmodel.cpp \
     musicmodel.cpp \
-    flatfilesystemmodel.cpp
+    flatfilesystemmodel.cpp \
+    rssfeeds.cpp \
+    rssfeed.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -49,14 +53,20 @@ qtcAddDeployment()
 TRANSLATIONS = messages/simontouch_de.ts
 
 HEADERS += \
-    qmlview.h \
     simontouchview.h \
     qmlsimontouchview.h \
     simontouch.h \
     imagesmodel.h \
     videosmodel.h \
     musicmodel.h \
-    flatfilesystemmodel.h
+    flatfilesystemmodel.h \
+    rssfeeds.h \
+    rssfeed.h
+
+
+
+
+
 
 
 

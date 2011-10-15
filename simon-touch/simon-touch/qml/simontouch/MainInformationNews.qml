@@ -5,42 +5,103 @@ TabPage {
     id: mainInformationNews
     objectName: "MainInformationNews"
 
-    /* Grid for the Mainbuttons */
     Page {
         title: qsTr("News")
+
+        Component.onCompleted: {
+            var count = simonTouch.availableRssFeedsCount();
+            console.debug("Available feeds: "+count)
+            if (count < 4)
+                feed4.opacity = 0
+            if (count < 3)
+                feed3.opacity = 0
+            if (count < 2)
+                feed2.opacity = 0
+            if (count < 1)
+                feed1.opacity = 0
+        }
+
         Grid {
             rows: 2
             columns: 2
             anchors.centerIn: parent
             spacing: 20
 
-            MainButton {
-                objectName: "btInformationNewsRss1"
-                buttonText: qsTr("RSS 1")
-                buttonNumber: "1"
-                buttonImage: ("../img/Button_Kommunikation_Telefon.png")
-    //            onButtonClick: mainInformationNews.showScreen("MainInformation")
+
+            RSSButton {
+                id: feed1
+                index: 0
             }
-            MainButton {
-                objectName: "btInformationNewsRss2"
-                buttonText: qsTr("RSS 2")
-                buttonNumber: "2"
-                buttonImage: ("../img/Button_Kommunikation_Email.png")
-    //            onButtonClick: mainInformationNews.showScreen("MainCommunication")
+            RSSButton {
+                id: feed2
+                index: 1
             }
-            MainButton {
-                objectName: "btInformationNewsNews1"
-                buttonText: qsTr("News 1")
-                buttonNumber: "3"
-                buttonImage: ("../img/Button_Kommunikation_Sms.png")
-    //            onButtonClick: mainInformationNews.showScreen("MainOrders")
+            RSSButton {
+                id: feed3
+                index: 2
             }
-            MainButton {
-                objectName: "btInformationNewsNews2"
-                buttonText: qsTr("News 2")
-                buttonNumber: "4"
-                buttonImage: ("../img/Button_Anfragen.png")
-    //            onButtonClick: mainInformationNews.showScreen("MainRequests")
+            RSSButton {
+                id: feed4
+                index: 3
+            }
+        }
+    }
+    Page {
+        id: feedPage
+        title: qsTr("News")
+        objectName: "MainInformationNewsFeed"
+        anchors.fill: parent
+
+        onOpacityChanged: {
+            if (opacity == 0) {
+                rssFlip.flipped = false
+            }
+
+            lvFeed.focus = (opacity == 1)
+        }
+
+        function feedFetchError()
+        {
+            back()
+        }
+
+        function displayFeed()
+        {
+            rssFlip.flipped = true
+        }
+
+        AutoFlippable {
+            id: rssFlip
+            anchors.fill: parent
+            front: BusyIndicator {
+                id: busyIndicator
+                visible: true
+                anchors.centerIn: parent
+            }
+            back: SelectionListView {
+                id: lvFeed
+                orientation: ListView.Horizontal
+                clip:true
+                anchors.margins: 100
+                anchors.fill: parent
+                spacing: 20
+                model: rssFeed
+                flickableDirection: Flickable.HorizontalFlick
+                onModelChanged: {
+                    currentIndex = 0
+                }
+
+                snapMode: ListView.SnapToItem
+                delegate: RSSArticle {
+                    height: lvFeed.height
+                    width: feedPage.width - 300
+                    heading: header
+                    article: content
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: lvFeed.currentIndex = index
+                    }
+                }
             }
         }
     }

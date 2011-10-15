@@ -1,18 +1,28 @@
 #ifndef SIMONTOUCHVIEW_H
 #define SIMONTOUCHVIEW_H
 
-class ImagesModel;
-class VideosModel;
-class MusicModel;
+#include <QObject>
+class SimonTouch;
 
-class SimonTouchView
+class SimonTouchView : public QObject
 {
+    Q_OBJECT
+
+signals:
+    void rssFeedReady();
+    void rssFeedError();
+
 private:
-    ImagesModel *m_images;
-    MusicModel *m_music;
-    VideosModel *m_videos;
+    SimonTouch *m_logic;
+
 public:
-    SimonTouchView(ImagesModel *img, MusicModel *music, VideosModel *videos);
+    SimonTouchView(SimonTouch *logic);
+
+public slots:
+    int availableRssFeedsCount();
+    QString rssFeedTitle(int id);
+    QString rssFeedIcon(int id);
+    void fetchRSSFeed(int id);
 };
 
 #endif // SIMONTOUCHVIEW_H
