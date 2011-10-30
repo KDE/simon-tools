@@ -4,8 +4,10 @@ import "parts"
 TabPage {
     id: mainInformationNews
     objectName: "MainInformationNews"
+    stateName: "News"
 
     Page {
+        stateName: parent.stateName
         title: qsTr("News")
 
         Component.onCompleted: {

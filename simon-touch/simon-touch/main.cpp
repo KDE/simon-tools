@@ -1,4 +1,5 @@
 #include <QtGui/QApplication>
+#include <QtDBus/QDBusConnection>
 #include "qmlsimontouchview.h"
 #include "qmlapplicationviewer.h"
 #include "imagesmodel.h"
@@ -6,6 +7,7 @@
 #include "videosmodel.h"
 #include "rssfeeds.h"
 #include "simontouch.h"
+#include "simontouchadapter.h"
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
@@ -32,7 +34,15 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     RSSFeeds rssFeeds(titles, urls, icons);
 
     SimonTouch touch(&img, &music, &vids, &rssFeeds);
+
+    new SimonTouchAdapter(&touch);
+    QDBusConnection connection = QDBusConnection::sessionBus();
+    connection.registerObject("/Main", &touch);
+    connection.registerService("org.simon-listens.SimonTouch.Status");
+
+
     QMLSimonTouchView view(&touch);
+    QObject::connect(&view, SIGNAL(enterState(SimonTouchState::State)), &touch, SLOT(enteredState(SimonTouchState::State)));
 
     return app->exec();
 }

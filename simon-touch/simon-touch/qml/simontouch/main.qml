@@ -74,12 +74,5 @@ Rectangle {
             onClicked: Qt.quit()
         }
     }
-//    //    Backbutton
-//        BackButton {
-//            id: btBack
-//            x: 1
-//            y: 0
-//            onButtonClick: screen.showScreen("main.qml")
-//        }
 }
 

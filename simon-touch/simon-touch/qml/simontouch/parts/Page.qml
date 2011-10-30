@@ -1,9 +1,11 @@
 import QtQuick 1.1
 
 Item {
+
     id: page
     objectName: "MainScreen"
     property alias title: lbTitle.text
+    property string stateName: "Undefined"
     anchors.fill: parent
     opacity:0
 

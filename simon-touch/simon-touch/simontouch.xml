@@ -1,0 +1,9 @@
+ <!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN"
+         "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+ <node name="/Main">
+         <interface name="local.SimonTouch">
+                 <signal name="currentStatus">
+                    <arg name="status" type="i" direction="out"/>
+                 </signal>
+         </interface>
+ </node>

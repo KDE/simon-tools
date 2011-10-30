@@ -4,9 +4,11 @@ import "parts"
 TabPage {
     id: screen
     objectName: "MainScreen"
+    stateName: "Main"
 
     /* Grid for the Mainbuttons */
     Page {
+        stateName: parent.stateName
         title: Qt.formatDateTime(new Date(), "dddd, dd. MMMM yyyy")
         Grid {
             rows: 2
@@ -19,28 +21,28 @@ TabPage {
                 buttonText: qsTr("Information")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Information.png")
-                onButtonClick: screen.showScreen("MainInformation")
+                onButtonClick: showScreen("MainInformation")
             }
             MainButton {
                 objectName: "btCommunication"
                 buttonText: qsTr("Communication")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Kommunikation.png")
-                onButtonClick: screen.showScreen("MainCommunication")
+                onButtonClick: showScreen("MainCommunication")
             }
             MainButton {
                 objectName: "btOrders"
                 buttonText: qsTr("Orders")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Auftraege.png")
-                onButtonClick: screen.showScreen("MainOrders")
+                onButtonClick: showScreen("MainOrders")
             }
             MainButton {
                 objectName: "btRequests"
                 buttonText: qsTr("Requests")
                 buttonNumber: "4"
                 buttonImage: ("../img/Button_Anfragen.png")
-                onButtonClick: screen.showScreen("MainRequests")
+                onButtonClick: showScreen("MainRequests")
             }
         }
     }

@@ -4,6 +4,7 @@ import "parts"
 
 TabPage {
     objectName: "MainInformationVideos"
+    stateName: "Videos"
 
     onOpacityChanged: {
         playVideos.stop()
@@ -11,6 +12,7 @@ TabPage {
     }
 
     Page {
+        stateName: parent.stateName
         title: qsTr("Videos")
 
 

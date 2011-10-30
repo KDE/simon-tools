@@ -18,6 +18,9 @@ private:
 public:
     QMLSimonTouchView(SimonTouch *logic);
     ~QMLSimonTouchView();
+
+public slots:
+    void setState(const QString& state);
 };
 
 #endif // QMLSIMONTOUCHVIEW_H
