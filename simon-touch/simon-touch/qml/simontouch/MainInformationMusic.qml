@@ -4,6 +4,7 @@ import "parts"
 
 TabPage {
     objectName: "MainInformationMusic"
+    stateName: "Music"
 
     onOpacityChanged: {
         playMusic.stop()
@@ -11,6 +12,7 @@ TabPage {
     }
 
     Page {
+        stateName: parent.stateName
         title: qsTr("Music")
         anchors.fill: parent
 

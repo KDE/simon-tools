@@ -41,6 +41,12 @@ void SimonTouch::fetchRssFeed(int id)
     connect(reply, SIGNAL(finished()), this, SLOT(parseRss()));
 }
 
+void SimonTouch::enteredState(SimonTouchState::State state)
+{
+    qDebug() << "Entered state: " << state;
+    emit currentStatus(state);
+}
+
 void SimonTouch::parseRss()
 {
     QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());

@@ -2,6 +2,7 @@
 #define SIMONTOUCH_H
 
 #include <QObject>
+#include "simontouchstate.h"
 
 class ImagesModel;
 class VideosModel;
@@ -18,6 +19,7 @@ Q_OBJECT
 signals:
     void rssFeedReady();
     void rssFeedError();
+    void currentStatus(SimonTouchState::State);
 
 private:
     ImagesModel *m_images;
@@ -30,6 +32,9 @@ private:
 
 private slots:
     void parseRss();
+
+public slots:
+    void enteredState(SimonTouchState::State state);
 
 public:
     SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);

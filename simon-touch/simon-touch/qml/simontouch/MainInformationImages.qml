@@ -3,11 +3,13 @@ import "parts"
 
 TabPage {
     objectName: "MainInformationImages"
+    stateName: "Images"
     onOpacityChanged: {
         lvImages.focus = (opacity == 1)
     }
 
     Page {
+        stateName: parent.stateName
         title: qsTr("Images")
         anchors.fill: parent
 

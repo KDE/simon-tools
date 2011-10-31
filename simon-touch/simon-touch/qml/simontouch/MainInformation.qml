@@ -4,9 +4,11 @@ import "parts"
 TabPage {
     id: mainInformation
     objectName: "MainInformation"
+    stateName: "Information"
 
     /* Grid for the Mainbuttons */
     Page {
+        stateName: parent.stateName
         title: qsTr("Information")
         Grid {
             rows: 2

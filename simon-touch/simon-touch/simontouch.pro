@@ -6,7 +6,7 @@ DEPLOYMENTFOLDERS = folder_01
 # Additional import path used to resolve QML modules in Creator's code model
 QML_IMPORT_PATH =
 
-QT += xml
+QT += xml dbus
 
 symbian:TARGET.UID3 = 0xEAB67D3B
 
@@ -41,7 +41,8 @@ SOURCES += main.cpp \
     musicmodel.cpp \
     flatfilesystemmodel.cpp \
     rssfeeds.cpp \
-    rssfeed.cpp
+    rssfeed.cpp \
+    simontouchadapter.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -61,7 +62,20 @@ HEADERS += \
     musicmodel.h \
     flatfilesystemmodel.h \
     rssfeeds.h \
-    rssfeed.h
+    rssfeed.h \
+    simontouchstate.h \
+    simontouchadapter.h
+
+OTHER_FILES += \
+    simontouch.xml
+
+
+
+
+
+
+
+
 
 
 

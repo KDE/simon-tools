@@ -2,6 +2,8 @@
 #define SIMONTOUCHVIEW_H
 
 #include <QObject>
+#include "simontouchstate.h"
+
 class SimonTouch;
 
 class SimonTouchView : public QObject
@@ -11,6 +13,7 @@ class SimonTouchView : public QObject
 signals:
     void rssFeedReady();
     void rssFeedError();
+    void enterState(SimonTouchState::State state);
 
 private:
     SimonTouch *m_logic;

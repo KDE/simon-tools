@@ -33,6 +33,7 @@ import QtQuick 1.1
                  tabWidget.children[i].opacity = 1
 
                  tabWidget.title = tabWidget.children[i].title
+                 simonTouch.setState(tabWidget.children[i].stateName)
              } else {
                  tabWidget.children[i].opacity = 0
              }
