@@ -12,6 +12,8 @@ class RSSFeeds;
 class RSSFeed;
 class QNetworkAccessManager;
 
+class QProcess;
+
 class SimonTouch : public QObject
 {
 Q_OBJECT
@@ -30,6 +32,9 @@ private:
 
     QNetworkAccessManager *m_rssLoader;
 
+    QProcess *m_calculatorProcess;
+    QProcess *m_keyboardProcess;
+
 private slots:
     void parseRss();
 
@@ -45,6 +50,11 @@ public:
     QStringList rssFeedNames();
     QStringList rssFeedIcons();
     void fetchRssFeed(int id);
+
+    void showKeyboard();
+    void showCalculator();
+    void hideKeyboard();
+    void hideCalculator();
 
     ~SimonTouch();
 };

@@ -1,20 +1,49 @@
 import QtQuick 1.1
 
-Rectangle {
+Item {
     id: btKeyCalcButton
-    property string btKeyCalcButtonText: "Test"
-    property string btKeyCalcButtonImage: "../img/rss.png"
-    width: 242
-    height: 90
-    clip: true
-    color: "#FFFBC7"
+    property alias btKeyCalcButtonText: btInternal.buttonText
+    property alias btKeyCalcButtonImage: btInternal.buttonImage
+
+    signal buttonClick()
+    state: "collapsed"
+
+    states: [
+        State {
+            name: "collapsed"
+            PropertyChanges {
+                target: btKeyCalcButton
+                width: 242
+                height: 90
+            }
+        },
+        State {
+            name: "open"
+            PropertyChanges {
+                target: btKeyCalcButton
+                width: 800
+                height: 350
+                x: 112
+            }
+        }
+    ]
+
+    transitions: Transition {
+        NumberAnimation { properties: "x,width,height"; easing.type: Easing.InOutBounce }
+    }
 
     SideButton {
+        id: btInternal
         x: 0
         y: 1
-        width: 240
-        height: 100
-        buttonText: btKeyCalcButtonText
-        buttonImage: btKeyCalcButtonImage
+        width: parent.width - 2
+        height: parent.height + 10
+        onButtonClick: {
+            console.debug("Previous state: "+btKeyCalcButton.state)
+            btKeyCalcButton.state = (btKeyCalcButton.state == "collapsed") ? "open" : "collapsed";
+            console.debug("New state: "+btKeyCalcButton.state)
+
+            btKeyCalcButton.buttonClick()
+        }
     }
 }

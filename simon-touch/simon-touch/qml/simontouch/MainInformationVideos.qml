@@ -18,7 +18,7 @@ TabPage {
 
         AutoFlippable {
             id: videoFlip
-
+            z: 100
 
             anchors {
                 left: parent.left
@@ -62,20 +62,62 @@ TabPage {
                     }
                 }
             back:
-                Video {
-                    id: playVideos
-                    anchors.fill: parent
-                    onPositionChanged: {
-                        function msToStr(time) {
-                            var seconds = Math.floor(time / 1000)
-                            var minutes = Math.floor(seconds / 60)
-                            seconds = seconds - minutes*60
+                Rectangle {
+                    id: videoWrapper
 
-                            return minutes + ":" + seconds
+                    state: "windowed"
+                    x: 0
+                    y: 0
+
+                    color: "black"
+
+                    states: [
+                        State {
+                            name: "windowed"
+                            PropertyChanges {
+                                target: videoWrapper
+                                width: parent.width
+                                height: parent.height
+                            }
+                        },
+                        State {
+                            name: "fullscreen"
+                            PropertyChanges {
+                                target: videoWrapper
+                                x: - parent.x
+                                y: - parent.y
+                                width: main.width
+                                height: main.height
+                            }
                         }
-                        lbStatus.text = msToStr(playVideos.position)+ " / " + msToStr(playVideos.duration)
+                    ]
+                    transitions: Transition {
+                        NumberAnimation { properties: "width,height,x,y"; easing.type: Easing.InOutQuad }
                     }
-                }
+
+                    Video {
+                        id: playVideos
+
+                        anchors.fill: parent
+
+                        onPositionChanged: {
+                            function msToStr(time) {
+                                var seconds = Math.floor(time / 1000)
+                                var minutes = Math.floor(seconds / 60)
+                                seconds = seconds - minutes*60
+
+                                return minutes + ":" + seconds
+                            }
+                            lbStatus.text = msToStr(playVideos.position)+ " / " + msToStr(playVideos.duration)
+                        }
+
+                        MouseArea {
+                            anchors.fill: parent
+                            onClicked: videoWrapper.state = "windowed"
+                        }
+                    }
+
+            }
         }
 
 
@@ -106,7 +148,7 @@ TabPage {
             font.family: "Arial"
             font.pointSize: 16
         }
-/*
+
         MainButton {
             anchors.right: btStop.left
             anchors.top: btStop.top
@@ -115,9 +157,10 @@ TabPage {
             buttonNumber: ""
             buttonImage: ("../img/fullscreen.png")
             height: 90
-            width: 90
-            //onButtonClick: TODO
-        }*/
+            width: 130
+            opacity: videoFlip.flipped ? 1 : 0
+            onButtonClick: videoWrapper.state = "fullscreen"
+        }
 
         MainButton {
             id: btStop

@@ -14,7 +14,9 @@ Rectangle {
     border.width: 1
     Item {
 //        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenter: parent.verticalCenter
+        anchors.top: parent.top
+        anchors.topMargin: 10
+        height: 70
         x: 10
         Text {
             id: mainButtonText
@@ -48,10 +50,7 @@ Rectangle {
         anchors.topMargin: 0
         anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
         //onClicked handles valid mouse button clicks
-        onClicked: console.log(mainButtonText.text + " clicked" )
+        onClicked: buttonClick()
     }
     signal buttonClick()
-    onButtonClick: {
-        console.log(buttonLabel.text + " clicked" )
-    }
 }

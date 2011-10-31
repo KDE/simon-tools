@@ -10,6 +10,7 @@ Rectangle {
     TabPage {
         opacity: 1
         id: tabs
+        z: ((keyboardButton.state == "collapsed") && (calculatorButton.state == "collapsed")) ? 5 : 0
         backAvailable: false
 
         MainScreen {
@@ -31,23 +32,35 @@ Rectangle {
         }
 
     }
-    Grid {
-//        y: 678
-        anchors.horizontalCenterOffset: 0
-        anchors.horizontalCenter: parent.horizontalCenter
+    KeyCalcButton {
+        id: calculatorButton
+        z: (keyboardButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        columns: 2
-        spacing: 20
-
-        KeyCalcButton {
-            btKeyCalcButtonText: qsTr("Calculator")
-            btKeyCalcButtonImage: ("../img/calculator.png")
-        }
-        KeyCalcButton {
-            btKeyCalcButtonText: qsTr("Keyboard")
-            btKeyCalcButtonImage: ("../img/keyboard.png")
+        x: (parent.width / 2) - 250
+        btKeyCalcButtonText: (state == "collapsed") ? qsTr("Calculator") : qsTr("Close calculator")
+        btKeyCalcButtonImage: ("../img/calculator.png")
+        onButtonClick: {
+            if (state == "collapsed")
+                simonTouch.hideCalculator()
+            else
+                simonTouch.showCalculator()
         }
     }
+    KeyCalcButton {
+        id: keyboardButton
+        z: (calculatorButton.state == "collapsed") ? 1 : 0
+        anchors.bottom: parent.bottom
+        x: (parent.width / 2) + 10
+        btKeyCalcButtonText: (state == "collapsed") ? qsTr("Keyboard") : qsTr("Close keyboard")
+        btKeyCalcButtonImage: ("../img/keyboard.png")
+        onButtonClick: {
+            if (state == "collapsed")
+                simonTouch.hideKeyboard()
+            else
+                simonTouch.showKeyboard()
+        }
+    }
+    //}
     Rectangle {
         id: closebutton
         anchors.bottom: parent.bottom

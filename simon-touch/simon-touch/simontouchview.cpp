@@ -32,3 +32,23 @@ void SimonTouchView::fetchRSSFeed(int id)
 {
     m_logic->fetchRssFeed(id);
 }
+
+void SimonTouchView::showKeyboard()
+{
+    m_logic->showKeyboard();
+}
+
+void SimonTouchView::showCalculator()
+{
+    m_logic->showCalculator();
+}
+
+void SimonTouchView::hideCalculator()
+{
+    m_logic->hideCalculator();
+}
+
+void SimonTouchView::hideKeyboard()
+{
+    m_logic->hideKeyboard();
+}

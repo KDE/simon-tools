@@ -15,7 +15,7 @@ signals:
     void rssFeedError();
     void enterState(SimonTouchState::State state);
 
-private:
+protected:
     SimonTouch *m_logic;
 
 public:
@@ -26,6 +26,10 @@ public slots:
     QString rssFeedTitle(int id);
     QString rssFeedIcon(int id);
     void fetchRSSFeed(int id);
+    void showKeyboard();
+    void showCalculator();
+    void hideKeyboard();
+    void hideCalculator();
 };
 
 #endif // SIMONTOUCHVIEW_H

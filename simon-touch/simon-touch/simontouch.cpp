@@ -13,7 +13,8 @@
 SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
                        RSSFeeds* feeds) :
     m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
-    m_currentRssFeed(new RSSFeed()), m_rssLoader(new QNetworkAccessManager(this))
+    m_currentRssFeed(new RSSFeed()), m_rssLoader(new QNetworkAccessManager(this)),
+    m_calculatorProcess(new QProcess(this)), m_keyboardProcess(new QProcess(this))
 {
 }
 
@@ -65,4 +66,24 @@ void SimonTouch::parseRss()
     }
 
     emit rssFeedReady();
+}
+
+void SimonTouch::showKeyboard()
+{
+    m_keyboardProcess->start("onboard");
+}
+
+void SimonTouch::showCalculator()
+{
+    m_calculatorProcess->start("gcalctool");
+}
+
+void SimonTouch::hideKeyboard()
+{
+    m_keyboardProcess->terminate();
+}
+
+void SimonTouch::hideCalculator()
+{
+    m_calculatorProcess->terminate();
 }

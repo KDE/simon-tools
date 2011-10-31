@@ -40,15 +40,17 @@ import QtQuick 1.1
          }
      }
 
-
-     BackButton {
+     SideButton {
          id: btBack
          x: 1
-         y: 0
+         y: -11
+         width: 240
+         height: 100
+         buttonText: qsTr("Zurück")
+         buttonImage: ("../img/back.png")
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
      }
-
 
      Keys.onPressed: {
          if (event.key == Qt.Key_Escape) {
