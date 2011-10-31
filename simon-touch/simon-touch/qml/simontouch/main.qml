@@ -69,8 +69,7 @@ Rectangle {
             anchors.bottomMargin: 0
             anchors.leftMargin: 0
             anchors.topMargin: 0
-            anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
-            //onClicked handles valid mouse button clicks
+            anchors.fill: parent
             onClicked: Qt.quit()
         }
     }

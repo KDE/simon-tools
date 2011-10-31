@@ -25,7 +25,7 @@ TabPage {
                 objectName: "btCommunicationEmail"
                 buttonText: qsTr("Communication")
                 buttonNumber: "2"
-                buttonImage: ("../img/Button_Kommunikation_Email.png")
+                buttonImage: ("../img/Button_Kommunikation_EMail.png")
                 onButtonClick: screen.showScreen("MainCommunication")
             }
             MainButton {

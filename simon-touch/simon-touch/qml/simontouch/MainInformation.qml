@@ -30,7 +30,7 @@ TabPage {
             }
             MainButton {
                 objectName: "btInformationVideo"
-                buttonText: qsTr("Orders")
+                buttonText: qsTr("Videos")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Information_Video.png")
                 onButtonClick: setScreen("MainInformationVideos")
