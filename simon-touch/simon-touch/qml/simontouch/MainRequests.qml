@@ -10,17 +10,14 @@ TabPage {
     Page {
         stateName: parent.stateName
         title: qsTr("Requests")
-        Grid {
-            rows: 2
-            columns: 2
-            anchors.centerIn: parent
-            spacing: 20
-
+        PageGrid {
+            id: pageGrid
             MainButton {
                 objectName: "btRequestsShopping"
                 buttonText: qsTr("Shopping")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Anfragen_Bestellung.png")
+                onButtonClick: setScreen("MainRequestsShopping")
             }
             MainButton {
                 objectName: "btRequestsTransport"
@@ -41,5 +38,8 @@ TabPage {
     //            buttonImage: ("../img/Button_Auftraege_Gas.png")
     //        }
         }
+    }
+    MainRequestsShopping {
+        objectName: "MainRequestsShopping"
     }
 }

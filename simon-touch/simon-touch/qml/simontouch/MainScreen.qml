@@ -5,18 +5,16 @@ TabPage {
     id: screen
     objectName: "MainScreen"
     stateName: "Main"
+    focus: true
 
     /* Grid for the Mainbuttons */
     Page {
         stateName: parent.stateName
         title: Qt.formatDateTime(new Date(), "dddd, dd. MMMM yyyy")
-        Grid {
-            rows: 2
-            columns: 2
-            anchors.centerIn: parent
-            spacing: 20
-
+        PageGrid {
+            id: pageGrid
             MainButton {
+                id: btButton1
                 objectName: "btInformation"
                 buttonText: qsTr("Information")
                 buttonNumber: "1"
@@ -24,6 +22,7 @@ TabPage {
                 onButtonClick: showScreen("MainInformation")
             }
             MainButton {
+                id: btButton2
                 objectName: "btCommunication"
                 buttonText: qsTr("Communication")
                 buttonNumber: "2"
@@ -31,6 +30,7 @@ TabPage {
                 onButtonClick: showScreen("MainCommunication")
             }
             MainButton {
+                id: btButton3
                 objectName: "btOrders"
                 buttonText: qsTr("Orders")
                 buttonNumber: "3"
@@ -38,6 +38,7 @@ TabPage {
                 onButtonClick: showScreen("MainOrders")
             }
             MainButton {
+                id: btButton4
                 objectName: "btRequests"
                 buttonText: qsTr("Requests")
                 buttonNumber: "4"

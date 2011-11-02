@@ -10,29 +10,25 @@ TabPage {
     Page {
         stateName: parent.stateName
         title: qsTr("Communication")
-        Grid {
-            rows: 2
-            columns: 2
-            anchors.centerIn: parent
-            spacing: 20
-
+        PageGrid {
+            id: pageGrid
             MainButton {
                 objectName: "btCommunicationPhone"
-                buttonText: qsTr("Information")
+                buttonText: qsTr("Phone")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Kommunikation_Telefon.png")
-                onButtonClick: showScreen("MainInformation")
+//                onButtonClick: showScreen("MainInformation")
             }
             MainButton {
                 objectName: "btCommunicationEmail"
-                buttonText: qsTr("Communication")
+                buttonText: qsTr("E-Mail")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Kommunikation_EMail.png")
-                onButtonClick: showScreen("MainCommunication")
+//                onButtonClick: showScreen("MainCommunication")
             }
             MainButton {
                 objectName: "btCommunicationSms"
-                buttonText: qsTr("Orders")
+                buttonText: qsTr("SMS")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Kommunikation_Sms.png")
                 onButtonClick: showScreen("MainOrders")

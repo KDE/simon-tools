@@ -13,7 +13,7 @@ enum State {
     Videos,
     News,
     Orders,
-    Requests
+    Requests,
 };
 }
 

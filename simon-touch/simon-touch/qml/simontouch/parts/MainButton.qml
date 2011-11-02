@@ -7,6 +7,7 @@ Rectangle {
     property color onHoverColor: "#FEF57B"
     property color normalColor: "#FFFBC7"
     property string buttonNumber: qsTr("1")
+    property int buttonKey: 0
 
     width: 240
     height: 250
@@ -67,6 +68,7 @@ Rectangle {
         onEntered: parent.color = onHoverColor
         onExited: parent.color = normalColor
     }
+
     signal buttonClick()
     onButtonClick: {
         console.log(mainButtonText.text + " clicked" )

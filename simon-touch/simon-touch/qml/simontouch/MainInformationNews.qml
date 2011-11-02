@@ -23,13 +23,8 @@ TabPage {
                 feed1.opacity = 0
         }
 
-        Grid {
-            rows: 2
-            columns: 2
-            anchors.centerIn: parent
-            spacing: 20
-
-
+        PageGrid {
+            id: pageGrid
             RSSButton {
                 id: feed1
                 index: 0

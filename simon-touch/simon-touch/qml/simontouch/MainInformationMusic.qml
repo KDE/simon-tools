@@ -60,7 +60,7 @@ TabPage {
         }
 
         MainButton {
-            id: pbPlay
+            id: btMusicPlay
             anchors.left: lvMusic.left
             anchors.top: lvMusic.bottom
             anchors.topMargin: 10

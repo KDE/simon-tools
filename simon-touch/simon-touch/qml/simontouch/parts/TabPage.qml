@@ -31,11 +31,12 @@ import QtQuick 1.1
 
              if (tabWidget.children[i].objectName == current) {
                  tabWidget.children[i].opacity = 1
-
+                 tabWidget.children[i].focus = true
                  tabWidget.title = tabWidget.children[i].title
                  simonTouch.setState(tabWidget.children[i].stateName)
              } else {
                  tabWidget.children[i].opacity = 0
+                 tabWidget.children[i].focus = false
              }
          }
      }
@@ -46,16 +47,9 @@ import QtQuick 1.1
          y: -11
          width: 240
          height: 100
-         buttonText: qsTr("Zurück")
+         buttonText: qsTr("Back")
          buttonImage: ("../img/back.png")
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
-     }
-
-     Keys.onPressed: {
-         if (event.key == Qt.Key_Escape) {
-             back()
-             event.accepted = true
-         }
      }
  }

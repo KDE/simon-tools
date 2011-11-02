@@ -10,12 +10,8 @@ TabPage {
     Page {
         stateName: parent.stateName
         title: qsTr("Orders")
-        Grid {
-            rows: 2
-            columns: 2
-            anchors.centerIn: parent
-            spacing: 20
-
+        PageGrid {
+            id: pageGrid
             MainButton {
                 objectName: "btOrdersWater"
                 buttonText: qsTr("Water control")

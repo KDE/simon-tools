@@ -122,7 +122,7 @@ TabPage {
 
 
         MainButton {
-            id: pbPlay
+            id: btVideosPlay
             anchors.left: videoFlip.left
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
