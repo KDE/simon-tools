@@ -9,6 +9,8 @@ class RSSFeed;
 
 class SimonTouch;
 
+class QDeclarativeItem;
+
 class QMLSimonTouchView : public SimonTouchView
 {
 Q_OBJECT
@@ -21,6 +23,7 @@ public:
 
 public slots:
     void setState(const QString& state);
+    QString componentName(QDeclarativeItem* object);
 };
 
 #endif // QMLSIMONTOUCHVIEW_H

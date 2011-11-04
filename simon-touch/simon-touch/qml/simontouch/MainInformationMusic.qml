@@ -24,7 +24,7 @@ TabPage {
                 right: parent.right
                 top: parent.top
                 bottom: parent.bottom
-                margins: 100
+                margins: 160
                 bottomMargin: 200
             }
 
@@ -59,41 +59,79 @@ TabPage {
             }
         }
 
-        MainButton {
-            id: btMusicPlay
+        TmpButton {
+            id: btMusicUp
             anchors.left: lvMusic.left
             anchors.top: lvMusic.bottom
             anchors.topMargin: 10
+            objectName: "btMusicUp"
+            buttonText: qsTr("Up")
+            buttonNumber: ""
+            buttonImage: ("../img/go-up.svgz")
+            spokenText: true
+            shortcut: Qt.Key_Up
+            height: 90
+            width: 90
+            onButtonClick: if (lvMusic.currentIndex > 0) lvMusic.currentIndex -= 1
+        }
+
+        TmpButton {
+            id: btMusicPlay
+            anchors.left: btMusicUp.right
+            anchors.top: lvMusic.bottom
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
             objectName: "btPlay"
             buttonText: qsTr("Play")
             buttonNumber: ""
             buttonImage: ("../img/play.png")
+            spokenText: true
             height: 90
             width: 90
+            shortcut: Qt.Key_P
             onButtonClick: playMusic.play()
         }
 
 
         Text {
             id: lbStatus
-            anchors.verticalCenter: pbPlay.verticalCenter
+            anchors.verticalCenter: btMusicPlay.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            text: "00:00 / 00:00"
+            text: "00:00:00 / 00:00:00"
             font.family: "Arial"
             font.pointSize: 16
         }
 
-        MainButton {
-            anchors.right: lvMusic.right
+        TmpButton {
+            anchors.right: btMusicDown.left
             anchors.top: lvMusic.bottom
             anchors.topMargin: 10
-            objectName: "btPlay"
+            anchors.rightMargin: 10
+            objectName: "btStop"
             buttonText: qsTr("Stop")
             buttonNumber: ""
             buttonImage: ("../img/stop.png")
+            shortcut: Qt.Key_S
+            spokenText: true
             height: 90
             width: 90
             onButtonClick: playMusic.stop()
+        }
+
+        TmpButton {
+            id: btMusicDown
+            anchors.right: lvMusic.right
+            anchors.top: lvMusic.bottom
+            anchors.topMargin: 10
+            objectName: "btMusicDown"
+            buttonText: qsTr("Down")
+            buttonNumber: ""
+            buttonImage: ("../img/go-down.svgz")
+            shortcut: Qt.Key_Down
+            spokenText: true
+            height: 90
+            width: 90
+            onButtonClick: if (lvMusic.currentIndex + 1 < lvMusic.count) lvMusic.currentIndex += 1
         }
 
 
@@ -103,9 +141,15 @@ TabPage {
                 function msToStr(time) {
                     var seconds = Math.floor(time / 1000)
                     var minutes = Math.floor(seconds / 60)
+                    var hours = Math.floor(minutes / 60)
+                    minutes = minutes - hours*60
                     seconds = seconds - minutes*60
 
-                    return minutes + ":" + seconds
+                    if (hours < 10) hours = "0" + hours
+                    if (minutes < 10) minutes = "0" + minutes
+                    if (seconds < 10) seconds = "0" + seconds
+
+                    return hours + ":" + minutes + ":" + seconds
                 }
                 lbStatus.text = msToStr(playMusic.position)+ " / " + msToStr(playMusic.duration)
                 console.debug("Playing changed: "+position+ " "+duration)

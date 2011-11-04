@@ -13,35 +13,39 @@ TabPage {
         title: Qt.formatDateTime(new Date(), "dddd, dd. MMMM yyyy")
         PageGrid {
             id: pageGrid
-            MainButton {
+            TmpButton {
                 id: btButton1
                 objectName: "btInformation"
                 buttonText: qsTr("Information")
                 buttonNumber: "1"
+                shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Information.png")
                 onButtonClick: showScreen("MainInformation")
             }
-            MainButton {
+            TmpButton {
                 id: btButton2
                 objectName: "btCommunication"
                 buttonText: qsTr("Communication")
                 buttonNumber: "2"
+                shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Kommunikation.png")
                 onButtonClick: showScreen("MainCommunication")
             }
-            MainButton {
+            TmpButton {
                 id: btButton3
                 objectName: "btOrders"
                 buttonText: qsTr("Orders")
                 buttonNumber: "3"
+                shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Auftraege.png")
                 onButtonClick: showScreen("MainOrders")
             }
-            MainButton {
+            TmpButton{
                 id: btButton4
                 objectName: "btRequests"
                 buttonText: qsTr("Requests")
                 buttonNumber: "4"
+                shortcut: Qt.Key_4
                 buttonImage: ("../img/Button_Anfragen.png")
                 onButtonClick: showScreen("MainRequests")
             }

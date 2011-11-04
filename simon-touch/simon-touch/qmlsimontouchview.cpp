@@ -3,6 +3,7 @@
 #include <QGraphicsObject>
 #include <QMetaObject>
 #include <QDebug>
+#include <QDeclarativeComponent>
 #include "qmlapplicationviewer.h"
 #include "simontouch.h"
 #include "imagesmodel.h"
@@ -53,6 +54,11 @@ void QMLSimonTouchView::setState(const QString& state)
         emit enterState(SimonTouchState::Orders);
     if (state == "Requests")
         emit enterState(SimonTouchState::Requests);
+}
+
+QString QMLSimonTouchView::componentName(QDeclarativeItem* object)
+{
+    return object->metaObject()->className();
 }
 
 QMLSimonTouchView::~QMLSimonTouchView()

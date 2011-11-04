@@ -14,6 +14,7 @@ TabPage {
     Page {
         stateName: parent.stateName
         title: qsTr("Videos")
+        id: videoPage
 
 
         AutoFlippable {
@@ -104,32 +105,66 @@ TabPage {
                             function msToStr(time) {
                                 var seconds = Math.floor(time / 1000)
                                 var minutes = Math.floor(seconds / 60)
+                                var hours = Math.floor(minutes / 60)
+                                minutes = minutes - hours*60
                                 seconds = seconds - minutes*60
 
-                                return minutes + ":" + seconds
+                                if (hours < 10) hours = "0" + hours
+                                if (minutes < 10) minutes = "0" + minutes
+                                if (seconds < 10) seconds = "0" + seconds
+
+                                return hours + ":" + minutes + ":" + seconds
                             }
                             lbStatus.text = msToStr(playVideos.position)+ " / " + msToStr(playVideos.duration)
                         }
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: videoWrapper.state = "windowed"
+                            onClicked: videoPage.toggleFullscreen()
                         }
                     }
 
             }
         }
 
+        function toggleFullscreen() {
+            console.debug("VideoWrapper.state: "+videoWrapper.state)
+            if (videoWrapper.state == "windowed") {
+                videoWrapper.state = "fullscreen"
+            } else {
+                videoWrapper.state = "windowed"
+            }
+        }
 
-        MainButton {
-            id: btVideosPlay
+
+        TmpButton {
+            id: btVideosUp
             anchors.left: videoFlip.left
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
+            objectName: "btVideosUp"
+            buttonText: qsTr("Up")
+            buttonNumber: ""
+            buttonImage: ("../img/go-up.svgz")
+            shortcut: Qt.Key_Up
+            spokenText: true
+            height: 90
+            width: 90
+            onButtonClick: if (lvVideos.currentIndex > 0) lvVideos.currentIndex -= 1
+        }
+
+        TmpButton {
+            id: btVideosPlay
+            anchors.left: btVideosUp.right
+            anchors.top: videoFlip.bottom
+            anchors.topMargin: 10
+            anchors.leftMargin: 10
             objectName: "btPlay"
             buttonText: qsTr("Play")
             buttonNumber: ""
             buttonImage: ("../img/play.png")
+            shortcut: Qt.Key_P
+            spokenText: true
             height: 90
             width: 90
             onButtonClick: {
@@ -142,34 +177,43 @@ TabPage {
 
         Text {
             id: lbStatus
-            anchors.verticalCenter: pbPlay.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "00:00 / 00:00"
+            //anchors.left: btVideosPlay.right
+            //anchors.leftMargin: 10
+            anchors.verticalCenter: btVideosPlay.verticalCenter
+            text: "00:00:00 / 00:00:00"
             font.family: "Arial"
             font.pointSize: 16
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.horizontalCenterOffset:  (videoFlip.flipped) ? -btFullscreen.width/2 - 5 : 0
         }
 
-        MainButton {
+        TmpButton{
+            id:btFullscreen
             anchors.right: btStop.left
             anchors.top: btStop.top
             anchors.rightMargin: 10
             buttonText: qsTr("Fullscreen")
             buttonNumber: ""
             buttonImage: ("../img/fullscreen.png")
+            shortcut: Qt.Key_F
+            spokenText: true
             height: 90
             width: 130
             opacity: videoFlip.flipped ? 1 : 0
-            onButtonClick: videoWrapper.state = "fullscreen"
+            onButtonClick: parent.toggleFullscreen();
         }
 
-        MainButton {
+        TmpButton{
             id: btStop
-            anchors.right: videoFlip.right
+            anchors.right: btVideosDown.left
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
+            anchors.rightMargin: 10
             buttonText: qsTr("Stop")
             buttonNumber: ""
             buttonImage: ("../img/stop.png")
+            shortcut: Qt.Key_S
+            spokenText: true
             height: 90
             width: 90
             onButtonClick: {
@@ -178,6 +222,20 @@ TabPage {
             }
         }
 
-
+        MainButton {
+            id: btVideosDown
+            anchors.right: videoFlip.right
+            anchors.top: videoFlip.bottom
+            anchors.topMargin: 10
+            objectName: "btMusicDown"
+            buttonText: qsTr("Down")
+            buttonNumber: ""
+            buttonImage: ("../img/go-down.svgz")
+            shortcut: Qt.Key_Down
+            spokenText: true
+            height: 90
+            width: 90
+            onButtonClick: if (lvVideos.currentIndex + 1 < lvVideos.count) lvVideos.currentIndex += 1
+        }
     }
 }

@@ -42,6 +42,7 @@ Rectangle {
         x: (parent.width / 2) - 250
         btKeyCalcButtonText: (state == "collapsed") ? qsTr("Calculator") : qsTr("Close calculator")
         btKeyCalcButtonImage: ("../img/calculator.png")
+        spokenText: true
         onButtonClick: {
             if (state == "collapsed")
                 simonTouch.hideCalculator()
@@ -56,6 +57,7 @@ Rectangle {
         x: (parent.width / 2) + 10
         btKeyCalcButtonText: (state == "collapsed") ? qsTr("Keyboard") : qsTr("Close keyboard")
         btKeyCalcButtonImage: ("../img/keyboard.png")
+        spokenText: true
         onButtonClick: {
             if (state == "collapsed")
                 simonTouch.hideKeyboard()
@@ -66,8 +68,8 @@ Rectangle {
     //}
     Rectangle {
         id: closebutton
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
+        anchors.top: parent.top
+        anchors.right: parent.right
         width: 75
         height: 50
         color: Qt.darker("#FFFBC7", 1.1)

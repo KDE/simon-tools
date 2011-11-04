@@ -1,10 +1,11 @@
 import QtQuick 1.1
 
-Rectangle {
+Button {
     id: btSideButton
     property string buttonText: qsTr("SideButtonText")
     property string buttonImage: "../img/demo.png"
     property color normalColor: "#FEF57B"
+    property bool spokenText: false
     width: 240
     height: 100
     radius: 10
@@ -26,6 +27,7 @@ Rectangle {
             anchors.margins: 5
             font.family: "Arial"
             font.pointSize: 16
+            color: (spokenText == true) ? "#0066ff" : "#000000"
         }
 //        Image {
 //            id: spacer
@@ -52,5 +54,4 @@ Rectangle {
         //onClicked handles valid mouse button clicks
         onClicked: buttonClick()
     }
-    signal buttonClick()
 }

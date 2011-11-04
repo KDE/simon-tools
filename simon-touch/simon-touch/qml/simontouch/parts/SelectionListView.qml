@@ -7,7 +7,7 @@ ListView {
     clip: true
     highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
 
-    spacing: 20
+    spacing: 10
 
     Keys.onPressed: {
         if (event.key == Qt.Key_PageUp) {

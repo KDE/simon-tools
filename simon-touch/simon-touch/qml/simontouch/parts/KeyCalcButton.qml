@@ -4,6 +4,9 @@ Item {
     id: btKeyCalcButton
     property alias btKeyCalcButtonText: btInternal.buttonText
     property alias btKeyCalcButtonImage: btInternal.buttonImage
+    property alias spokenText: btInternal.spokenText
+
+    property alias shortcut: btInternal.shortcut
 
     signal buttonClick()
     state: "collapsed"
@@ -39,9 +42,9 @@ Item {
         width: parent.width - 2
         height: parent.height + 10
         onButtonClick: {
-            console.debug("Previous state: "+btKeyCalcButton.state)
+//            console.debug("Previous state: "+btKeyCalcButton.state)
             btKeyCalcButton.state = (btKeyCalcButton.state == "collapsed") ? "open" : "collapsed";
-            console.debug("New state: "+btKeyCalcButton.state)
+//            console.debug("New state: "+btKeyCalcButton.state)
 
             btKeyCalcButton.buttonClick()
         }

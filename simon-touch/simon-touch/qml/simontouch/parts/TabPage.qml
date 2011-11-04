@@ -16,14 +16,6 @@ import QtQuick 1.1
              setScreen("MainScreen")
      }
 
-     onCurrentChanged: setOpacities()
-     Component.onCompleted: {
-         for (var i = 2; i < tabWidget.children.length; ++i) /*skip text*/
-             tabWidget.children[i].showScreen.connect(setScreen)
-
-         setOpacities()
-     }
-
      function setOpacities() {
          for (var i = 0; i < tabWidget.children.length; ++i) {
              if (tabWidget.children[i] == btBack)
@@ -41,6 +33,29 @@ import QtQuick 1.1
          }
      }
 
+     onCurrentChanged: setOpacities()
+     Component.onCompleted: {
+         for (var i = 2; i < tabWidget.children.length; ++i) /*skip text*/
+             tabWidget.children[i].showScreen.connect(setScreen)
+
+         setOpacities()
+     }
+
+
+     Keys.onPressed: {
+         for (var i = 0; i < tabWidget.children.length; ++i) {
+             if (tabWidget.children[i] == btBack)
+                 continue;
+             if (tabWidget.children[i].objectName == current) {
+                 if (tabWidget.children[i].handleKey(event.key)) {
+                     event.accepted = true
+                     return
+                 }
+             }
+         }
+
+     }
+
      SideButton {
          id: btBack
          x: 1
@@ -51,5 +66,6 @@ import QtQuick 1.1
          buttonImage: ("../img/back.png")
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
+         spokenText: true
      }
  }
