@@ -6,34 +6,33 @@ TabPage {
     objectName: "MainCommunication"
     stateName: "Communication"
 
-    /* Grid for the Mainbuttons */
     Page {
         stateName: parent.stateName
         title: qsTr("Communication")
         PageGrid {
             id: pageGrid
-            MainButton {
+            Button{
                 objectName: "btCommunicationPhone"
                 buttonText: qsTr("Phone")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Kommunikation_Telefon.png")
 //                onButtonClick: showScreen("MainInformation")
             }
-            MainButton {
+            Button{
                 objectName: "btCommunicationEmail"
                 buttonText: qsTr("E-Mail")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Kommunikation_EMail.png")
 //                onButtonClick: showScreen("MainCommunication")
             }
-            MainButton {
+            Button {
                 objectName: "btCommunicationSms"
                 buttonText: qsTr("SMS")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Kommunikation_Sms.png")
                 onButtonClick: showScreen("MainOrders")
             }
-    //        MainButton {
+    //        Button {
     //            objectName: "btRequests"
     //            buttonText: qsTr("Requests")
     //            buttonNumber: "4"

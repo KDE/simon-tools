@@ -137,7 +137,7 @@ TabPage {
         }
 
 
-        TmpButton {
+        Button {
             id: btVideosUp
             anchors.left: videoFlip.left
             anchors.top: videoFlip.bottom
@@ -153,7 +153,7 @@ TabPage {
             onButtonClick: if (lvVideos.currentIndex > 0) lvVideos.currentIndex -= 1
         }
 
-        TmpButton {
+        Button {
             id: btVideosPlay
             anchors.left: btVideosUp.right
             anchors.top: videoFlip.bottom
@@ -187,7 +187,7 @@ TabPage {
             anchors.horizontalCenterOffset:  (videoFlip.flipped) ? -btFullscreen.width/2 - 5 : 0
         }
 
-        TmpButton{
+        Button{
             id:btFullscreen
             anchors.right: btStop.left
             anchors.top: btStop.top
@@ -203,7 +203,7 @@ TabPage {
             onButtonClick: parent.toggleFullscreen();
         }
 
-        TmpButton{
+        Button{
             id: btStop
             anchors.right: btVideosDown.left
             anchors.top: videoFlip.bottom
@@ -222,7 +222,7 @@ TabPage {
             }
         }
 
-        MainButton {
+        Button {
             id: btVideosDown
             anchors.right: videoFlip.right
             anchors.top: videoFlip.bottom

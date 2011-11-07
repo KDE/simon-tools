@@ -59,7 +59,7 @@ TabPage {
             }
         }
 
-        TmpButton {
+        Button {
             id: btMusicUp
             anchors.left: lvMusic.left
             anchors.top: lvMusic.bottom
@@ -75,7 +75,7 @@ TabPage {
             onButtonClick: if (lvMusic.currentIndex > 0) lvMusic.currentIndex -= 1
         }
 
-        TmpButton {
+        Button {
             id: btMusicPlay
             anchors.left: btMusicUp.right
             anchors.top: lvMusic.bottom
@@ -102,7 +102,7 @@ TabPage {
             font.pointSize: 16
         }
 
-        TmpButton {
+        Button {
             anchors.right: btMusicDown.left
             anchors.top: lvMusic.bottom
             anchors.topMargin: 10
@@ -118,7 +118,7 @@ TabPage {
             onButtonClick: playMusic.stop()
         }
 
-        TmpButton {
+        Button {
             id: btMusicDown
             anchors.right: lvMusic.right
             anchors.top: lvMusic.bottom

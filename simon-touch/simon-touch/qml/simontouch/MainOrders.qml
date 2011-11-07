@@ -6,31 +6,30 @@ TabPage {
     objectName: "MainOrders"
     stateName: "Orders"
 
-    /* Grid for the Mainbuttons */
     Page {
         stateName: parent.stateName
         title: qsTr("Orders")
         PageGrid {
             id: pageGrid
-            MainButton {
+            Button {
                 objectName: "btOrdersWater"
                 buttonText: qsTr("Water control")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Auftraege_Wasser.png")
             }
-            MainButton {
+            Button {
                 objectName: "btOrdersDoors"
                 buttonText: qsTr("Doors control")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Auftraege_Tueren.png")
             }
-            MainButton {
+            Button {
                 objectName: "btOrdersCooker"
                 buttonText: qsTr("Cooker control")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Auftraege_Herd.png")
             }
-            MainButton {
+            Button {
                 objectName: "btOrdersGas"
                 buttonText: qsTr("Gas control")
                 buttonNumber: "4"

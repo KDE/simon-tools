@@ -6,35 +6,38 @@ TabPage {
     objectName: "MainRequests"
     stateName: "Requests"
 
-    /* Grid for the Mainbuttons */
     Page {
         stateName: parent.stateName
         title: qsTr("Requests")
         PageGrid {
             id: pageGrid
-            MainButton {
+            Button {
                 objectName: "btRequestsShopping"
                 buttonText: qsTr("Shopping")
                 buttonNumber: "1"
+                shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Anfragen_Bestellung.png")
                 onButtonClick: setScreen("MainRequestsShopping")
             }
-            MainButton {
+            Button {
                 objectName: "btRequestsTransport"
                 buttonText: qsTr("Transport")
                 buttonNumber: "2"
+                shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
             }
-            MainButton {
+            Button {
                 objectName: "btRequestsSupport"
                 buttonText: qsTr("Support")
                 buttonNumber: "3"
+                shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
             }
-    //        MainButton {
+    //        Button {
     //            objectName: "btOrdersGas"
     //            buttonText: qsTr("Gas control")
     //            buttonNumber: "4"
+    //            shortcut: Qt.Key_4
     //            buttonImage: ("../img/Button_Auftraege_Gas.png")
     //        }
         }

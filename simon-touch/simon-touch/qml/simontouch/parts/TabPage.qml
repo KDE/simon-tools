@@ -56,7 +56,7 @@ import QtQuick 1.1
 
      }
 
-     SideButton {
+     Button {
          id: btBack
          x: 1
          y: -11
@@ -64,6 +64,8 @@ import QtQuick 1.1
          height: 100
          buttonText: qsTr("Back")
          buttonImage: ("../img/back.png")
+         buttonLayout: Qt.Horizontal
+         normalColor: "#FEF57B"
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
          spokenText: true

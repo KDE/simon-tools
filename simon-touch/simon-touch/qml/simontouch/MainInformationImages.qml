@@ -60,7 +60,7 @@ TabPage {
 
             }
 
-            TmpButton {
+            Button {
                 id: lvImagesUp
                 anchors.top: leftColumn.top
                 anchors.left: leftColumn.left
@@ -74,7 +74,7 @@ TabPage {
                 onButtonClick: if (lvImages.currentIndex > 0) lvImages.currentIndex -= 1
             }
 
-            TmpButton {
+            Button {
                 id: lvImagesDown
                 anchors.bottom: leftColumn.bottom
                 anchors.left: leftColumn.left
@@ -86,7 +86,7 @@ TabPage {
                 buttonLayout: Qt.Horizontal
                 onButtonClick: if (lvImages.currentIndex + 1 < lvImages.count) lvImages.currentIndex += 1
             }
-            TmpButton {
+            Button {
                 id: slideshowButton
                 width: 200
                 anchors.left: parent.left

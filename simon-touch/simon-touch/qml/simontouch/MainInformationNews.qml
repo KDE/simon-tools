@@ -28,18 +28,22 @@ TabPage {
             RSSButton {
                 id: feed1
                 index: 0
+                shortcut: Qt.Key_1
             }
             RSSButton {
                 id: feed2
                 index: 1
+                shortcut: Qt.Key_2
             }
             RSSButton {
                 id: feed3
                 index: 2
+                shortcut: Qt.Key_3
             }
             RSSButton {
                 id: feed4
                 index: 3
+                shortcut: Qt.Key_4
             }
         }
     }

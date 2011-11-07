@@ -42,10 +42,7 @@ Item {
         width: parent.width - 2
         height: parent.height + 10
         onButtonClick: {
-//            console.debug("Previous state: "+btKeyCalcButton.state)
             btKeyCalcButton.state = (btKeyCalcButton.state == "collapsed") ? "open" : "collapsed";
-//            console.debug("New state: "+btKeyCalcButton.state)
-
             btKeyCalcButton.buttonClick()
         }
     }

@@ -1,6 +1,6 @@
 import QtQuick 1.1
 
-MainButton {
+Button {
     property int index: 0
     buttonText: simonTouch.rssFeedTitle(index)
     buttonNumber: index+1

@@ -6,13 +6,12 @@ TabPage {
     objectName: "MainInformation"
     stateName: "Information"
 
-    /* Grid for the Mainbuttons */
     Page {
         stateName: parent.stateName
         title: qsTr("Information")
         PageGrid {
             id: pageGrid
-            MainButton {
+            Button {
                 id: btButton1
                 objectName: "btInformationImages"
                 buttonText: qsTr("Images")
@@ -21,7 +20,7 @@ TabPage {
                 buttonImage: ("../img/Button_Information_Bilder.png")
                 onButtonClick: setScreen("MainInformationImages")
             }
-            MainButton {
+            Button {
                 id: btButton2
                 objectName: "btInformationMusic"
                 buttonText: qsTr("Music")
@@ -30,7 +29,7 @@ TabPage {
                 buttonImage: ("../img/Button_Information_Musik.png")
                 onButtonClick: setScreen("MainInformationMusic")
             }
-            MainButton {
+            Button {
                 id: btButton3
                 objectName: "btInformationVideo"
                 buttonText: qsTr("Videos")
@@ -39,7 +38,7 @@ TabPage {
                 buttonImage: ("../img/Button_Information_Video.png")
                 onButtonClick: setScreen("MainInformationVideos")
             }
-            MainButton {
+            Button {
                 id: btButton4
                 objectName: "btInformationNews"
                 buttonText: qsTr("News")
