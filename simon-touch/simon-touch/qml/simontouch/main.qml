@@ -30,9 +30,6 @@ Rectangle {
         MainRequests {
             objectName: "MainRequests"
         }
-//        MainRequestsShopping {
-//            objectName: "MainRequestsShopping"
-//        }
 
     }
     KeyCalcButton {

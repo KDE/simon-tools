@@ -13,6 +13,7 @@ Rectangle {
     property int buttonLayout: Qt.Vertical
     signal buttonClick()
     property bool horizontalMiddleText:  true
+    property string horizontalIconAlign: "left"
 
     width: 240
     height: 250
@@ -30,8 +31,12 @@ Rectangle {
         anchors.bottom: (buttonLayout == Qt.Vertical) ? parent.bottom : undefined
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
-        anchors.margins: 6
-        color: (spokenText == true) ? "#0066ff" : "#000000"
+        anchors.margins: 9
+//        anchors.topMargin: 6
+//        anchors.leftMargin: 6
+//        anchors.rightMargin: 6
+//        anchors.bottomMargin: 0
+        color: (spokenText == true) ? "#000099" : "#000000"
 
         /*
         anchors.leftMargin: 50
@@ -44,8 +49,8 @@ Rectangle {
         x: 5
         anchors.bottom: parent.bottom
         font.family: "Arial"
-        font.pointSize: 40
-        color: "#0066ff"
+        font.pointSize: 50
+        color: "#000099"
         visible: (buttonNumber == "" || buttonLayout == Qt.Horizontal) ? 0 : 1
     }
     Image {
@@ -54,9 +59,10 @@ Rectangle {
         anchors.leftMargin: (buttonLayout == Qt.Vertical) ? 37 : 10
         anchors.rightMargin: (buttonLayout == Qt.Vertical) ? 38 : 10
         anchors.topMargin: (buttonLayout == Qt.Vertical) ? 25 : 10
-        anchors.left: (buttonLayout == Qt.Vertical) ? parent.left : parent.left
+        anchors.left: (buttonLayout == Qt.Horizontal && horizontalIconAlign != "right") ? parent.left : undefined
+        anchors.right: (buttonLayout == Qt.Horizontal && horizontalIconAlign == "right") ? parent.right : undefined
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
-        anchors.horizontalCenter: (buttonLayout == Qt.Vertical) ? parent.horizontalCenter : undefined
+        anchors.horizontalCenter: (buttonLayout == Qt.Vertical && horizontalIconAlign != "right") ? parent.horizontalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
         height: (buttonLayout == Qt.Horizontal) ? parent.height - 20 : parent.height * 0.8
 
@@ -73,8 +79,7 @@ Rectangle {
         anchors.bottomMargin: 0
         anchors.leftMargin: 0
         anchors.topMargin: 0
-        anchors.fill: parent //anchor all sides of the mouse area to the rectangle's anchors
-        //onClicked handles valid mouse button clicks
+        anchors.fill: parent
         onClicked: buttonClick()
         hoverEnabled: true
         onEntered: parent.color = onHoverColor
@@ -94,7 +99,6 @@ Rectangle {
     }
 
     function handleKey(key) {
-//        console.debug("Handling key: "+key+shortcut)
         if (key == shortcut) {
             buttonClick()
             return true

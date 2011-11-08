@@ -25,6 +25,7 @@ TabPage {
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
+                onButtonClick: setScreen("MainRequestsTransport")
             }
             Button {
                 objectName: "btRequestsSupport"
@@ -32,6 +33,7 @@ TabPage {
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
+                onButtonClick: setScreen("MainRequestsSupport")
             }
     //        Button {
     //            objectName: "btOrdersGas"
@@ -44,5 +46,11 @@ TabPage {
     }
     MainRequestsShopping {
         objectName: "MainRequestsShopping"
+    }
+    MainRequestsTransport {
+        objectName: "MainRequestsTransport"
+    }
+    MainRequestsSupport {
+        objectName: "MainRequestsSupport"
     }
 }

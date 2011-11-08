@@ -81,6 +81,7 @@ TabPage {
             }
             back: SelectionListView {
                 id: lvFeed
+                contentItem.anchors.margins: 0
                 orientation: ListView.Horizontal
                 clip:true
                 anchors.margins: 100
@@ -94,8 +95,8 @@ TabPage {
 
                 snapMode: ListView.SnapToItem
                 delegate: RSSArticle {
-                    height: lvFeed.height
-                    width: feedPage.width - 300
+                    height: lvFeed.height - 75
+                    width: feedPage.width - 200
                     heading: header
                     article: content
                     MouseArea {
@@ -105,5 +106,42 @@ TabPage {
                 }
             }
         }
+
+        Button {
+            id: lvRssPrevious
+//            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: rssFlip.bottom
+            anchors.left: rssFlip.left
+            anchors.leftMargin: 100
+            anchors.bottomMargin: 115
+            width: 200
+            height: 50
+            buttonImage: "../img/go-previous.svgz"
+            buttonText: qsTr("Previous")
+            shortcut: Qt.Key_Left
+            spokenText: true
+            buttonLayout: Qt.Horizontal
+            onButtonClick: if (lvFeed.currentIndex > 0) lvFeed.currentIndex -= 1
+        }
+
+        Button {
+            id: lvRssNext
+//            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: rssFlip.bottom
+            anchors.right: rssFlip.right
+            anchors.leftMargin: 100
+            anchors.bottomMargin: 115
+            anchors.rightMargin: 100
+            horizontalIconAlign: "right"
+            width: 200
+            height: 50
+            buttonImage: "../img/go-next.svgz"
+            buttonText: qsTr("Next")
+            shortcut: Qt.Key_Right
+            spokenText: true
+            buttonLayout: Qt.Horizontal
+            onButtonClick: if (lvFeed.currentIndex < lvFeed.count) lvFeed.currentIndex += 1
+        }
+
     }
 }

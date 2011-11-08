@@ -51,7 +51,7 @@ Rectangle {
             anchors.margins: 5
             font.family: "Arial"
             font.pointSize: 16
-            color: (spokenText == true) ? "#0066ff" : "#000000"
+            color: (spokenText == true) ? "#000099" : "#000000"
         }
         Image {
             id: sideButtonImage
