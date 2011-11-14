@@ -3,7 +3,6 @@ import QtQuick 1.1
 ListView {
     id: lvImages
 
-    anchors.fill: parent
     clip: true
     highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
 

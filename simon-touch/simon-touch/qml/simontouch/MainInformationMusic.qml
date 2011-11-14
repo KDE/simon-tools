@@ -27,6 +27,7 @@ TabPage {
                 margins: 160
                 bottomMargin: 200
             }
+            anchors.fill: parent
 
             model: musicModel
 
