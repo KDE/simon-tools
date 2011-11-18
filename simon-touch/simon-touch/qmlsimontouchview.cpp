@@ -23,7 +23,7 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     viewer->setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer->setMainQmlFile(QLatin1String("qml/simontouch/main.qml"));
     viewer->showExpanded();
-    //viewer->showFullScreen();
+//    viewer->showFullScreen();
 
     connect(logic, SIGNAL(rssFeedReady()),
             viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"), SLOT(displayFeed()));

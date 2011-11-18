@@ -30,7 +30,6 @@ Rectangle {
         MainRequests {
             objectName: "MainRequests"
         }
-
     }
     KeyCalcButton {
         id: calculatorButton
