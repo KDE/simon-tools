@@ -4,6 +4,7 @@
 #include "videosmodel.h"
 #include "rssfeeds.h"
 #include "rssfeed.h"
+#include "communicationcentral.h"
 #include <QDebug>
 #include <QtXml/QDomDocument>
 #include <QtXml/QDomElement>
@@ -13,7 +14,8 @@
 SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
                        RSSFeeds* feeds) :
     m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
-    m_currentRssFeed(new RSSFeed()), m_rssLoader(new QNetworkAccessManager(this)),
+    m_currentRssFeed(new RSSFeed()), m_communicationCentral(new CommunicationCentral(this)),
+    m_rssLoader(new QNetworkAccessManager(this)),
     m_calculatorProcess(new QProcess(this)), m_keyboardProcess(new QProcess(this))
 {
 }
@@ -76,6 +78,7 @@ void SimonTouch::showKeyboard()
 void SimonTouch::showCalculator()
 {
     m_calculatorProcess->start("gcalctool");
+    test(); // FIXME
 }
 
 void SimonTouch::hideKeyboard()
@@ -87,3 +90,15 @@ void SimonTouch::hideCalculator()
 {
     m_calculatorProcess->terminate();
 }
+
+//akonadi stuff
+void SimonTouch::test()
+{
+    m_communicationCentral->test();
+}
+
+
+
+
+
+

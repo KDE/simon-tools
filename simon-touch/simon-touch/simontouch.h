@@ -11,6 +11,7 @@ class MusicModel;
 class RSSFeeds;
 class RSSFeed;
 class QNetworkAccessManager;
+class CommunicationCentral;
 
 class QProcess;
 
@@ -29,6 +30,8 @@ private:
     VideosModel *m_videos;
     RSSFeeds *m_rssFeeds;
     RSSFeed *m_currentRssFeed;
+
+    CommunicationCentral *m_communicationCentral;
 
     QNetworkAccessManager *m_rssLoader;
 
@@ -55,6 +58,8 @@ public:
     void showCalculator();
     void hideKeyboard();
     void hideCalculator();
+
+    void test();
 
     ~SimonTouch();
 };

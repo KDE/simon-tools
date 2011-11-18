@@ -11,5 +11,11 @@ SimonTouchAdapter::SimonTouchAdapter(SimonTouch *parent)
 
 void SimonTouchAdapter::relayStatus(SimonTouchState::State state)
 {
-    emit currentStatus((int) state);
+    m_status = QString::number((int) state);
+    emit statusChanged();
+}
+
+QString SimonTouchAdapter::currentStatus()
+{
+    return m_status;
 }

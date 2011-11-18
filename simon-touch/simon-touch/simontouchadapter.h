@@ -12,19 +12,26 @@ class SimonTouchAdapter : public QDBusAbstractAdaptor
     Q_CLASSINFO("D-Bus Interface", "local.SimonTouch")
     Q_CLASSINFO("D-Bus Introspection", ""
                 "<interface name=\"local.SimonTouch\">\n"
-                        "<signal name=\"currentStatus\">\n"
-                           "<arg name=\"status\" type=\"i\" direction=\"out\"/>\n"
-                        "</signal>\n"
+                "<signal name=\"statusChanged\" />\n"
+                "<method name=\"currentStatus\">\n"
+                   "<arg type=\"s\" direction=\"out\"/>\n"
+                "</signal>\n"
                 "</interface>\n"
                 )
 signals:
-    void currentStatus(int status);
+    void statusChanged();
+
+private:
+    QString m_status;
 
 public:
     SimonTouchAdapter(SimonTouch *parent);
 
 private slots:
     void relayStatus(SimonTouchState::State);
+
+public slots:
+    QString currentStatus();
 };
 
 #endif // SIMONTOUCHADAPTER_H
