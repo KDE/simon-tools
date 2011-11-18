@@ -10,7 +10,7 @@ Item {
         text: heading
 
         font.family: "Arial"
-        font.pointSize: 16
+        font.pointSize: 20
         anchors.top: parent.top
         anchors.margins: 6
         anchors.horizontalCenter: parent.horizontalCenter

@@ -109,3 +109,16 @@ LIBS += -lakonadi-kcal -lkdecore -lakonadi-kde -lakonadi-calendar
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+

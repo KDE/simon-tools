@@ -49,7 +49,7 @@ Rectangle {
         x: 5
         anchors.bottom: parent.bottom
         font.family: "Arial"
-        font.pointSize: 50
+        font.pointSize: 44
         color: "#000099"
         visible: (buttonNumber == "" || buttonLayout == Qt.Horizontal) ? 0 : 1
     }

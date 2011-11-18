@@ -37,6 +37,7 @@ TabPage {
                     bottomMargin: 60
                     topMargin: 60
                 }
+                anchors.fill: parent
 
                 model: imagesModel
 

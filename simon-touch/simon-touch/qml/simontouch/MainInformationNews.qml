@@ -98,7 +98,7 @@ TabPage {
                     height: lvFeed.height - 75
                     width: feedPage.width - 200
                     heading: header
-                    article: content
+                    article: "<link rel=\"stylesheet\" type=\"text/css\" href=\"/home/simon/simon-touch/simon-touch/qml/simontouch/parts/style.css\"><div class=\"article\">" + content +"</div>"
                     MouseArea {
                         anchors.fill: parent
                         onClicked: lvFeed.currentIndex = index
