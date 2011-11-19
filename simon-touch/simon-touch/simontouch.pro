@@ -45,7 +45,9 @@ SOURCES += main.cpp \
     simontouchadapter.cpp \
     communicationcentral.cpp \
     contactsmodel.cpp \
-    messagemodel.cpp
+    messagemodel.cpp \
+    imageprovider.cpp \
+    declarativeimageprovider.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -70,12 +72,18 @@ HEADERS += \
     simontouchadapter.h \
     communicationcentral.h \
     contactsmodel.h \
-    messagemodel.h
+    messagemodel.h \
+    imageprovider.h \
+    declarativeimageprovider.h
 
 OTHER_FILES += \
     simontouch.xml
 
 LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact
+
+
+
+
 
 
 

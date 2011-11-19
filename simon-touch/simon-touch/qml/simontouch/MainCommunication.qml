@@ -11,9 +11,9 @@ TabPage {
         title: qsTr("Communication")
         state: "noCall"
         id: mainCommunication
-
+/*
         ListModel {
-            id: lvContactsModel
+            id: contactsModel
             ListElement {
                 prettyName: "Stieger Mathias"
                 phoneNumber: "0664/3841266"
@@ -63,6 +63,7 @@ TabPage {
                 existingMessages: true
             }
         }
+        */
 
         ListModel {
             id: lvMessageList
@@ -139,37 +140,37 @@ TabPage {
 //                bottomMargin: 200
             }
             width: screen.width / 2 - 210
-            model: lvContactsModel
+            model: contactsModel
             delegate: contactsDelegate
             onCurrentItemChanged: parent.changeSelection();
         }
 
         function changeSelection() {
-            mainCommunicationReadMessages.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
-            mainCommunicationSendMessage.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
+            mainCommunicationReadMessages.prettyName = contactsModel.get(lvContactsView.currentIndex).prettyName
+            mainCommunicationSendMessage.prettyName = contactsModel.get(lvContactsView.currentIndex).prettyName
 
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
                 mainCommunicationSendMessage.smsAvailable = 1
             } else {
                 mainCommunicationSendMessage.smsAvailable = 0
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (contactsModel.get(lvContactsView.currentIndex).email != "") {
                 mainCommunicationSendMessage.mailAvailable = 1
             } else {
                 mainCommunicationSendMessage.mailAvailable = 0
             }
 
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
                 callPhone.opacity = true
             } else {
                 callPhone.opacity = false
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "" || lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "" || contactsModel.get(lvContactsView.currentIndex).email != "") {
                 sendMessage.opacity = true
             } else {
                 sendMessage.opacity = false
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).existingMessages != false) {
+            if (contactsModel.get(lvContactsView.currentIndex).existingMessages != false) {
                 readMessages.opacity = true
             } else {
                 readMessages.opacity = false

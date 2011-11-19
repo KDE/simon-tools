@@ -11,10 +11,12 @@
 #include "videosmodel.h"
 #include "contactsmodel.h"
 #include "rssfeed.h"
+#include "declarativeimageprovider.h"
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), viewer(QmlApplicationViewer::create())
 {
+    viewer->engine()->addImageProvider("images", new DeclarativeImageProvider);
     viewer->rootContext()->setContextProperty("imagesModel", logic->images());
     viewer->rootContext()->setContextProperty("musicModel", logic->music());
     viewer->rootContext()->setContextProperty("videosModel", logic->videos());
