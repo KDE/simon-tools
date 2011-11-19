@@ -13,6 +13,7 @@ ContactsModel::ContactsModel(QObject *parent) :
     names.insert(Qt::UserRole+4, "skype");
     names.insert(Qt::UserRole+5, "image");
     names.insert(Qt::UserRole+6, "existingMessages");
+    names.insert(Qt::UserRole+7, "uid");
     setRoleNames(names);
 }
 
@@ -43,13 +44,13 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
     case Qt::UserRole+2: {
         KABC::PhoneNumber::List numbers = contact.phoneNumbers();
         if (numbers.empty())
-            return QVariant();
+            return "-";
         return numbers.first().number();
     }
     case Qt::UserRole+3: {
         QStringList mails = contact.emails();
         if (mails.empty())
-            return QVariant();
+            return "-";
         return mails.first();
     }
     case Qt::UserRole+4: {
@@ -69,6 +70,9 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
     case Qt::UserRole+6: {
         return true;
     }
+    case Qt::UserRole+7: {
+        return contact.uid();
+    }
     }
 
 
@@ -80,5 +84,6 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
 
 int ContactsModel::rowCount(const QModelIndex& parent) const
 {
+    Q_UNUSED(parent);
     return m_contacts.count();
 }

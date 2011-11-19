@@ -10,6 +10,7 @@
 #include "musicmodel.h"
 #include "videosmodel.h"
 #include "contactsmodel.h"
+#include "messagemodel.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
 
@@ -22,6 +23,7 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     viewer->rootContext()->setContextProperty("videosModel", logic->videos());
     viewer->rootContext()->setContextProperty("rssFeed", logic->rssFeed());
     viewer->rootContext()->setContextProperty("contactsModel", logic->contacts());
+    viewer->rootContext()->setContextProperty("messagesModel", logic->messages());
     viewer->rootContext()->setContextProperty("simonTouch", this);
 
     viewer->setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
@@ -34,6 +36,30 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(logic, SIGNAL(rssFeedError()),
             viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"),
             SLOT(feedFetchError()));
+}
+void QMLSimonTouchView::callSkype(const QString& user)
+{
+    qDebug() << "Calling skype: " << user;
+}
+
+void QMLSimonTouchView::callPhone(const QString& user)
+{
+    qDebug() << "Calling phone: " + user;
+}
+
+void QMLSimonTouchView::fetchMessages(const QString& user)
+{
+    qDebug() << "Fetching messages: " + user;
+}
+
+void QMLSimonTouchView::sendSMS(const QString& user, const QString& message)
+{
+    qDebug() << "Sending SMS: " <<  user << message;
+}
+
+void QMLSimonTouchView::sendMail(const QString& user, const QString& message)
+{
+    qDebug() << "Sending mail: " <<  user << message;
 }
 
 //I'm really sorry for doing this string based by I have absolutely no time at all and

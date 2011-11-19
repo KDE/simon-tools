@@ -11,7 +11,7 @@ TabPage {
         title: qsTr("Read messages from ") + parent.prettyName
         stateName:parent.stateName
         id: readMessagePage
-
+/*
         ListModel {
             id: lvMessageList
             ListElement {
@@ -46,7 +46,7 @@ TabPage {
                 message: "Das ist ein Testtext."
                 datetime: "11/11/2011 11:11"
             }
-        }
+        }*/
 
         Component {
             id: messagesDelegate
@@ -105,7 +105,7 @@ TabPage {
 //                bottomMargin: 200
             }
             width: screen.width - 320
-            model: lvMessageList
+            model: messagesModel
             delegate: MessagesListDelegate {}
         }
 

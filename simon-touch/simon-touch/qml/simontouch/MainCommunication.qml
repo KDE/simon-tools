@@ -64,7 +64,7 @@ TabPage {
             }
         }
         */
-
+        /*
         ListModel {
             id: lvMessageList
             ListElement {
@@ -74,12 +74,24 @@ TabPage {
                 datetime: "11/11/2011 11:11"
             }
         }
+        */
 
         Component {
             id: contactsDelegate
             Item {
+                property alias name: lbPrettyName.text
+                property bool hasPhone: lbPhoneNumber.text != qsTr("Phone: -")
+                property bool hasMail: lbMail.text != qsTr("Mail: -")
+                property alias contactId: uidWrapper.objectName
+
                 height: 100
                 width: lvContactsView.width
+
+                Item { //dirty hack
+                    id: uidWrapper
+                    objectName: uid
+                }
+
                 Row {
                     spacing: 10
                     Column {
@@ -93,17 +105,20 @@ TabPage {
 
                     Column {
                         Text {
+                            id: lbPrettyName
                             text: prettyName
                             font.family: "Arial"
                             font.pointSize: 16
                         }
                         Text {
+                            id: lbPhoneNumber
                             text: qsTr("Phone: ") + phoneNumber
                             font.family: "Arial"
                             font.pointSize: 10
                         }
                         Text {
-                            text: qsTr("E-Mail: ") + email
+                            id: lbMail
+                            text: qsTr("Mail: ") + email
                             font.family: "Arial"
                             font.pointSize: 10
                         }
@@ -146,31 +161,31 @@ TabPage {
         }
 
         function changeSelection() {
-            mainCommunicationReadMessages.prettyName = contactsModel.get(lvContactsView.currentIndex).prettyName
-            mainCommunicationSendMessage.prettyName = contactsModel.get(lvContactsView.currentIndex).prettyName
+            mainCommunicationReadMessages.prettyName = lvContactsView.currentItem.name
+            mainCommunicationSendMessage.prettyName = lvContactsView.currentItem.name
 
-            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (lvContactsView.currentItem.hasPhone) {
                 mainCommunicationSendMessage.smsAvailable = 1
             } else {
                 mainCommunicationSendMessage.smsAvailable = 0
             }
-            if (contactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (lvContactsView.currentItem.hasMail) {
                 mainCommunicationSendMessage.mailAvailable = 1
             } else {
                 mainCommunicationSendMessage.mailAvailable = 0
             }
 
-            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (lvContactsView.currentItem.hasPhone) {
                 callPhone.opacity = true
             } else {
                 callPhone.opacity = false
             }
-            if (contactsModel.get(lvContactsView.currentIndex).phoneNumber != "" || contactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (lvContactsView.currentItem.hasPhone || lvContactsView.currentItem.hasMail) {
                 sendMessage.opacity = true
             } else {
                 sendMessage.opacity = false
             }
-            if (contactsModel.get(lvContactsView.currentIndex).existingMessages != false) {
+            if (lvContactsView.currentItem.hasMessages) {
                 readMessages.opacity = true
             } else {
                 readMessages.opacity = false
@@ -240,6 +255,7 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
+            onButtonClick: simonTouch.callSkype(lvContactsView.currentItem.contactId)
         }
 
         Button {

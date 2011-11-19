@@ -79,7 +79,7 @@ HEADERS += \
 OTHER_FILES += \
     simontouch.xml
 
-LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact
+LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact -lakonadi-kmime
 
 
 

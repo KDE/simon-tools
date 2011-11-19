@@ -101,6 +101,10 @@ ContactsModel* SimonTouch::contacts() const
     return m_communicationCentral->getContacts();
 }
 
+MessageModel* SimonTouch::messages() const
+{
+    return m_communicationCentral->getMessageModel();
+}
 
 
 

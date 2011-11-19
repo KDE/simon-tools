@@ -26,9 +26,11 @@ void ImageProvider::removeImage(const QString& id)
 
 void ImageProvider::clearGroup(const QString& groupId)
 {
-    for (QHash<QString, QImage>::iterator i = m_images.begin(); i != m_images.end(); i++) {
+    QMutableHashIterator<QString, QImage> i(m_images);
+    while (i.hasNext()) {
+        i.next();
         if (i.key().startsWith(groupId))
-            m_images.remove(i.key());
+            i.remove();
     }
 }
 

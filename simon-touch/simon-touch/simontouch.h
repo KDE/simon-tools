@@ -13,6 +13,7 @@ class RSSFeed;
 class QNetworkAccessManager;
 class CommunicationCentral;
 class ContactsModel;
+class MessageModel;
 
 class QProcess;
 
@@ -52,6 +53,7 @@ public:
     VideosModel* videos() const { return m_videos; }
     RSSFeed *rssFeed() const { return m_currentRssFeed; }
     ContactsModel *contacts() const;
+    MessageModel *messages() const;
     QStringList rssFeedNames() const;
     QStringList rssFeedIcons() const;
 
