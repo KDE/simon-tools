@@ -130,3 +130,4 @@ LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact
 
 
 
+

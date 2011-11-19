@@ -15,14 +15,6 @@ TabPage {
         ListModel {
             id: lvContactsModel
             ListElement {
-                prettyName: "Stieger Franz"
-                phoneNumber: "0664/4034321"
-                email: "stiegerf@noemail.com"
-                skype: "franz.stieger"
-                image: "/home/mathias/Bilder/franz_01.jpg"
-                existingMessages: true
-            }
-            ListElement {
                 prettyName: "Stieger Mathias"
                 phoneNumber: "0664/3841266"
                 email: ""
@@ -36,6 +28,14 @@ TabPage {
                 email: "stiegerf@noemail.com"
                 skype: "franz.stieger"
                 image: "/home/mathias/Bilder/franz_01.jpg"
+                existingMessages: true
+            }
+            ListElement {
+                prettyName: "Stieger Franz"
+                phoneNumber: ""
+                email: "stiegerf@noemail.com"
+                skype: "franz.stieger"
+                image: "/home/mathias/Bilder/franz_01.jpg"
                 existingMessages: false
             }
             ListElement {
@@ -49,7 +49,7 @@ TabPage {
             ListElement {
                 prettyName: "Stieger Franz"
                 phoneNumber: "0664/4034321"
-                email: "stiegerf@noemail.com"
+                email: ""
                 skype: "franz.stieger"
                 image: "/home/mathias/Bilder/franz_01.jpg"
                 existingMessages: true
@@ -147,12 +147,24 @@ TabPage {
         function changeSelection() {
             mainCommunicationReadMessages.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
             mainCommunicationSendMessage.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
+
+            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+                mainCommunicationSendMessage.smsAvailable = 1
+            } else {
+                mainCommunicationSendMessage.smsAvailable = 0
+            }
+            if (lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+                mainCommunicationSendMessage.mailAvailable = 1
+            } else {
+                mainCommunicationSendMessage.mailAvailable = 0
+            }
+
             if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
                 callPhone.opacity = true
             } else {
                 callPhone.opacity = false
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "" && lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "" || lvContactsModel.get(lvContactsView.currentIndex).email != "") {
                 sendMessage.opacity = true
             } else {
                 sendMessage.opacity = false
