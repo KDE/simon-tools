@@ -11,11 +11,11 @@ private:
     QStringList m_icons;
 public:
     RSSFeeds(const QStringList& names, const QStringList& urls, const QStringList& icons);
-    QString name(int i);
-    QString url(int i);
-    QStringList names();
-    QStringList icons();
-    int count();
+    QString name(int i) const;
+    QString url(int i) const;
+    QStringList names() const;
+    QStringList icons() const;
+    int count() const;
 };
 
 #endif // RSSFEEDS_H

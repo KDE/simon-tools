@@ -43,7 +43,9 @@ SOURCES += main.cpp \
     rssfeeds.cpp \
     rssfeed.cpp \
     simontouchadapter.cpp \
-    communicationcentral.cpp
+    communicationcentral.cpp \
+    contactsmodel.cpp \
+    messagemodel.cpp
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -66,12 +68,18 @@ HEADERS += \
     rssfeed.h \
     simontouchstate.h \
     simontouchadapter.h \
-    communicationcentral.h
+    communicationcentral.h \
+    contactsmodel.h \
+    messagemodel.h
 
 OTHER_FILES += \
     simontouch.xml
 
-LIBS += -lakonadi-kcal -lkdecore -lakonadi-kde -lakonadi-calendar
+LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact
+
+
+
+
 
 
 

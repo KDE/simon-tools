@@ -41,17 +41,17 @@ void RSSFeed::init()
     setRoleNames(names);
 }
 
-int RSSFeed::count()
+int RSSFeed::count() const
 {
     return m_headings.count();
 }
 
-QString RSSFeed::heading(int i)
+QString RSSFeed::heading(int i) const
 {
     return m_headings[i];
 }
 
-QString RSSFeed::article(int i)
+QString RSSFeed::article(int i) const
 {
     return m_articles[i];
 }

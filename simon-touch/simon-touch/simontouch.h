@@ -12,6 +12,7 @@ class RSSFeeds;
 class RSSFeed;
 class QNetworkAccessManager;
 class CommunicationCentral;
+class ContactsModel;
 
 class QProcess;
 
@@ -46,12 +47,14 @@ public slots:
 
 public:
     SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);
-    ImagesModel* images() { return m_images; }
-    MusicModel* music() { return m_music; }
-    VideosModel* videos() { return m_videos; }
-    RSSFeed *rssFeed() { return m_currentRssFeed; }
-    QStringList rssFeedNames();
-    QStringList rssFeedIcons();
+    ImagesModel* images() const { return m_images; }
+    MusicModel* music() const { return m_music; }
+    VideosModel* videos() const { return m_videos; }
+    RSSFeed *rssFeed() const { return m_currentRssFeed; }
+    ContactsModel *contacts() const;
+    QStringList rssFeedNames() const;
+    QStringList rssFeedIcons() const;
+
     void fetchRssFeed(int id);
 
     void showKeyboard();
@@ -59,7 +62,9 @@ public:
     void hideKeyboard();
     void hideCalculator();
 
-    void test();
+    ContactsModel *getContacts();
+
+    void setupCommunication();
 
     ~SimonTouch();
 };

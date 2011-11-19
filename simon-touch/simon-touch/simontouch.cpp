@@ -18,6 +18,7 @@ SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
     m_rssLoader(new QNetworkAccessManager(this)),
     m_calculatorProcess(new QProcess(this)), m_keyboardProcess(new QProcess(this))
 {
+    setupCommunication();
 }
 
 SimonTouch::~SimonTouch()
@@ -25,12 +26,12 @@ SimonTouch::~SimonTouch()
     delete m_currentRssFeed;
 }
 
-QStringList SimonTouch::rssFeedNames()
+QStringList SimonTouch::rssFeedNames() const
 {
     return m_rssFeeds->names();
 }
 
-QStringList SimonTouch::rssFeedIcons()
+QStringList SimonTouch::rssFeedIcons() const
 {
     return m_rssFeeds->icons();
 }
@@ -78,7 +79,6 @@ void SimonTouch::showKeyboard()
 void SimonTouch::showCalculator()
 {
     m_calculatorProcess->start("gcalctool");
-    test(); // FIXME
 }
 
 void SimonTouch::hideKeyboard()
@@ -91,13 +91,15 @@ void SimonTouch::hideCalculator()
     m_calculatorProcess->terminate();
 }
 
-//akonadi stuff
-void SimonTouch::test()
+void SimonTouch::setupCommunication()
 {
-    m_communicationCentral->test();
+    m_communicationCentral->setupCollections();
 }
 
-
+ContactsModel* SimonTouch::contacts() const
+{
+    return m_communicationCentral->getContacts();
+}
 
 
 

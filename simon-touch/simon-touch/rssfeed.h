@@ -21,9 +21,9 @@ public:
     void clear();
     void feed(const QString& heading, const QString& article);
 
-    int count();
-    QString heading(int i);
-    QString article(int i);
+    int count() const;
+    QString heading(int i) const;
+    QString article(int i) const;
 
     virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
     QModelIndex parent(const QModelIndex &child) const {
