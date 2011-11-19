@@ -15,20 +15,20 @@ TabPage {
         ListModel {
             id: lvContactsModel
             ListElement {
-                prettyName: "Stieger Franz"
-                phoneNumber: "0664/4034321"
-                email: "stiegerf@noemail.com"
-                skype: "franz.stieger"
-                image: "/home/mathias/Bilder/franz_01.jpg"
-                existingMessages: true
-            }
-            ListElement {
                 prettyName: "Stieger Mathias"
                 phoneNumber: "0664/3841266"
                 email: ""
                 skype: ""
                 image: "/home/mathias/Bilder/mathias_01.jpg"
                 existingMessages: false
+            }
+            ListElement {
+                prettyName: "Stieger Franz"
+                phoneNumber: "0664/4034321"
+                email: "stiegerf@noemail.com"
+                skype: "franz.stieger"
+                image: "/home/mathias/Bilder/franz_01.jpg"
+                existingMessages: true
             }
             ListElement {
                 prettyName: "Stieger Franz"
