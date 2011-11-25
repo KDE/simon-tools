@@ -22,7 +22,7 @@ private:
     Akonadi::Monitor *m_messageMonitor;
     Akonadi::Monitor *m_contactsMonitor;
 
-    Akonadi::Collection::List m_messageCollections;
+    Akonadi::Collection m_messageCollection;
     Akonadi::Collection::List m_contactCollections;
 
     VoIPProvider *m_voipProvider;
