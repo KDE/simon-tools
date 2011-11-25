@@ -6,6 +6,7 @@ TabPage {
     objectName: "MainCommunicationSendMessage"
     stateName: "CommunicationSendMessage"
     property string prettyName: ""
+    property string recipientUid: ""
     property alias smsAvailable: sendSMS.opacity
     property alias mailAvailable: sendMail.opacity
 
@@ -91,7 +92,10 @@ TabPage {
                     spokenText: true
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
-        //            onButtonClick: if (lvMessagesView.currentIndex + 1 < lvMessagesView.count) lvMessagesView.currentIndex += 1
+                    onButtonClick: {
+                        simonTouch.sendMail(recipientUid, messageInput.text)
+                        back()
+                    }
                 }
 
                 Button {
@@ -105,7 +109,10 @@ TabPage {
                     spokenText: true
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right
-        //            onButtonClick: if (lvMessagesView.currentIndex + 1 < lvMessagesView.count) lvMessagesView.currentIndex += 1
+                    onButtonClick: {
+                        simonTouch.sendSMS(recipientUid, messageInput.text)
+                        back()
+                    }
                 }
             }
         }

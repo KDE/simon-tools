@@ -30,6 +30,12 @@ void ContactsModel::addItems(const QList<KABC::Addressee>& items)
     reset();
 }
 
+KABC::Addressee ContactsModel::getContact(const QString& id)
+{
+    foreach (const KABC::Addressee& a, m_contacts)
+        if (a.uid() == id)
+            return a;
+}
 
 QVariant ContactsModel::data(const QModelIndex& index, int role) const
 {

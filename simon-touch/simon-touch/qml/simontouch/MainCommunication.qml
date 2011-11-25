@@ -80,9 +80,10 @@ TabPage {
             id: contactsDelegate
             Item {
                 property alias name: lbPrettyName.text
-                property bool hasPhone: lbPhoneNumber.text != qsTr("Phone: -")
+                property bool hasPhone: (lbPhoneNumber.text != qsTr("Phone: -")) || (lbSkype.text != qsTr("Skype: -"))
                 property bool hasMail: lbMail.text != qsTr("Mail: -")
                 property alias contactId: uidWrapper.objectName
+                property bool hasMessages: true
 
                 height: 100
                 width: lvContactsView.width
@@ -123,6 +124,7 @@ TabPage {
                             font.pointSize: 10
                         }
                         Text {
+                            id: lbSkype
                             text: qsTr("Skype: ") + skype
                             font.family: "Arial"
                             font.pointSize: 10
@@ -163,6 +165,7 @@ TabPage {
         function changeSelection() {
             mainCommunicationReadMessages.prettyName = lvContactsView.currentItem.name
             mainCommunicationSendMessage.prettyName = lvContactsView.currentItem.name
+            mainCommunicationSendMessage.recipientUid = lvContactsView.currentItem.contactId
 
             if (lvContactsView.currentItem.hasPhone) {
                 mainCommunicationSendMessage.smsAvailable = 1
@@ -274,6 +277,7 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
+            onButtonClick: simonTouch.callPhone(lvContactsView.currentItem.contactId)
         }
         Button {
             id: sendMessage
@@ -302,7 +306,27 @@ TabPage {
             buttonImage: "../img/go-down.svgz"
             spokenText: true
             buttonLayout: Qt.Horizontal
-            onButtonClick: setScreen("MainCommunicationReadMessages")
+            onButtonClick: {
+                simonTouch.fetchMessages(lvContactsView.currentItem.contactId)
+                setScreen("MainCommunicationReadMessages")
+            }
+            Behavior on opacity {
+                NumberAnimation {properties: "opacity"; duration: 500}
+            }
+        }
+        Button {
+            anchors.top: readMessages.bottom
+            anchors.left: readMessages.left
+            buttonText: qsTr("Hang up (!FIXME!)")
+            width: lvContactsView.width
+            anchors.topMargin: 10
+            height: 50
+            buttonImage: "../img/go-down.svgz"
+            spokenText: true
+            buttonLayout: Qt.Horizontal
+            onButtonClick: {
+                simonTouch.hangUp()
+            }
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }

@@ -106,5 +106,34 @@ MessageModel* SimonTouch::messages() const
     return m_communicationCentral->getMessageModel();
 }
 
+void SimonTouch::callSkype(const QString& user)
+{
+    m_communicationCentral->callSkype(user);
+}
+
+void SimonTouch::callPhone(const QString& user)
+{
+    m_communicationCentral->callPhone(user);
+}
+
+void SimonTouch::hangUp()
+{
+    m_communicationCentral->hangUp();
+}
+
+void SimonTouch::fetchMessages(const QString& user)
+{
+    m_communicationCentral->fetchMessages(user);
+}
+
+void SimonTouch::sendSMS(const QString& user, const QString& message)
+{
+    m_communicationCentral->sendSMS(user, message);
+}
+
+void SimonTouch::sendMail(const QString& user, const QString& message)
+{
+    m_communicationCentral->sendMail(user, message);
+}
 
 

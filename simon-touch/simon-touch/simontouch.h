@@ -68,6 +68,13 @@ public:
 
     void setupCommunication();
 
+    void callSkype(const QString& user);
+    void callPhone(const QString& user);
+    void hangUp();
+    void fetchMessages(const QString& user);
+    void sendSMS(const QString& user, const QString& message);
+    void sendMail(const QString& user, const QString& message);
+
     ~SimonTouch();
 };
 

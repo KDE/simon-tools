@@ -17,12 +17,14 @@ symbian:TARGET.UID3 = 0xEAB67D3B
 # 0x2002CCCF value if protected UID is given to the application
 #symbian:DEPLOYMENT.installer_header = 0x2002CCCF
 
+DEFINES = SKYPE_DEBUG_GLOBAL=14311
+
 # Allow network access on Symbian
 symbian:TARGET.CAPABILITY += NetworkServices
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
-CONFIG += mobility
+CONFIG += mobility qdbus dbusadaptors
 MOBILITY += multimedia
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
@@ -31,7 +33,7 @@ MOBILITY += multimedia
 # Add dependency to Symbian components
 # CONFIG += qt-components
 
-# The .cpp file which was generated for your project. Feel free to hack it.
+
 SOURCES += main.cpp \
     simontouchview.cpp \
     qmlsimontouchview.cpp \
@@ -47,13 +49,26 @@ SOURCES += main.cpp \
     contactsmodel.cpp \
     messagemodel.cpp \
     imageprovider.cpp \
-    declarativeimageprovider.cpp
+    declarativeimageprovider.cpp \
+    voipprovider.cpp \
+    voipproviderfactory.cpp \
+    skypevoipprovider.cpp
+
+
+SOURCES +=  libskype/skype.cpp \
+            libskype/skypewindow.cpp \
+            libskype/skypedbus/skypeconnection.cpp
+HEADERS +=  libskype/skype.h \
+            libskype/skypewindow.h \
+            libskype/skypedbus/skypeconnection.h
+
+DBUS_ADAPTORS = libskype/skypedbus/com.Skype.API.Client.xml
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
 qtcAddDeployment()
 
-
+INCLUDEPATH += /usr/include/KDE
 
 
 TRANSLATIONS = messages/simontouch_de.ts
@@ -74,12 +89,21 @@ HEADERS += \
     contactsmodel.h \
     messagemodel.h \
     imageprovider.h \
-    declarativeimageprovider.h
+    declarativeimageprovider.h \
+    voipprovider.h \
+    voipproviderfactory.h \
+    skypevoipprovider.h
 
 OTHER_FILES += \
     simontouch.xml
 
-LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact -lakonadi-kmime
+LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact -lakonadi-kmime -leventsimulation
+
+
+
+
+
+
 
 
 

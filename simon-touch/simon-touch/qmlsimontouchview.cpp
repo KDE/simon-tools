@@ -39,27 +39,32 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
 }
 void QMLSimonTouchView::callSkype(const QString& user)
 {
-    qDebug() << "Calling skype: " << user;
+    m_logic->callSkype(user);
 }
 
 void QMLSimonTouchView::callPhone(const QString& user)
 {
-    qDebug() << "Calling phone: " + user;
+    m_logic->callPhone(user);
+}
+
+void QMLSimonTouchView::hangUp()
+{
+    m_logic->hangUp();
 }
 
 void QMLSimonTouchView::fetchMessages(const QString& user)
 {
-    qDebug() << "Fetching messages: " + user;
+    m_logic->fetchMessages(user);
 }
 
 void QMLSimonTouchView::sendSMS(const QString& user, const QString& message)
 {
-    qDebug() << "Sending SMS: " <<  user << message;
+    m_logic->sendSMS(user, message);
 }
 
 void QMLSimonTouchView::sendMail(const QString& user, const QString& message)
 {
-    qDebug() << "Sending mail: " <<  user << message;
+    m_logic->sendMail(user, message);
 }
 
 //I'm really sorry for doing this string based by I have absolutely no time at all and

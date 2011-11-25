@@ -1,6 +1,8 @@
 #include "communicationcentral.h"
 #include "contactsmodel.h"
 #include "messagemodel.h"
+#include "voipproviderfactory.h"
+#include "voipprovider.h"
 
 #include <QStringList>
 
@@ -16,19 +18,18 @@
 #include <kmime/kmime_message.h>
 
 #include <kabc/addressee.h>
+#include <kabc/phonenumber.h>
 #include <kabc/contactgroup.h>
-
-
 
 CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
     m_contacts(new ContactsModel()),
     m_messages(new MessageModel()),
     m_collectionMonitor(new Akonadi::Monitor(this)),
     m_messageMonitor(new Akonadi::Monitor(this)),
-    m_contactsMonitor(new Akonadi::Monitor(this))
+    m_contactsMonitor(new Akonadi::Monitor(this)),
+    m_voipProvider(VoIPProviderFactory::getProvider())
 {
     m_collectionMonitor->setMimeTypeMonitored(KABC::Addressee::mimeType(), true);
-    m_collectionMonitor->setMimeTypeMonitored(KMime::Message::mimeType(), true);
     connect(m_collectionMonitor, SIGNAL(collectionAdded(Akonadi::Collection,Akonadi::Collection)), this, SLOT(setupCollections()));
     connect(m_collectionMonitor, SIGNAL(collectionChanged(Akonadi::Collection)), this, SLOT(setupCollections()));
 
@@ -46,6 +47,8 @@ CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
 CommunicationCentral::~CommunicationCentral()
 {
     delete m_contacts;
+    delete m_messages;
+    delete m_voipProvider;
 }
 
 void CommunicationCentral::setupCollections()
@@ -162,4 +165,40 @@ void CommunicationCentral::fetchMessages()
 void CommunicationCentral::messagesItemJobFinished(KJob* job)
 {
     m_messages->addItems(processItemJob<KMime::Message::Ptr>(job));
+}
+
+
+void CommunicationCentral::callSkype(const QString& user)
+{
+    qDebug() << "Calling skype: " << user;
+
+    m_voipProvider->newCall(m_contacts->getContact(user).custom("KADDRESSBOOK", "skype"));
+
+}
+
+void CommunicationCentral::callPhone(const QString& user)
+{
+    qDebug() << "Calling phone: " + user;
+    m_voipProvider->newCall(m_contacts->getContact(user).phoneNumbers().first().number());
+}
+
+void CommunicationCentral::hangUp()
+{
+    m_voipProvider->hangUp();
+}
+
+void CommunicationCentral::fetchMessages(const QString& user)
+{
+    qDebug() << "Fetching messages: " + user;
+}
+
+void CommunicationCentral::sendSMS(const QString& user, const QString& message)
+{
+    qDebug() << "Sending SMS: " <<  user << message;
+    m_voipProvider->sendSMS(m_contacts->getContact(user).phoneNumbers().first().number(), message);
+}
+
+void CommunicationCentral::sendMail(const QString& user, const QString& message)
+{
+    qDebug() << "Sending mail: " <<  user << message;
 }

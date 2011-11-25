@@ -20,6 +20,8 @@ public:
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
+    KABC::Addressee getContact(const QString& id);
+
 private:
     QList< KABC::Addressee > m_contacts;
 

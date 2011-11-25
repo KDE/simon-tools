@@ -6,6 +6,7 @@
 
 class KJob;
 class ContactsModel;
+class VoIPProvider;
 class MessageModel;
 namespace Akonadi {
 class Monitor;
@@ -23,6 +24,8 @@ private:
 
     Akonadi::Collection::List m_messageCollections;
     Akonadi::Collection::List m_contactCollections;
+
+    VoIPProvider *m_voipProvider;
 
     template <class T>
     QList<T> processItemJob(KJob*);
@@ -42,6 +45,13 @@ public:
 
     ContactsModel *getContacts() const { return m_contacts; }
     MessageModel *getMessageModel() const { return m_messages; }
+
+    void callSkype(const QString& user);
+    void callPhone(const QString& user);
+    void hangUp();
+    void fetchMessages(const QString& user);
+    void sendSMS(const QString& user, const QString& message);
+    void sendMail(const QString& user, const QString& message);
 
 public slots:
     void setupCollections();
