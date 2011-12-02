@@ -54,25 +54,25 @@ TabPage {
                 Rectangle {
                     width: parent.width //- textLabel.width -10
                     height: parent.height - textLabel.height - 10
-                    color: "Lightblue"
+                    color: "Lightsteelblue"
                     TextEdit {
                          id: messageInput
                          text: ""
                          focus: true
                          font.family: "Arial"
                          font.pointSize: 16
-                        MouseArea {
-                           anchors.fill: parent
-                           onClicked: {
-                               if (!messageInput.activeFocus) {
-                                   messageInput.forceActiveFocus();
-                                   messageInput.openSoftwareInputPanel();
-                               } else {
-                                   messageInput.focus = false;
-                               }
-                           }
-                           onPressAndHold: textInput.closeSoftwareInputPanel
-                        }
+//                        MouseArea {
+//                           anchors.fill: parent
+//                           onClicked: {
+//                               if (!messageInput.activeFocus) {
+//                                   messageInput.forceActiveFocus();
+//                                   messageInput.openSoftwareInputPanel();
+//                               } else {
+//                                   messageInput.focus = false;
+//                               }
+//                           }
+//                           onPressAndHold: textInput.closeSoftwareInputPanel
+//                        }
                     }
                 }
             }

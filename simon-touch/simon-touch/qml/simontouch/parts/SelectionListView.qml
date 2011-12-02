@@ -4,7 +4,13 @@ ListView {
     id: lvImages
 
     clip: true
-    highlight: Rectangle { color: "lightsteelblue"; radius: 5; width: parent.width}
+    highlight: Rectangle {
+        color: "#FEF57B" // "lightsteelblue"
+        radius: 5
+        width: parent.width -2
+        border.color: "#8A8A8A"
+        border.width: 1
+    }
 
     spacing: 10
 

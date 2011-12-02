@@ -64,7 +64,7 @@ Rectangle {
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
         anchors.horizontalCenter: (buttonLayout == Qt.Vertical && horizontalIconAlign != "right") ? parent.horizontalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
-        height: (buttonLayout == Qt.Horizontal) ? parent.height - 20 : parent.height * 0.8
+        height: (buttonLayout == Qt.Horizontal) ? parent.height - 20 : parent.height * 0.7
 
         visible: (buttonImage == "") ? 0 : 1
 
