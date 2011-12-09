@@ -13,7 +13,7 @@ Component {
 
         Image {
             id: messageIcon
-            source: icon
+            source: msgIcon
             width: 20
             anchors.top: parent.top
             fillMode: Image.PreserveAspectFit
@@ -55,6 +55,10 @@ Component {
            onClicked: {
                lvMessagesView.currentIndex = index
            }
+        }
+        onStateChanged: {
+            if (state == "current")
+                simonTouch.readMessage(lvMessagesView.currentIndex)
         }
 
         states: [

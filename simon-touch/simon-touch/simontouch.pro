@@ -52,7 +52,8 @@ SOURCES += main.cpp \
     declarativeimageprovider.cpp \
     voipprovider.cpp \
     voipproviderfactory.cpp \
-    skypevoipprovider.cpp
+    skypevoipprovider.cpp \
+    mail.cpp
 
 
 SOURCES +=  libskype/skype.cpp \
@@ -60,7 +61,8 @@ SOURCES +=  libskype/skype.cpp \
             libskype/skypedbus/skypeconnection.cpp
 HEADERS +=  libskype/skype.h \
             libskype/skypewindow.h \
-            libskype/skypedbus/skypeconnection.h
+            libskype/skypedbus/skypeconnection.h \
+    mail.h
 
 DBUS_ADAPTORS = libskype/skypedbus/com.Skype.API.Client.xml
 
@@ -98,6 +100,8 @@ OTHER_FILES += \
     simontouch.xml
 
 LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact -lakonadi-kmime -leventsimulation -lnepomuk -lnepomukquery
+
+
 
 
 

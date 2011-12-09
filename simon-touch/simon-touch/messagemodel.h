@@ -2,7 +2,7 @@
 #define MESSAGEMODEL_H
 
 #include <QAbstractListModel>
-#include <kmime/kmime_message.h>
+#include "mail.h"
 
 class MessageModel : public QAbstractListModel
 {
@@ -10,13 +10,15 @@ class MessageModel : public QAbstractListModel
 public:
     explicit MessageModel(QObject *parent = 0);
     void clear();
-    void addItems(const QList<KMime::Message::Ptr>& items);
+    void addItems(const QList<Mail*>& items);
 
     virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
+    void readMessage(int messageIndex);
+
 private:
-    QList< KMime::Message::Ptr > m_messages;
+    QList< Mail* > m_messages;
 };
 
 #endif // MESSAGEMODEL_H

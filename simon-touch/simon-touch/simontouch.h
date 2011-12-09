@@ -74,6 +74,7 @@ public:
     void fetchMessages(const QString& user);
     void sendSMS(const QString& user, const QString& message);
     void sendMail(const QString& user, const QString& message);
+    void readMessage(int messageIndex);
 
     ~SimonTouch();
 };

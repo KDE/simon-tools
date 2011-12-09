@@ -93,7 +93,7 @@ void SimonTouch::hideCalculator()
 
 void SimonTouch::setupCommunication()
 {
-    m_communicationCentral->setupCollections();
+    m_communicationCentral->setupContactCollections();
 }
 
 ContactsModel* SimonTouch::contacts() const
@@ -123,7 +123,7 @@ void SimonTouch::hangUp()
 
 void SimonTouch::fetchMessages(const QString& user)
 {
-    m_communicationCentral->fetchMessages(user);
+    m_communicationCentral->getMessages(user);
 }
 
 void SimonTouch::sendSMS(const QString& user, const QString& message)
@@ -136,4 +136,8 @@ void SimonTouch::sendMail(const QString& user, const QString& message)
     m_communicationCentral->sendMail(user, message);
 }
 
+void SimonTouch::readMessage(int messageIndex)
+{
+    m_communicationCentral->readMessage(messageIndex);
+}
 

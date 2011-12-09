@@ -67,6 +67,11 @@ void QMLSimonTouchView::sendMail(const QString& user, const QString& message)
     m_logic->sendMail(user, message);
 }
 
+void QMLSimonTouchView::readMessage(int messageIndex)
+{
+    m_logic->readMessage(messageIndex);
+}
+
 //I'm really sorry for doing this string based by I have absolutely no time at all and
 //I couldn't get QML to find the enum after 30 minutes...
 void QMLSimonTouchView::setState(const QString& state)
