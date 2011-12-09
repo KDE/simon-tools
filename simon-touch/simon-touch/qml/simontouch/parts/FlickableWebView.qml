@@ -73,7 +73,7 @@ Flickable {
 
         settings {
             standardFontFamily: "Arial"
-            defaultFontSize: 40
+            defaultFontSize: 30
         }
 
         smooth: false // We don't want smooth scaling, since we only scale during (fast) transitions

@@ -62,7 +62,6 @@ Component {
         }
 
         states: [
-            // When item is current, make the item higher and show photo+number
             State {
                 name: "current"
                 when: lvMessagesView.currentIndex == index
@@ -74,15 +73,6 @@ Component {
                     target: delegateItem
                     height: messageText.height + 40
                 }
-//                PropertyChanges {
-//                    target: imagePhoto
-//                    x: itemMargin
-//                }
-//                AnchorChanges {
-//                    // Don't center the name vertically when in expanded state
-//                    target: textName
-//                    anchors.verticalCenter: undefined
-//                }
             }
         ]
 
