@@ -35,6 +35,10 @@ Item {
         NumberAnimation { properties: "x,width,height"; easing.type: Easing.InOutBounce }
     }
 
+    Behavior on opacity {
+        NumberAnimation {properties: "opacity"; duration: 500}
+    }
+
     SideButton {
         id: btInternal
         x: 0

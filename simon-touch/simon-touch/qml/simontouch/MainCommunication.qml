@@ -19,7 +19,7 @@ TabPage {
                 phoneNumber: "+39/328/5711026"
                 email: "f.cavallo@sssup.it"
                 skype: "ing.filippocavallo"
-                image: "/home/simon/filippo.jpg"
+                image: "img/filippo.jpg"
                 existingMessages: true
             }
             ListElement {
@@ -27,7 +27,7 @@ TabPage {
                 phoneNumber: "+39/347/4001286"
                 email: "m.aquilano@sssup.it"
                 skype: "michela.aquilano"
-                image: "/home/simon/michela.jpg"
+                image: "img/michela.jpg"
                 existingMessages: true
             }
             ListElement {
@@ -35,7 +35,7 @@ TabPage {
                 phoneNumber: "+43/664/4034321"
                 email: "f.stieger@cyber-byte.at"
                 skype: "stieger.franz"
-                image: "img/franz_01.jpg"
+                image: "img/franz.jpg"
                 existingMessages: true
             }
             ListElement {
@@ -43,7 +43,7 @@ TabPage {
                 phoneNumber: "+43/664/3841266"
                 email: "m.stieger@simon-listens.org"
                 skype: "mathesus"
-                image: "img/mathias_01.jpg"
+                image: "img/mathias.jpg"
                 existingMessages: true
             }
             ListElement {
@@ -51,7 +51,7 @@ TabPage {
                 phoneNumber: "+43/664/9135053"
                 email: "grasch@simon-listens.org"
                 skype: "bedahr"
-                image: "/home/simon/bedahr.jpg"
+                image: "img/peter.jpg"
                 existingMessages: true
             }
         }

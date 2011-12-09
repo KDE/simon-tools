@@ -7,6 +7,12 @@ Rectangle {
     height: 768
     color: "#FFFBC7"
 
+    function changeButtonVisibility(visibility) {
+            keyboardButton.opacity = visibility;
+            calculatorButton.opacity = visibility;
+            console.debug("changeButtonVisibility: " + visibility);
+    }
+
     TabPage {
         opacity: 1
         id: tabs
@@ -21,6 +27,23 @@ Rectangle {
         MainInformation {
             objectName: "MainInformation"
         }
+
+        MainIncomingCall {
+            objectName: "MainIncomingCall"
+            callInImage: "img/franz.jpg"
+            callInName: "Franz Stieger"
+            callInNumber: "+43 664 3841266"
+            backAvailable: false
+        }
+
+        MainOutgoingCall {
+            objectName: "MainOutgoingCall"
+            callOutImage: "img/franz.jpg"
+            callOutName: "Franz Stieger"
+            callOutNumber: "+43 664 3841266"
+            backAvailable: false
+        }
+
         MainCommunication {
             objectName: "MainCommunication"
         }
@@ -31,6 +54,7 @@ Rectangle {
             objectName: "MainRequests"
         }
     }
+
     KeyCalcButton {
         id: calculatorButton
         z: (keyboardButton.state == "collapsed") ? 1 : 0
