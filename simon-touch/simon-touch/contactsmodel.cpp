@@ -35,6 +35,7 @@ KABC::Addressee ContactsModel::getContact(const QString& id)
     foreach (const KABC::Addressee& a, m_contacts)
         if (a.uid() == id)
             return a;
+    return KABC::Addressee();
 }
 
 QVariant ContactsModel::data(const QModelIndex& index, int role) const

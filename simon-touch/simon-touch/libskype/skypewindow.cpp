@@ -190,7 +190,7 @@ void SkypeWindow::showCallDialog(const QString &user) {
 	}
 	kDebug(SKYPE_DEBUG_GLOBAL) << "Show skype call dialog WId" << wid;
 	XMapWindow(QX11Info::display(), wid); //map this window
-	KWindowSystem::activateWindow(wid); //active this window in kde
+        //KWindowSystem::activateWindow(wid); //active this window in kde
 	d->hiddenWindows.remove(user);
 }
 

@@ -57,10 +57,8 @@ SOURCES += main.cpp \
 
 
 SOURCES +=  libskype/skype.cpp \
-            libskype/skypewindow.cpp \
             libskype/skypedbus/skypeconnection.cpp
 HEADERS +=  libskype/skype.h \
-            libskype/skypewindow.h \
             libskype/skypedbus/skypeconnection.h \
     mail.h
 
@@ -99,7 +97,7 @@ HEADERS += \
 OTHER_FILES += \
     simontouch.xml
 
-LIBS += -lakonadi-kabc -lkdecore -lakonadi-kde -lakonadi-contact -lakonadi-kmime -leventsimulation -lnepomuk -lnepomukquery
+LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui -lakonadi-kde -lakonadi-contact -lakonadi-kmime -leventsimulation -lnepomuk -lnepomukquery
 
 
 
