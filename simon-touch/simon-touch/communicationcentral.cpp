@@ -19,8 +19,6 @@
 #include <akonadi/itemfetchjob.h>
 #include <akonadi/itemfetchscope.h>
 #include <akonadi/entitydisplayattribute.h>
-#include <akonadi/changerecorder.h>
-#include <akonadi/kmime/messageparts.h>
 
 #include <kmime/kmime_message.h>
 
@@ -40,11 +38,11 @@
 
 CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
     m_contacts(new ContactsModel()),
+    m_messages(new MessageModel()),
     m_collectionMonitor(new Akonadi::Monitor(this)),
-    m_messageMonitor(new Akonadi::ChangeRecorder(this)),
+    m_messageMonitor(new Akonadi::Monitor(this)),
     m_contactsMonitor(new Akonadi::Monitor(this)),
-   // m_mailChangedTimeout(new QTimer(this)),
-    m_messages(new MessageModel(m_messageMonitor)),
+    m_mailChangedTimeout(new QTimer(this)),
     m_voipProvider(VoIPProviderFactory::getProvider())
 {
     m_collectionMonitor->setMimeTypeMonitored(KABC::Addressee::mimeType(), true);
@@ -56,8 +54,11 @@ CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
     connect(m_contactsMonitor, SIGNAL(itemChanged(Akonadi::Item,QSet<QByteArray>)), this, SLOT(fetchContacts()));
     connect(m_contactsMonitor, SIGNAL(itemRemoved(Akonadi::Item)), this, SLOT(fetchContacts()));
 
-    m_messageMonitor->itemFetchScope().fetchPayloadPart(Akonadi::MessagePart::Envelope);
-    m_messageMonitor->itemFetchScope().fetchAllAttributes();
+    m_messageMonitor->setMimeTypeMonitored(KMime::Message::mimeType());
+    connect(m_messageMonitor, SIGNAL(itemLinked(Akonadi::Item,Akonadi::Collection)), this, SLOT(scheduleFetchMessages()));
+    m_mailChangedTimeout->setSingleShot(true);
+    m_mailChangedTimeout->setInterval(500);
+    connect(m_mailChangedTimeout, SIGNAL(timeout()), this, SLOT(fetchMessages()));
 }
 
 CommunicationCentral::~CommunicationCentral()
@@ -167,11 +168,19 @@ void CommunicationCentral::contactItemJobFinished(KJob* job)
   m_contacts->addItems(processItemJob<KABC::Addressee>(job));
 }
 
+
+void CommunicationCentral::debug()
+{
+    qDebug() << "Collection changed!";
+
+}
+
 void CommunicationCentral::getMessages(const QString& user)
 {
     if (m_contacts->getContact(user).emails().isEmpty())
         return;
 
+    m_messages->clear();
     m_messageMonitor->setCollectionMonitored(m_messageCollection, false);
     m_messageCollectionName = user;
     qDebug() << "Fetching messages: " + m_messageCollectionName;
@@ -230,13 +239,34 @@ void CommunicationCentral::messageCollectionCreateJobFinished(KJob* job)
 
     m_messageCollection = fetchJob->createdCollection();
 
-    fetchMessages();
+    scheduleFetchMessages();
+}
+
+void CommunicationCentral::scheduleFetchMessages()
+{
+    m_mailChangedTimeout->stop();
+    m_mailChangedTimeout->start();
 }
 
 void CommunicationCentral::fetchMessages()
 {
-    m_messageMonitor->setCollectionMonitored(m_messageCollection, true);
+    if (m_messageCollectionName.isEmpty())
+        return;
+
+    qDebug() << "Received collection: " << m_messageCollection.name();
+    Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(m_messageCollection, this);
+    itemFetcher->fetchScope().fetchFullPayload();
+    //itemFetcher->fetchScope().fetchAttribute<Akonadi::EntityDisplayAttribute>();
+    connect(itemFetcher, SIGNAL(finished(KJob*)), this, SLOT(messagesItemJobFinished(KJob*)));
+    qDebug() << "Fetching payload";
 }
+
+void CommunicationCentral::messagesItemJobFinished(KJob* job)
+{
+    m_messages->clear();
+    m_messages->addItems(processItemJob<Mail*>(job));
+}
+
 
 
 //-----------------------------------------------------------------------------

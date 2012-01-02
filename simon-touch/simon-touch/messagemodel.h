@@ -1,30 +1,24 @@
 #ifndef MESSAGEMODEL_H
 #define MESSAGEMODEL_H
 
-#include <akonadi/entitytreemodel.h>
-#include <akonadi/collection.h>
+#include <QAbstractListModel>
+#include "mail.h"
 
-namespace Akonadi {
-class ChangeRecorder;
-}
-class KJob;
-
-class MessageModel : public Akonadi::EntityTreeModel
+class MessageModel : public QAbstractListModel
 {
-Q_OBJECT
-protected:
-    int entityColumnCount(HeaderGroup headerGroup) const;
-    QVariant entityHeaderData(int section, Qt::Orientation orientation, int role, HeaderGroup headerGroup) const;
-    QVariant entityData(const Akonadi::Collection &collection, int column, int role) const;
-    QVariant entityData(const Akonadi::Item &item, int column, int role) const;
-    QVariant data(const QModelIndex& i, int role) const;
-
-private slots:
-    void fetchDetails(const Akonadi::Item& item) const;
-    void messageDetailJobFinished(KJob *job);
+    Q_OBJECT
 public:
-    MessageModel(Akonadi::ChangeRecorder* r);
+    explicit MessageModel(QObject *parent = 0);
+    void clear();
+    void addItems(const QList<Mail*>& items);
+
+    virtual QVariant data(const QModelIndex& index, int role = Qt::DisplayRole) const;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+
     void readMessage(int messageIndex);
+
+private:
+    QList< Mail* > m_messages;
 };
 
 #endif // MESSAGEMODEL_H
