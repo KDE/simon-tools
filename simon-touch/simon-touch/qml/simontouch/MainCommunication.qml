@@ -226,9 +226,10 @@ TabPage {
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
-            spokenText: true
+            spokenText: false
+            buttonNumber: qsTr("Ok")
             buttonLayout: Qt.Horizontal
-            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
+//            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
@@ -280,9 +281,10 @@ TabPage {
             anchors.topMargin: 10
             height: 50
             buttonImage: "../img/go-down.svgz"
-            spokenText: true
+            spokenText: false
             buttonLayout: Qt.Horizontal
             onButtonClick: setScreen("MainCommunicationSendMessage")
+            buttonNumber: "1"
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration:500}
             }
@@ -296,12 +298,13 @@ TabPage {
             anchors.topMargin: 10
             height: 50
             buttonImage: "../img/go-down.svgz"
-            spokenText: true
+            spokenText: false
             buttonLayout: Qt.Horizontal
             onButtonClick: {
                 simonTouch.fetchMessages(lvContactsView.currentItem.contactId)
                 setScreen("MainCommunicationReadMessages")
             }
+            buttonNumber:"2"
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }

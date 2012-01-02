@@ -89,9 +89,10 @@ TabPage {
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to computer")
                     shortcut: Qt.Key_Down
-                    spokenText: true
+                    spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
+                    buttonNumber: "1"
                     onButtonClick: {
                         simonTouch.sendMail(recipientUid, messageInput.text)
                         back()
@@ -106,9 +107,11 @@ TabPage {
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to mobile phone")
                     shortcut: Qt.Key_Down
-                    spokenText: true
+                    spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right
+                    buttonNumber: "2"
+
                     onButtonClick: {
                         simonTouch.sendSMS(recipientUid, messageInput.text)
                         back()

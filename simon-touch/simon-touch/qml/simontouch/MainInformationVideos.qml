@@ -197,7 +197,7 @@ TabPage {
             buttonNumber: ""
             buttonImage: ("../img/fullscreen.png")
             shortcut: Qt.Key_F
-            spokenText: true
+            spokenText: false
             height: 90
             width: 130
             opacity: videoFlip.flipped ? 1 : 0

@@ -96,9 +96,10 @@ TabPage {
                 anchors.topMargin: 10
                 height: 50
                 color: Qt.darker("#FFFBC7", 1.1)
-                buttonText: (state == "slideshowDisabled") ? qsTr("Start slideshow") : qsTr("Stop slideshow")
+                buttonText: (state == "slideshowDisabled") ? qsTr("Slideshow") : qsTr("Stop slideshow")
 //                disableImage: true
-                spokenText: true
+                spokenText: false
+                buttonNumber: "Ok"
                 buttonLayout: Qt.Horizontal
                 state: "slideshowDisabled"
                 states: [
@@ -147,6 +148,22 @@ TabPage {
             color: "#FFFBC7"
             state: "windowed"
 
+            Button {
+                id: stopSlideshow
+                anchors.horizontalCenter: parent.horizontalCenter
+                visible: (parent.state =="windowed") ? 0 : 1
+                height: 50
+                width: 300
+                z: 1
+                buttonImage: "../img/go-down.svgz"
+                buttonText: qsTr("Stop slideshow")
+                shortcut: Qt.Key_Down
+                spokenText: false
+                buttonNumber: qsTr("Stop")
+                buttonLayout: Qt.Horizontal
+                onButtonClick: if (lvImages.currentIndex + 1 < lvImages.count) lvImages.currentIndex += 1
+            }
+
             Image {
                 id: imImage
                 anchors.fill: parent
@@ -177,12 +194,16 @@ TabPage {
                         y: - parent.y
                         width: main.width
                         height: main.height
+                        color: "black"
                     }
                 }
             ]
 
             transitions: Transition {
-                NumberAnimation { properties: "width,height,x,y"; easing.type: Easing.InOutQuad }
+                ParallelAnimation {
+                    NumberAnimation { properties: "width,height,x,y"; easing.type: Easing.InOutQuad }
+                    ColorAnimation { duration: 200 }
+                }
             }
 
         }

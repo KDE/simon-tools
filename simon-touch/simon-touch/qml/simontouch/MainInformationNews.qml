@@ -117,7 +117,7 @@ TabPage {
             width: 200
             height: 50
             buttonImage: "../img/go-previous.svgz"
-            buttonText: qsTr("Previous")
+            buttonText: qsTr("Left")
             shortcut: Qt.Key_Left
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -136,7 +136,7 @@ TabPage {
             width: 200
             height: 50
             buttonImage: "../img/go-next.svgz"
-            buttonText: qsTr("Next")
+            buttonText: qsTr("Right")
             shortcut: Qt.Key_Right
             spokenText: true
             buttonLayout: Qt.Horizontal

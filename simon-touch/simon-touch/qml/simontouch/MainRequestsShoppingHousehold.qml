@@ -16,30 +16,60 @@ TabPage {
         anchors.fill: parent
 
         ListModel {
+            id: lvShoppingCategoryModel
+            ListElement {
+                category: "Drinks"
+            }
+            ListElement {
+                category: "Food"
+            }
+            ListElement {
+                category: "Hygiene"
+            }
+        }
+
+        Component {
+            id: categoryModelDelegate
+            Text {
+                text: category
+                font.family: "Arial"
+                font.pointSize: 16
+                width: parent.width
+//                anchors.verticalCenter: parent.verticalCenter
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        lvShoppingCategory.currentIndex = index;
+                    }
+                }
+            }
+        }
+
+        SelectionListView {
+            id: lvShoppingCategory
+            objectName: "lvShoppingCategory"
+
+            anchors {
+                left: parent.left
+//                right: parent.right
+                top: parent.top
+                bottom: parent.bottom
+                margins: 160
+                leftMargin: 0
+                rightMargin: 0
+//                bottomMargin: 200
+            }
+            width: screen.width / 2 - 260
+            model: lvShoppingCategoryModel
+            delegate: categoryModelDelegate
+        }
+
+        ListModel {
             id: lvShoppingDrinksModel
             ListElement {
-                type: "Mineralwasser prickelnd"
-                count: 1
-            }
-            ListElement {
-                type: "Orangensaft"
-                count: 1
-            }
-            ListElement {
-                type: "Mineralwasser kohlensäurefrei"
-                count: 1
-            }
-            ListElement {
-                type: "Bier"
-                count: 1
-            }
-            ListElement {
-                type: "Wein"
-                count: 1
-            }
-            ListElement {
-                type: "Brot"
-                count: 1
+                name: "Mineralwater sparkling";
+                amount: "1";
+                price: "0.89";
             }
         }
 
@@ -50,7 +80,7 @@ TabPage {
         Component {
             id: drinkModelDelegate
             Text {
-                text: type
+                text: name
                 font.family: "Arial"
                 font.pointSize: 16
                 width: parent.width
@@ -69,15 +99,17 @@ TabPage {
             objectName: "lvShoppingDrinks"
 
             anchors {
-                left: parent.left
+                left: lvShoppingCategory.right
 //                right: parent.right
                 top: parent.top
                 bottom: parent.bottom
-                margins: 160
+//                margins: 160
+                topMargin: 160
+                leftMargin: 0
                 rightMargin: 0
 //                bottomMargin: 200
             }
-            width: screen.width / 2 - 210
+            width: screen.width / 2 - 260
             model: lvShoppingDrinksModel
             delegate: drinkModelDelegate
         }
@@ -85,16 +117,16 @@ TabPage {
         function selectCurrentItem (inputModel, outputModel, inputLv, outputLv) {
             console.debug(inputModel.currentIndex);
             console.debug(inputModel+" : " + outputModel);
-            outputModel.append({"type":inputModel.get(inputLv.currentIndex).type,"count":inputModel.get(inputLv.currentIndex).count});
+            outputModel.append({"name":inputModel.get(inputLv.currentIndex).name,"amount":inputModel.get(inputLv.currentIndex).amount});
             inputModel.remove(inputLv.currentIndex);
         }
 
         function addAmount (model, modelLv) {
-            model.set(modelLv.currentIndex, {"count": ++model.get(modelLv.currentIndex).count})
+            model.set(modelLv.currentIndex, {"amount": ++model.get(modelLv.currentIndex).amount})
         }
 
         function decreaseAmount (model, modelLv) {
-            if (model.get(modelLv.currentIndex).count > 1) model.set(modelLv.currentIndex, {"count": --model.get(modelLv.currentIndex).count})
+            if (model.get(modelLv.currentIndex).amount > 1) model.set(modelLv.currentIndex, {"amount": --model.get(modelLv.currentIndex).amount})
             else drinkDeselect.buttonClick()
         }
 
@@ -104,13 +136,13 @@ TabPage {
                 width: parent.width
                 height: 30
                 Text {
-                    text: type
+                    text: name
                     font.family: "Arial"
                     font.pointSize: 16
                     anchors.left: parent.left
                 }
                 Text {
-                    text: count
+                    text: amount
                     font.family: "Arial"
                     font.pointSize: 16
                     anchors.right: parent.right
@@ -184,7 +216,7 @@ TabPage {
                 right: addAmount.left
                 rightMargin: 10
             }
-            onButtonClick: parent.decreaseAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection)
+            onButtonClick: parent.decreaseAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection);
         }
     }
 }

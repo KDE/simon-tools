@@ -165,3 +165,4 @@ LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui -lakonadi-kde 
 
 
 
+
