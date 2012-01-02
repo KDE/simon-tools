@@ -88,9 +88,10 @@ TabPage {
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to computer")
                     shortcut: Qt.Key_Down
-                    spokenText: true
+                    spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
+                    buttonNumber: "1"
         //            onButtonClick: if (lvMessagesView.currentIndex + 1 < lvMessagesView.count) lvMessagesView.currentIndex += 1
                 }
 
@@ -102,9 +103,10 @@ TabPage {
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to mobile phone")
                     shortcut: Qt.Key_Down
-                    spokenText: true
+                    spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right
+                    buttonNumber: "2"
         //            onButtonClick: if (lvMessagesView.currentIndex + 1 < lvMessagesView.count) lvMessagesView.currentIndex += 1
                 }
             }

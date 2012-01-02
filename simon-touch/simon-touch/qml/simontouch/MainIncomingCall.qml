@@ -50,7 +50,7 @@ TabPage {
 
                         Text {
                             id: callInName
-                            text: callItemView.callInName + " calls"
+                            text: callItemView.callInName + qsTr(" calls")
                             font.family: "Arial"
                             font.pointSize: 20
                         }
@@ -61,11 +61,20 @@ TabPage {
                         }
                     }
                 }
+
+                Text {
+                    id: incomingCallText
+                    text: qsTr("Do you want to accept the call?")
+                    font.pointSize: 20
+                    anchors.topMargin: 20
+                    anchors.centerIn: parent.center
+                }
+
                 Row {
                     spacing: 10
                     Button {
                         id: acceptCall
-                        buttonText: qsTr("Accept call")
+                        buttonText: qsTr("Yes")
                         height: 50
                         buttonImage: "../img/go-down.svgz"
                         spokenText: true
@@ -73,7 +82,7 @@ TabPage {
                     }
                     Button {
                         id: declineCall
-                        buttonText: qsTr("Decline call")
+                        buttonText: qsTr("No")
                         height: 50
                         buttonImage: "../img/go-down.svgz"
                         spokenText: true

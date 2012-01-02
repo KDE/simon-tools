@@ -56,7 +56,8 @@ TabPage {
                         buttonText: qsTr("Cancel call")
                         height: 50
                         buttonImage: "../img/go-down.svgz"
-                        spokenText: true
+                        spokenText: false
+                        buttonNumber: "Stop"
                         buttonLayout: Qt.Horizontal
                         width: callItemView.width
                         onButtonClick: ;

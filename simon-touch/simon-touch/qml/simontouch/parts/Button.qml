@@ -10,6 +10,7 @@ Rectangle {
     property int buttonKey: 0
     property bool spokenText: false
     property int shortcut
+    property bool extraSpokenText: true
     property int buttonLayout: Qt.Vertical
     signal buttonClick()
     property bool horizontalMiddleText:  true
@@ -29,6 +30,7 @@ Rectangle {
         font.family: "Arial"
         font.pointSize: 16
         anchors.bottom: (buttonLayout == Qt.Vertical) ? parent.bottom : undefined
+        anchors.left: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true && horizontalIconAlign == "left") ? mainButtonImage.right : undefined
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
         anchors.margins: 9
@@ -47,11 +49,14 @@ Rectangle {
         id: mainButtonNumber
         text: buttonNumber
         x: 5
-        anchors.bottom: parent.bottom
+        anchors.bottom: (buttonLayout == Qt.Vertical) ? parent.bottom :undefined
+        anchors.verticalCenter: (buttonLayout == Qt.Horizontal) ? parent.verticalCenter : undefined
+        anchors.right: (buttonLayout == Qt.Horizontal) ? parent.right : undefined
+        anchors.margins: (buttonLayout == Qt.Horizontal) ? 9 : 0
         font.family: "Arial"
-        font.pointSize: 44
+        font.pointSize: (buttonLayout == Qt.Horizontal) ? 16 : 44
         color: "#000099"
-        visible: (buttonNumber == "" || buttonLayout == Qt.Horizontal) ? 0 : 1
+        visible: (buttonNumber == "" || extraSpokenText == false) ? 0 : 1
     }
     Image {
         id: mainButtonImage
