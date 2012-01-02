@@ -11,9 +11,9 @@ TabPage {
         title: qsTr("Communication")
         state: "noCall"
         id: mainCommunication
-
+/*
         ListModel {
-            id: lvContactsModel
+            id: contactsModel
             ListElement {
                 prettyName: "Filippo Cavallo"
                 phoneNumber: "+39/328/5711026"
@@ -55,7 +55,8 @@ TabPage {
                 existingMessages: true
             }
         }
-
+        */
+        /*
         ListModel {
             id: lvMessageList
             ListElement {
@@ -65,12 +66,25 @@ TabPage {
                 datetime: "11/11/2011 11:11"
             }
         }
+        */
 
         Component {
             id: contactsDelegate
             Item {
+                property alias name: lbPrettyName.text
+                property bool hasPhone: (lbPhoneNumber.text != qsTr("Phone: -")) || (lbSkype.text != qsTr("Skype: -"))
+                property bool hasMail: lbMail.text != qsTr("Mail: -")
+                property alias contactId: uidWrapper.objectName
+                property bool hasMessages: true
+
                 height: 100
                 width: lvContactsView.width
+
+                Item { //dirty hack
+                    id: uidWrapper
+                    objectName: uid
+                }
+
                 Row {
                     spacing: 10
                     Column {
@@ -84,21 +98,25 @@ TabPage {
 
                     Column {
                         Text {
+                            id: lbPrettyName
                             text: prettyName
                             font.family: "Arial"
                             font.pointSize: 16
                         }
                         Text {
+                            id: lbPhoneNumber
                             text: qsTr("Phone: ") + phoneNumber
                             font.family: "Arial"
                             font.pointSize: 10
                         }
                         Text {
-                            text: qsTr("E-Mail: ") + email
+                            id: lbMail
+                            text: qsTr("Mail: ") + email
                             font.family: "Arial"
                             font.pointSize: 10
                         }
                         Text {
+                            id: lbSkype
                             text: qsTr("Skype: ") + skype
                             font.family: "Arial"
                             font.pointSize: 10
@@ -131,37 +149,38 @@ TabPage {
 //                bottomMargin: 200
             }
             width: screen.width / 2 - 210
-            model: lvContactsModel
+            model: contactsModel
             delegate: contactsDelegate
             onCurrentItemChanged: parent.changeSelection();
         }
 
         function changeSelection() {
-            mainCommunicationReadMessages.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
-            mainCommunicationSendMessage.prettyName = lvContactsModel.get(lvContactsView.currentIndex).prettyName
+            mainCommunicationReadMessages.prettyName = lvContactsView.currentItem.name
+            mainCommunicationSendMessage.prettyName = lvContactsView.currentItem.name
+            mainCommunicationSendMessage.recipientUid = lvContactsView.currentItem.contactId
 
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (lvContactsView.currentItem.hasPhone) {
                 mainCommunicationSendMessage.smsAvailable = 1
             } else {
                 mainCommunicationSendMessage.smsAvailable = 0
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (lvContactsView.currentItem.hasMail) {
                 mainCommunicationSendMessage.mailAvailable = 1
             } else {
                 mainCommunicationSendMessage.mailAvailable = 0
             }
 
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "") {
+            if (lvContactsView.currentItem.hasPhone) {
                 callPhone.opacity = true
             } else {
                 callPhone.opacity = false
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).phoneNumber != "" || lvContactsModel.get(lvContactsView.currentIndex).email != "") {
+            if (lvContactsView.currentItem.hasPhone || lvContactsView.currentItem.hasMail) {
                 sendMessage.opacity = true
             } else {
                 sendMessage.opacity = false
             }
-            if (lvContactsModel.get(lvContactsView.currentIndex).existingMessages != false) {
+            if (lvContactsView.currentItem.hasMessages) {
                 readMessages.opacity = true
             } else {
                 readMessages.opacity = false
@@ -232,6 +251,7 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
+            onButtonClick: simonTouch.callSkype(lvContactsView.currentItem.contactId)
         }
 
         Button {
@@ -250,6 +270,7 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
+            onButtonClick: simonTouch.callPhone(lvContactsView.currentItem.contactId)
         }
         Button {
             id: sendMessage
@@ -279,8 +300,28 @@ TabPage {
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal
-            onButtonClick: setScreen("MainCommunicationReadMessages")
+            onButtonClick: {
+                simonTouch.fetchMessages(lvContactsView.currentItem.contactId)
+                setScreen("MainCommunicationReadMessages")
+            }
             buttonNumber:"2"
+            Behavior on opacity {
+                NumberAnimation {properties: "opacity"; duration: 500}
+            }
+        }
+        Button {
+            anchors.top: readMessages.bottom
+            anchors.left: readMessages.left
+            buttonText: qsTr("Hang up (!FIXME!)")
+            width: lvContactsView.width
+            anchors.topMargin: 10
+            height: 50
+            buttonImage: "../img/go-down.svgz"
+            spokenText: true
+            buttonLayout: Qt.Horizontal
+            onButtonClick: {
+                simonTouch.hangUp()
+            }
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }

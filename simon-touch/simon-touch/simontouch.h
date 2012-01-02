@@ -11,6 +11,9 @@ class MusicModel;
 class RSSFeeds;
 class RSSFeed;
 class QNetworkAccessManager;
+class CommunicationCentral;
+class ContactsModel;
+class MessageModel;
 
 class QProcess;
 
@@ -30,6 +33,8 @@ private:
     RSSFeeds *m_rssFeeds;
     RSSFeed *m_currentRssFeed;
 
+    CommunicationCentral *m_communicationCentral;
+
     QNetworkAccessManager *m_rssLoader;
 
     QProcess *m_calculatorProcess;
@@ -43,18 +48,33 @@ public slots:
 
 public:
     SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);
-    ImagesModel* images() { return m_images; }
-    MusicModel* music() { return m_music; }
-    VideosModel* videos() { return m_videos; }
-    RSSFeed *rssFeed() { return m_currentRssFeed; }
-    QStringList rssFeedNames();
-    QStringList rssFeedIcons();
+    ImagesModel* images() const { return m_images; }
+    MusicModel* music() const { return m_music; }
+    VideosModel* videos() const { return m_videos; }
+    RSSFeed *rssFeed() const { return m_currentRssFeed; }
+    ContactsModel *contacts() const;
+    MessageModel *messages() const;
+    QStringList rssFeedNames() const;
+    QStringList rssFeedIcons() const;
+
     void fetchRssFeed(int id);
 
     void showKeyboard();
     void showCalculator();
     void hideKeyboard();
     void hideCalculator();
+
+    ContactsModel *getContacts();
+
+    void setupCommunication();
+
+    void callSkype(const QString& user);
+    void callPhone(const QString& user);
+    void hangUp();
+    void fetchMessages(const QString& user);
+    void sendSMS(const QString& user, const QString& message);
+    void sendMail(const QString& user, const QString& message);
+    void readMessage(int messageIndex);
 
     ~SimonTouch();
 };
