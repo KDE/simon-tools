@@ -15,51 +15,43 @@ TabPage {
         ListModel {
             id: contactsModel
             ListElement {
-                prettyName: "Stieger Franz"
-                phoneNumber: "0664/4034321"
-                email: "stiegerf@noemail.com"
-                skype: "franz.stieger"
-                image: "img/franz_01.jpg"
+                prettyName: "Filippo Cavallo"
+                phoneNumber: "+39/328/5711026"
+                email: "f.cavallo@sssup.it"
+                skype: "ing.filippocavallo"
+                image: "img/filippo.jpg"
                 existingMessages: true
             }
             ListElement {
-                prettyName: "Stieger Mathias"
-                phoneNumber: "0664/3841266"
-                email: ""
-                skype: ""
-                image: "img/mathias_01.jpg"
-                existingMessages: false
-            }
-            ListElement {
-                prettyName: "Stieger Franz"
-                phoneNumber: ""
-                email: "stiegerf@noemail.com"
-                skype: "franz.stieger"
-                image: "img/franz_01.jpg"
-                existingMessages: false
-            }
-            ListElement {
-                prettyName: "Stieger Mathias"
-                phoneNumber: "0664/3841266"
-                email: ""
-                skype: ""
-                image: "img/mathias_01.jpg"
+                prettyName: "Michaela Aquilano"
+                phoneNumber: "+39/347/4001286"
+                email: "m.aquilano@sssup.it"
+                skype: "michela.aquilano"
+                image: "img/michela.jpg"
                 existingMessages: true
             }
             ListElement {
                 prettyName: "Stieger Franz"
-                phoneNumber: "0664/4034321"
-                email: ""
-                skype: "franz.stieger"
-                image: "img/franz_01.jpg"
+                phoneNumber: "+43/664/4034321"
+                email: "f.stieger@cyber-byte.at"
+                skype: "stieger.franz"
+                image: "img/franz.jpg"
                 existingMessages: true
             }
             ListElement {
                 prettyName: "Stieger Mathias"
-                phoneNumber: ""
-                email: "stiegerm@noemail.com"
-                skype: ""
-                image: "img/mathias_01.jpg"
+                phoneNumber: "+43/664/3841266"
+                email: "m.stieger@simon-listens.org"
+                skype: "mathesus"
+                image: "img/mathias.jpg"
+                existingMessages: true
+            }
+            ListElement {
+                prettyName: "Grasch Peter"
+                phoneNumber: "+43/664/9135053"
+                email: "grasch@simon-listens.org"
+                skype: "bedahr"
+                image: "img/peter.jpg"
                 existingMessages: true
             }
         }
