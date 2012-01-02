@@ -4,7 +4,6 @@
 #include <QObject>
 #include <akonadi/collection.h>
 #include <akonadi/item.h>
-
 class KJob;
 class ContactsModel;
 class VoIPProvider;
@@ -12,6 +11,7 @@ class QTimer;
 class MessageModel;
 namespace Akonadi {
 class Monitor;
+class ChangeRecorder;
 }
 
 class CommunicationCentral : public QObject
@@ -19,15 +19,14 @@ class CommunicationCentral : public QObject
     Q_OBJECT
 private:
     ContactsModel *m_contacts;
-    MessageModel *m_messages;
     Akonadi::Monitor *m_collectionMonitor;
-    Akonadi::Monitor *m_messageMonitor;
+    Akonadi::ChangeRecorder *m_messageMonitor;
     Akonadi::Monitor *m_contactsMonitor;
 
     QString m_messageCollectionName;
     Akonadi::Collection m_messageCollection;
     Akonadi::Collection::List m_contactCollections;
-    QTimer *m_mailChangedTimeout;
+    MessageModel *m_messages;
 
     VoIPProvider *m_voipProvider;
 
@@ -42,13 +41,9 @@ private slots:
     void messageCollectionSearchJobFinished(KJob* job);
     void messageCollectionCreateJobFinished(KJob* job);
     void contactItemJobFinished(KJob*);
-    void messagesItemJobFinished(KJob*);
 
     void fetchContacts();
-    void scheduleFetchMessages();
     void fetchMessages();
-
-    void debug();
 
 public:
     CommunicationCentral(QObject *parent);
