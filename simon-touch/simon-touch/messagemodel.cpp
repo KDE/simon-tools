@@ -1,8 +1,10 @@
 #include "messagemodel.h"
 #include "imageprovider.h"
 #include <QDebug>
+#include <QImage>
 #include <KDE/KDateTime>
 #include <KIconLoader>
+#include <KLocale>
 
 MessageModel::MessageModel(QObject *parent) :
     QAbstractListModel(parent)
@@ -14,6 +16,17 @@ MessageModel::MessageModel(QObject *parent) :
     names.insert(Qt::UserRole+3, "message");
     names.insert(Qt::UserRole+4, "datetime");
     setRoleNames(names);
+
+
+    ImageProvider::getInstance()->registerImage("mail/read",
+                                                QImage(KIconLoader().iconPath("mail-read", -KIconLoader::SizeHuge, false)));
+    ImageProvider::getInstance()->registerImage("mail/unread",
+                                                QImage(KIconLoader().iconPath("mail-unread", -KIconLoader::SizeHuge, false)));
+}
+
+MessageModel::~MessageModel()
+{
+    ImageProvider::getInstance()->clearGroup("mail/");
 }
 
 void MessageModel::readMessage(int messageIndex)
@@ -27,17 +40,26 @@ void MessageModel::clear()
 {
     qDeleteAll(m_messages);
     m_messages.clear();
-    ImageProvider::getInstance()->clearGroup("messages/");
     reset();
 }
 
 void MessageModel::addItems(const QList< Mail* >& items)
 {
     m_messages.append(items);
+    foreach (Mail *m, items)
+        connect(m, SIGNAL(changed(Mail*)), this, SLOT(changed(Mail*)));
     //qSort(m_messages);
     reset();
 }
 
+void MessageModel::changed(Mail* m)
+{
+    int i = m_messages.indexOf(m);
+    if (i == -1)
+        return;
+
+    emit dataChanged(index(i), index(i));
+}
 
 QVariant MessageModel::data(const QModelIndex& index, int role) const
 {
@@ -48,12 +70,10 @@ QVariant MessageModel::data(const QModelIndex& index, int role) const
         return index.row();
     }
     case Qt::UserRole+1: { //icon
-        qDebug() << "Icon path: " << KIconLoader().iconPath("mail-read", -KIconLoader::SizeHuge, false);
         if (mail->getRead())
-            return KIconLoader().iconPath("mail-read", -KIconLoader::SizeHuge, false);
+            return "image://images/mail/read";
         else
-            return KIconLoader().iconPath("mail-unread", -KIconLoader::SizeHuge, false);
-        return QVariant();
+            return "image://images/mail/unread";
     }
     case Qt::UserRole+2: {
         KMime::Headers::Subject *s = msg->subject();
@@ -61,11 +81,11 @@ QVariant MessageModel::data(const QModelIndex& index, int role) const
         return s->asUnicodeString();
     }
     case Qt::UserRole+3: {
-        KMime::Content *c = msg->mainBodyPart();
-        return c->body();
+        QString body = mail->body();
+        return body;
     }
     case Qt::UserRole+4: {
-        return msg->date()->dateTime().dateTime();
+        return KGlobal::locale()->formatDateTime(msg->date()->dateTime().dateTime(), KLocale::FancyLongDate);
     }
     }
 

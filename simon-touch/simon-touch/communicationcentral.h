@@ -50,6 +50,8 @@ private slots:
 
     void debug();
 
+    QString getCurrentMessageUser();
+
 public:
     CommunicationCentral(QObject *parent);
     ~CommunicationCentral();

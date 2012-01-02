@@ -21,6 +21,7 @@
 #include <akonadi/entitydisplayattribute.h>
 
 #include <kmime/kmime_message.h>
+#include <akonadi/kmime/messageparts.h>
 
 #include <kabc/addressee.h>
 #include <kabc/phonenumber.h>
@@ -88,7 +89,10 @@ void CommunicationCentral::contactCollectionJobFinished(KJob* job)
         return;
     }
 
-    m_contactCollections = fetchJob->collections();
+    m_contactCollections.clear();
+    foreach (const Akonadi::Collection& c, fetchJob->collections())
+        if (!c.name().startsWith("simontouch-"))
+            m_contactCollections << c;
     fetchContacts();
 }
 
@@ -175,6 +179,13 @@ void CommunicationCentral::debug()
 
 }
 
+QString CommunicationCentral::getCurrentMessageUser()
+{
+    QString name = m_messageCollectionName;
+    name.remove(QRegExp("^simontouch-"));
+    return name;
+}
+
 void CommunicationCentral::getMessages(const QString& user)
 {
     if (m_contacts->getContact(user).emails().isEmpty())
@@ -182,7 +193,7 @@ void CommunicationCentral::getMessages(const QString& user)
 
     m_messages->clear();
     m_messageMonitor->setCollectionMonitored(m_messageCollection, false);
-    m_messageCollectionName = user;
+    m_messageCollectionName = "simontouch-"+user;
     qDebug() << "Fetching messages: " + m_messageCollectionName;
 
     Akonadi::CollectionFetchJob *job = new Akonadi::CollectionFetchJob( Akonadi::Collection::root(),
@@ -209,7 +220,7 @@ void CommunicationCentral::messageCollectionSearchJobFinished(KJob *job)
     }
 
     //else: search for messages
-    QString emailStr = m_contacts->getContact(m_messageCollectionName).emails().first();
+    QString emailStr = m_contacts->getContact(getCurrentMessageUser()).emails().first();
 
     Nepomuk::Query::ComparisonTerm valueTerm(Nepomuk::Vocabulary::NCO::emailAddress(), Nepomuk::Query::LiteralTerm(emailStr),
                                              Nepomuk::Query::ComparisonTerm::Equal);
@@ -255,7 +266,8 @@ void CommunicationCentral::fetchMessages()
 
     qDebug() << "Received collection: " << m_messageCollection.name();
     Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(m_messageCollection, this);
-    itemFetcher->fetchScope().fetchFullPayload();
+    //itemFetcher->fetchScope().fetchFullPayload();
+    itemFetcher->fetchScope().fetchPayloadPart(Akonadi::MessagePart::Envelope);
     //itemFetcher->fetchScope().fetchAttribute<Akonadi::EntityDisplayAttribute>();
     connect(itemFetcher, SIGNAL(finished(KJob*)), this, SLOT(messagesItemJobFinished(KJob*)));
     qDebug() << "Fetching payload";

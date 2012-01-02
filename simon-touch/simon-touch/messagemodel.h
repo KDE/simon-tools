@@ -16,6 +16,10 @@ public:
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
     void readMessage(int messageIndex);
+    ~MessageModel();
+
+private slots:
+    void changed(Mail* m);
 
 private:
     QList< Mail* > m_messages;

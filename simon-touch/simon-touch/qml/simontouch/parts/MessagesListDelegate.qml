@@ -37,7 +37,7 @@ Component {
         }
         Text {
             id: messageText
-            text: message
+            text: delegateItem.state == "current" ? message : qsTr("Please wait...")
             font.family: "Arial"
             font.pointSize: 10
             anchors.left: messageSubject.left
