@@ -48,9 +48,9 @@ private slots:
     void scheduleFetchMessages();
     void fetchMessages();
 
-    void debug();
-
     QString getCurrentMessageUser();
+
+    void emailSent(KJob* job);
 
 public:
     CommunicationCentral(QObject *parent);

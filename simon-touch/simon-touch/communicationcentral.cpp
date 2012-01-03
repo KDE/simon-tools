@@ -21,11 +21,17 @@
 #include <akonadi/entitydisplayattribute.h>
 
 #include <kmime/kmime_message.h>
+#include <KMime/Headers>
 #include <akonadi/kmime/messageparts.h>
 
 #include <kabc/addressee.h>
 #include <kabc/phonenumber.h>
 #include <kabc/contactgroup.h>
+
+#include <kpimidentities/identity.h>
+#include <kpimidentities/identitymanager.h>
+#include <mailtransport/messagequeuejob.h>
+#include <mailtransport/transportmanager.h>
 
 #include <Nepomuk/Query/Query>
 #include <Nepomuk/Query/Term>
@@ -172,13 +178,6 @@ void CommunicationCentral::contactItemJobFinished(KJob* job)
   m_contacts->addItems(processItemJob<KABC::Addressee>(job));
 }
 
-
-void CommunicationCentral::debug()
-{
-    qDebug() << "Collection changed!";
-
-}
-
 QString CommunicationCentral::getCurrentMessageUser()
 {
     QString name = m_messageCollectionName;
@@ -312,6 +311,41 @@ void CommunicationCentral::sendSMS(const QString& user, const QString& message)
 void CommunicationCentral::sendMail(const QString& user, const QString& message)
 {
     qDebug() << "Sending mail: " <<  user << message;
+    QString targetMail = m_contacts->getContact(user).emails().first();
+
+    KMime::Message::Ptr msg(new KMime::Message());
+    KMime::Headers::ContentType *ct = msg->contentType();
+    ct->setMimeType("text/plain");
+    //ct->setCategory( Headers:: );
+    msg->contentTransferEncoding()->clear(); //setEncoding(KMime::Headers::CE7Bit);
+
+    // Set the headers.
+    KPIMIdentities::Identity identity = KPIMIdentities::IdentityManager(true, this).defaultIdentity();
+
+    msg->from()->fromUnicodeString(QString("%1 <%2>").arg(identity.fullName(), identity.emailAddr()), "utf-8");
+    msg->to()->fromUnicodeString(targetMail, "utf-8");
+    msg->date()->setDateTime(KDateTime::currentLocalDateTime());
+    msg->subject()->fromUnicodeString(tr("Message from %1").arg(identity.fullName()), "utf-8");
+
+    msg->contentType()->setCharset("utf-8");
+    msg->fromUnicodeString(message);
+
+    msg->assemble();
+
+    MailTransport::MessageQueueJob *job = new MailTransport::MessageQueueJob(this);
+    job->setMessage(msg);
+    job->transportAttribute().setTransportId(MailTransport::TransportManager::self()->defaultTransportId());
+
+    job->addressAttribute().setFrom(identity.emailAddr());
+    job->addressAttribute().setTo(QStringList() <<  targetMail);
+    connect( job, SIGNAL(result(KJob*)), this, SLOT(emailSent(KJob*)) );
+    job->start();
+}
+
+void CommunicationCentral::emailSent(KJob* job)
+{
+    if (job->error())
+        qWarning() << job->errorString();
 }
 
 void CommunicationCentral::readMessage(int messageIndex)
