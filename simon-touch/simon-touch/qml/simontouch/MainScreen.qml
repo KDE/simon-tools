@@ -46,8 +46,9 @@ TabPage {
                 buttonNumber: "4"
                 shortcut: Qt.Key_4
                 buttonImage: ("../img/Button_Anfragen.png")
-                onButtonClick: showScreen("MainIncomingCall")
+//                onButtonClick: showScreen("MainIncomingCall")
 //                onButtonClick: showScreen("MainOutgoingCall")
+                onButtonClick: showScreen("MainActiveCall")
 //                onButtonClick: showScreen("MainRequests")
             }
         }
