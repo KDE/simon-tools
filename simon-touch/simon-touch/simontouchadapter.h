@@ -2,7 +2,6 @@
 #define SIMONTOUCHADAPTER_H
 
 #include <QtDBus/QtDBus>
-#include "simontouchstate.h"
 
 class SimonTouch;
 
@@ -28,7 +27,7 @@ public:
     SimonTouchAdapter(SimonTouch *parent);
 
 private slots:
-    void relayStatus(SimonTouchState::State);
+    void relayStatus(const QString&);
 
 public slots:
     QString currentStatus();

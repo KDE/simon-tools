@@ -3,7 +3,7 @@
  <node name="/Main">
          <interface name="local.SimonTouch">
                  <signal name="currentStatus">
-                    <arg name="status" type="i" direction="out"/>
+                    <arg name="status" type="s" direction="out"/>
                  </signal>
          </interface>
  </node>

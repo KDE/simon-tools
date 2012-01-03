@@ -42,9 +42,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
 
     QMLSimonTouchView view(&touch);
-    QObject::connect(&view, SIGNAL(enterState(SimonTouchState::State)), &touch, SLOT(enteredState(SimonTouchState::State)));
+    QObject::connect(&view, SIGNAL(enterState(const QString&)), &touch, SLOT(enteredState(const QString&)));
 
-    touch.enteredState(SimonTouchState::Main);
+    touch.enteredState("Main");
 
     return app->exec();
 }

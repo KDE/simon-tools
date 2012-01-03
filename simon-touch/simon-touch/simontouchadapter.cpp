@@ -6,12 +6,12 @@ SimonTouchAdapter::SimonTouchAdapter(SimonTouch *parent)
 {
     // constructor
     setAutoRelaySignals(true);
-    connect(parent, SIGNAL(currentStatus(SimonTouchState::State)), this, SLOT(relayStatus(SimonTouchState::State)));
+    connect(parent, SIGNAL(currentStatus(const QString&)), this, SLOT(relayStatus(const QString&)));
 }
 
-void SimonTouchAdapter::relayStatus(SimonTouchState::State state)
+void SimonTouchAdapter::relayStatus(const QString& state)
 {
-    m_status = QString::number((int) state);
+    m_status = state;
     emit statusChanged();
 }
 

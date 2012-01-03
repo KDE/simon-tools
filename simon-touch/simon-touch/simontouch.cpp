@@ -45,7 +45,7 @@ void SimonTouch::fetchRssFeed(int id)
     connect(reply, SIGNAL(finished()), this, SLOT(parseRss()));
 }
 
-void SimonTouch::enteredState(SimonTouchState::State state)
+void SimonTouch::enteredState(const QString& state)
 {
     qDebug() << "Entered state: " << state;
     emit currentStatus(state);

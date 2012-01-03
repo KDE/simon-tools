@@ -83,7 +83,6 @@ HEADERS += \
     flatfilesystemmodel.h \
     rssfeeds.h \
     rssfeed.h \
-    simontouchstate.h \
     simontouchadapter.h \
     communicationcentral.h \
     contactsmodel.h \
@@ -101,6 +100,7 @@ LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui \
         -lakonadi-kde -lakonadi-contact -lakonadi-kmime \
         -leventsimulation -lnepomuk -lnepomukquery \
         -lmailtransport -lkpimidentities
+
 
 
 
