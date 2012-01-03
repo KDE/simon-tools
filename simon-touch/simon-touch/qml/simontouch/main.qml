@@ -44,6 +44,15 @@ Rectangle {
             backAvailable: false
         }
 
+        MainActiveCall {
+            objectName: "MainActiveCall"
+            callImage: "img/franz.jpg"
+            callName: "Franz Stieger"
+            callNumber: "+43 664 3841266"
+            backAvailable: false
+            visibleAccept: false
+        }
+
         MainCommunication {
             objectName: "MainCommunication"
         }

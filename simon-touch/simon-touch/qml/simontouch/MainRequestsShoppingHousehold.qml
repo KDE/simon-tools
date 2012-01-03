@@ -59,13 +59,38 @@ TabPage {
                 rightMargin: 0
 //                bottomMargin: 200
             }
-            width: screen.width / 2 - 260
+            width: screen.width / 2 - 310
             model: lvShoppingCategoryModel
             delegate: categoryModelDelegate
         }
 
+        Text {
+            text: qsTr("Category")
+            font.family: "Arial"
+            font.pointSize: 20
+            font.bold: true
+            anchors.bottomMargin: 15
+            anchors.left: lvShoppingCategory.left
+            anchors.bottom: lvShoppingCategory.top
+        }
+
         ListModel {
             id: lvShoppingDrinksModel
+            ListElement {
+                name: "Mineralwater sparkling";
+                amount: "1";
+                price: "0.89";
+            }
+            ListElement {
+                name: "Mineralwater sparkling";
+                amount: "1";
+                price: "0.89";
+            }
+            ListElement {
+                name: "Mineralwater sparkling";
+                amount: "1";
+                price: "0.89";
+            }
             ListElement {
                 name: "Mineralwater sparkling";
                 amount: "1";
@@ -107,11 +132,21 @@ TabPage {
                 topMargin: 160
                 leftMargin: 0
                 rightMargin: 0
-//                bottomMargin: 200
+                bottomMargin: 200
             }
             width: screen.width / 2 - 260
             model: lvShoppingDrinksModel
             delegate: drinkModelDelegate
+        }
+
+        Text {
+            text: qsTr("Articles")
+            font.family: "Arial"
+            font.pointSize: 20
+            font.bold: true
+            anchors.bottomMargin: 15
+            anchors.left: lvShoppingDrinks.left
+            anchors.bottom: lvShoppingDrinks.top
         }
 
         function selectCurrentItem (inputModel, outputModel, inputLv, outputLv) {
@@ -159,22 +194,25 @@ TabPage {
         SelectionListView {
             id: lvShoppingDrinksSelection
             objectName: "lvShoppingDrinksSelection"
-            spacing: 10
+//            spacing: 10
             anchors {
-//                left: parent.left
-                right: parent.right
+                left: lvShoppingDrinks.right
+//                right: parent.right
                 top: parent.top
                 bottom: parent.bottom
-                margins: 160
-                rightMargin: 0
+//                margins: 160
+                topMargin: 160
+                leftMargin: 0
 //                bottomMargin: 200
             }
-            width: screen.width / 2 - 210
+
+            width: screen.width / 2 - 260
             model: lvShoppingDrinksSelectionModel
             delegate: drinkModelDelegateSelection
         }
         Button {
-            width: 200
+            id: selectItem
+            width: 100
             height: 50
             buttonText: qsTr("Select")
             anchors {
@@ -184,15 +222,16 @@ TabPage {
             onButtonClick: parent.selectCurrentItem(lvShoppingDrinksModel, lvShoppingDrinksSelectionModel, lvShoppingDrinks, lvShoppingDrinksSelection)
         }
         Button {
-            width: 200
+            width: 50
             height: 50
-            id: drinkDeselect
-            buttonText: qsTr("Deselect")
+            id: decreaseAmount
+            buttonText: qsTr("-1")
             anchors {
                 top: lvShoppingDrinks.bottom
-                right: lvShoppingDrinksSelection.right
+                left: selectItem.right
+                leftMargin: 10
             }
-            onButtonClick: parent.selectCurrentItem(lvShoppingDrinksSelectionModel, lvShoppingDrinksModel, lvShoppingDrinksSelection, lvShoppingDrinks)
+            onButtonClick: parent.decreaseAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection);
         }
         Button {
             width: 50
@@ -201,22 +240,22 @@ TabPage {
             buttonText: qsTr("+1")
             anchors {
                 top: lvShoppingDrinks.bottom
-                right: drinkDeselect.left
-                rightMargin: 10
+                left: decreaseAmount.right
+                leftMargin: 10
             }
             onButtonClick: parent.addAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection)
         }
         Button {
-            width: 50
+            width: 200
             height: 50
-            id: decreaseAmount
-            buttonText: qsTr("-1")
+            id: drinkDeselect
+            buttonText: qsTr("Deselect")
             anchors {
                 top: lvShoppingDrinks.bottom
-                right: addAmount.left
-                rightMargin: 10
+                left: addAmount.right
+                leftMargin: 10
             }
-            onButtonClick: parent.decreaseAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection);
+            onButtonClick: parent.selectCurrentItem(lvShoppingDrinksSelectionModel, lvShoppingDrinksModel, lvShoppingDrinksSelection, lvShoppingDrinks)
         }
     }
 }
