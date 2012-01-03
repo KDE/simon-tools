@@ -11,63 +11,6 @@ TabPage {
         title: qsTr("Communication")
         state: "noCall"
         id: mainCommunication
-/*
-        ListModel {
-            id: contactsModel
-            ListElement {
-                prettyName: "Filippo Cavallo"
-                phoneNumber: "+39/328/5711026"
-                email: "f.cavallo@sssup.it"
-                skype: "ing.filippocavallo"
-                image: "img/filippo.jpg"
-                existingMessages: true
-            }
-            ListElement {
-                prettyName: "Michaela Aquilano"
-                phoneNumber: "+39/347/4001286"
-                email: "m.aquilano@sssup.it"
-                skype: "michela.aquilano"
-                image: "img/michela.jpg"
-                existingMessages: true
-            }
-            ListElement {
-                prettyName: "Stieger Franz"
-                phoneNumber: "+43/664/4034321"
-                email: "f.stieger@cyber-byte.at"
-                skype: "stieger.franz"
-                image: "img/franz.jpg"
-                existingMessages: true
-            }
-            ListElement {
-                prettyName: "Stieger Mathias"
-                phoneNumber: "+43/664/3841266"
-                email: "m.stieger@simon-listens.org"
-                skype: "mathesus"
-                image: "img/mathias.jpg"
-                existingMessages: true
-            }
-            ListElement {
-                prettyName: "Grasch Peter"
-                phoneNumber: "+43/664/9135053"
-                email: "grasch@simon-listens.org"
-                skype: "bedahr"
-                image: "img/peter.jpg"
-                existingMessages: true
-            }
-        }
-        */
-        /*
-        ListModel {
-            id: lvMessageList
-            ListElement {
-                icon: ""
-                subject: "Das ist ein Testsubjekt"
-                text: "Das ist ein Testtext."
-                datetime: "11/11/2011 11:11"
-            }
-        }
-        */
-
         Component {
             id: contactsDelegate
             Item {
@@ -229,7 +172,7 @@ TabPage {
             spokenText: false
             buttonNumber: qsTr("Ok")
             buttonLayout: Qt.Horizontal
-//            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
+            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
