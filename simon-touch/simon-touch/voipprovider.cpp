@@ -2,4 +2,5 @@
 
 VoIPProvider::VoIPProvider()
 {
+    qRegisterMetaType<VoIPProvider::CallState>();
 }

@@ -14,8 +14,6 @@ class QDeclarativeItem;
 class QMLSimonTouchView : public SimonTouchView
 {
 Q_OBJECT
-private:
-    QScopedPointer<QmlApplicationViewer> viewer;
 
 public:
     QMLSimonTouchView(SimonTouch *logic);
@@ -28,11 +26,20 @@ public slots:
     void callSkype(const QString& user);
     void callPhone(const QString& user);
     void hangUp();
+    void pickUp();
     void fetchMessages(const QString& user);
     void sendSMS(const QString& user, const QString& message);
     void sendMail(const QString& user, const QString& message);
 
     void readMessage(int messageIndex);
+
+
+private:
+    QScopedPointer<QmlApplicationViewer> viewer;
+
+private slots:
+    void activeCall(const QString& user, const QString& avatar, bool ring);
+    void callEnded();
 };
 
 #endif // QMLSIMONTOUCHVIEW_H

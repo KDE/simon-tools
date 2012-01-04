@@ -475,9 +475,9 @@ void Skype::skypeMessage(const QString &message) {
 		const QString &callId = message.section(' ', 1, 1).trimmed();
 		if (message.section(' ', 2, 2).trimmed().toUpper() == "CONF_ID") {
 			if (d->knownCalls.indexOf(callId) == -1) {//new call
-				d->knownCalls << callId;
+                                d->knownCalls << callId;
 				const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
-				emit newCall(callId, userId);
+                                emit newCall(callId, userId);
 			}
 			const QString &confId = message.section(' ', 3, 3).trimmed().toUpper();
 			if (confId != "0") {//It is an conference

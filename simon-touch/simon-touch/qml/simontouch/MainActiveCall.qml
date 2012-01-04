@@ -20,13 +20,11 @@ TabPage {
             id: callItemView
             width: parent.width / 2
             height: parent.height / 2
-//            anchors.centerIn: parent
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            property string callName: "Mathias Stieger"
-            property string callNumber: "+43 664 3841266"
+            property string callName: ""
+            property string callNumber: ""
             Rectangle {
-//                anchors.verticalCenter: parent.verticalCenter
                 width: screen.width / 2
                 anchors.centerIn: parent.Center
                 Row {
@@ -60,6 +58,7 @@ TabPage {
                     anchors.left: parent.left
                     anchors.top: activeCallRow.bottom
                     anchors.topMargin: 10
+                    onButtonClick: simonTouch.pickUp()
                 }
                 Button {
                     id: declineCall
@@ -71,6 +70,7 @@ TabPage {
                     anchors.right: parent.right
                     anchors.top: activeCallRow.bottom
                     anchors.topMargin: 10
+                    onButtonClick: simonTouch.hangUp()
                 }
             }
         }

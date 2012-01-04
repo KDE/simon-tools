@@ -36,6 +36,9 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(logic, SIGNAL(rssFeedError()),
             viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"),
             SLOT(feedFetchError()));
+    connect(logic, SIGNAL(activeCall(QString,QString,bool)),
+            this, SLOT(activeCall(QString,QString,bool)));
+    connect(logic, SIGNAL(callEnded()), this, SLOT(callEnded()));
 }
 void QMLSimonTouchView::callSkype(const QString& user)
 {
@@ -50,6 +53,10 @@ void QMLSimonTouchView::callPhone(const QString& user)
 void QMLSimonTouchView::hangUp()
 {
     m_logic->hangUp();
+}
+void QMLSimonTouchView::pickUp()
+{
+    m_logic->pickUp();
 }
 
 void QMLSimonTouchView::fetchMessages(const QString& user)
@@ -80,6 +87,23 @@ void QMLSimonTouchView::setState(const QString& state)
 QString QMLSimonTouchView::componentName(QDeclarativeItem* object)
 {
     return object->metaObject()->className();
+}
+
+void QMLSimonTouchView::activeCall(const QString& user, const QString& avatar, bool ring)
+{
+    qDebug() << "QML view: activeCall(): " << user << avatar << ring;
+    QObject *activeCall = viewer->rootObject()->findChild<QObject*>("MainActiveCall");
+    activeCall->setProperty("callImage", avatar);
+    activeCall->setProperty("callName", user);
+    activeCall->setProperty("visibleAccept", ring);
+
+    qDebug() << "Main menu: " << viewer->rootObject()->findChild<QObject*>("mainMenu");
+    viewer->rootObject()->findChild<QObject*>("mainMenu")->setProperty("current", "MainActiveCall");
+}
+
+void QMLSimonTouchView::callEnded()
+{
+    viewer->rootObject()->findChild<QObject*>("mainMenu")->setProperty("current", "MainScreen");
 }
 
 QMLSimonTouchView::~QMLSimonTouchView()

@@ -38,6 +38,39 @@ KABC::Addressee ContactsModel::getContact(const QString& id)
     return KABC::Addressee();
 }
 
+KABC::Addressee ContactsModel::getContactBySkypeHandle(const QString& handle)
+{
+    foreach (const KABC::Addressee& a, m_contacts) {
+        if (a.custom("KADDRESSBOOK", "skype") == handle) {
+            qDebug() << "DOES match handle: " << a.custom("KADDRESSBOOK", "skype") << a.formattedName() << handle;
+            return a;
+        } else {
+            qDebug() << "Doesn't match handle: " << a.custom("KADDRESSBOOK", "skype") << a.formattedName() << handle;
+        }
+    }
+
+    return KABC::Addressee();
+}
+
+
+QString ContactsModel::getName(KABC::Addressee contact) const
+{
+    return contact.formattedName();
+}
+
+QString ContactsModel::getAvatar(KABC::Addressee contact) const
+{
+    KABC::Picture pic = contact.photo();
+    qDebug() << "Picture url: " << pic.url();
+
+    if (pic.isIntern()) {
+        QString url = "contacts/"+contact.uid();
+        ImageProvider::getInstance()->registerImage(url, pic.data());
+        return "image://images/"+url;
+    } else
+        return pic.url();
+}
+
 QVariant ContactsModel::data(const QModelIndex& index, int role) const
 {
     const KABC::Addressee& contact = m_contacts[index.row()];
@@ -46,7 +79,7 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
         return index.row();
     }
     case Qt::UserRole+1: {
-        return contact.formattedName();
+        return getName(contact);
     }
     case Qt::UserRole+2: {
         KABC::PhoneNumber::List numbers = contact.phoneNumbers();
@@ -64,15 +97,7 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
         return contact.custom("KADDRESSBOOK", "skype");
     }
     case Qt::UserRole+5: {
-        KABC::Picture pic = contact.photo();
-        qDebug() << "Picture url: " << pic.url();
-
-        if (pic.isIntern()) {
-            QString url = "contacts/"+contact.uid();
-            ImageProvider::getInstance()->registerImage(url, pic.data());
-            return "image://images/"+url;
-        } else
-            return pic.url();
+        return getAvatar(contact);
     }
     case Qt::UserRole+6: {
         return true;

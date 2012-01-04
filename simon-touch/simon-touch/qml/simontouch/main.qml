@@ -12,8 +12,17 @@ Rectangle {
             calculatorButton.opacity = visibility;
             console.debug("changeButtonVisibility: " + visibility);
     }
+    function activeCall() {
+        console.debug("Receiving active call...");
+        showScreen("MainActiveCall");
+    }
+    function callEnded() {
+        console.debug("Active call ended...");
+        showScreen("MainScreen");
+    }
 
     TabPage {
+        objectName: "mainMenu"
         opacity: 1
         id: tabs
         z: ((keyboardButton.state == "collapsed") && (calculatorButton.state == "collapsed")) ? 5 : 0
@@ -28,29 +37,9 @@ Rectangle {
             objectName: "MainInformation"
         }
 
-        MainIncomingCall {
-            objectName: "MainIncomingCall"
-            callInImage: "img/franz.jpg"
-            callInName: "Franz Stieger"
-            callInNumber: "+43 664 3841266"
-            backAvailable: false
-        }
-
-        MainOutgoingCall {
-            objectName: "MainOutgoingCall"
-            callOutImage: "img/franz.jpg"
-            callOutName: "Franz Stieger"
-            callOutNumber: "+43 664 3841266"
-            backAvailable: false
-        }
-
         MainActiveCall {
             objectName: "MainActiveCall"
-            callImage: "img/franz.jpg"
-            callName: "Franz Stieger"
-            callNumber: "+43 664 3841266"
             backAvailable: false
-            visibleAccept: false
         }
 
         MainCommunication {

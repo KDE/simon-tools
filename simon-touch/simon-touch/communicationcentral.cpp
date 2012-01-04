@@ -2,8 +2,6 @@
 #include "contactsmodel.h"
 #include "messagemodel.h"
 #include "voipproviderfactory.h"
-#include "voipprovider.h"
-
 #include "mail.h"
 
 #include <QStringList>
@@ -66,6 +64,31 @@ CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
     m_mailChangedTimeout->setSingleShot(true);
     m_mailChangedTimeout->setInterval(500);
     connect(m_mailChangedTimeout, SIGNAL(timeout()), this, SLOT(fetchMessages()));
+
+    connect(m_voipProvider, SIGNAL(activeCall(QString,VoIPProvider::CallState)),
+            this, SLOT(handleCall(QString, VoIPProvider::CallState)));
+    connect(m_voipProvider, SIGNAL(callEnded()), this, SIGNAL(callEnded()));
+}
+
+void CommunicationCentral::handleCall(const QString& user, VoIPProvider::CallState state)
+{
+    qDebug() << "Receiving incoming call from user: " << user;
+    KABC::Addressee a = m_contacts->getContactBySkypeHandle(user);
+    QString name = m_contacts->getName(a);
+    QString avatar = m_contacts->getAvatar(a);
+
+    switch (state)
+    {
+    case VoIPProvider::RingingLocally:
+        emit activeCall(name, avatar, true);
+        break;
+    case VoIPProvider::RingingRemotely:
+        emit activeCall(name, avatar, false);
+        break;
+    case VoIPProvider::Connected:
+        emit activeCall(name, avatar, false);
+        break;
+    }
 }
 
 CommunicationCentral::~CommunicationCentral()
@@ -73,6 +96,12 @@ CommunicationCentral::~CommunicationCentral()
     delete m_contacts;
     delete m_messages;
     delete m_voipProvider;
+}
+
+void CommunicationCentral::pickUp()
+{
+    qDebug() << "Picking up";
+    m_voipProvider->pickUp();
 }
 
 void CommunicationCentral::setupContactCollections()

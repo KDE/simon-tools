@@ -19,6 +19,8 @@ SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
     m_calculatorProcess(new QProcess(this)), m_keyboardProcess(new QProcess(this))
 {
     setupCommunication();
+    connect(m_communicationCentral, SIGNAL(activeCall(QString,QString,bool)), this, SIGNAL(activeCall(QString,QString,bool)));
+    connect(m_communicationCentral, SIGNAL(callEnded()), this, SIGNAL(callEnded()));
 }
 
 SimonTouch::~SimonTouch()
@@ -119,6 +121,10 @@ void SimonTouch::callPhone(const QString& user)
 void SimonTouch::hangUp()
 {
     m_communicationCentral->hangUp();
+}
+void SimonTouch::pickUp()
+{
+    m_communicationCentral->pickUp();
 }
 
 void SimonTouch::fetchMessages(const QString& user)

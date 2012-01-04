@@ -5,7 +5,7 @@
 #include <QStringList>
 #include <QDebug>
 
-SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype)
+SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype), dropVoiceMail(false)
 {
     connect(s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
     connect(s, SIGNAL(callStatus(const QString&, const QString&)), this, SLOT(callStatus(const QString&, const QString&)));
@@ -17,22 +17,29 @@ SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype)
     qDebug() << "Done";
 }
 
-void SkypeVoIPProvider::incomingCall(const QString& callId, const QString& userId)
+void SkypeVoIPProvider::newCall(const QString& callId, const QString& userId)
 {
     if (dropVoiceMail) {
         s->hangUp(callId);
+        dropVoiceMail = false;
+        return;
     }
 
     qDebug() << "Call: " << callId << userId;
+    calls.insert(callId, userId);
 
-    emit newCall(userId);
+    emit activeCall(userId, s->isCallIncoming(callId) ? VoIPProvider::RingingLocally : VoIPProvider::RingingRemotely);
 }
 
 void SkypeVoIPProvider::callStatus(const QString &callId, const QString &status)
 {
+  qDebug() << "CALL STATUS: " << status;
+  if ((status == "MISSED") || (status == "REFUSED") || (status == "FINISHED") || (status == "CANCELLED"))
+      emit callEnded();
   if (status == "INPROGRESS") {
     usleep(1000000);
     s->startSendingVideo(callId);
+    emit activeCall(calls.value(callId), VoIPProvider::Connected);
   }
 }
 
@@ -43,9 +50,18 @@ void SkypeVoIPProvider::newCall(const QString& userId)
 
 void SkypeVoIPProvider::hangUp()
 {
-    dropVoiceMail = true;
-    foreach (const QString& call, s->searchActiveCalls())
-      s->hangUp(call);
+    if (s->searchActiveCalls().count() > 0)
+        foreach (const QString& call, s->searchActiveCalls())
+          s->hangUp(call);
+    else
+        dropVoiceMail = true;
+    calls.clear();
+}
+
+void SkypeVoIPProvider::pickUp()
+{
+    foreach (const QString& c, s->searchActiveCalls())
+        s->acceptCall(c);
 }
 
 void SkypeVoIPProvider::sendSMS(const QString& userId, const QString& message)

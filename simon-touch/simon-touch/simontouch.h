@@ -24,6 +24,8 @@ signals:
     void rssFeedReady();
     void rssFeedError();
     void currentStatus(const QString&);
+    void activeCall(const QString& user, const QString& avatar, bool ring);
+    void callEnded();
 
 private:
     ImagesModel *m_images;
@@ -69,6 +71,7 @@ public:
 
     void callSkype(const QString& user);
     void callPhone(const QString& user);
+    void pickUp();
     void hangUp();
     void fetchMessages(const QString& user);
     void sendSMS(const QString& user, const QString& message);

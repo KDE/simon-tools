@@ -4,10 +4,10 @@
 #include <QObject>
 #include <akonadi/collection.h>
 #include <akonadi/item.h>
+#include "voipprovider.h"
 
 class KJob;
 class ContactsModel;
-class VoIPProvider;
 class QTimer;
 class MessageModel;
 namespace Akonadi {
@@ -17,6 +17,31 @@ class Monitor;
 class CommunicationCentral : public QObject
 {
     Q_OBJECT
+
+signals:
+    void activeCall(const QString& user, const QString& avatar, bool ring);
+    void callEnded();
+
+public:
+    CommunicationCentral(QObject *parent);
+    ~CommunicationCentral();
+
+    ContactsModel *getContacts() const { return m_contacts; }
+    MessageModel *getMessageModel() const { return m_messages; }
+
+    void callSkype(const QString& user);
+    void callPhone(const QString& user);
+    void hangUp();
+    void pickUp();
+    void getMessages(const QString& user);
+    void sendSMS(const QString& user, const QString& message);
+    void sendMail(const QString& user, const QString& message);
+    void readMessage(int messageIndex);
+
+public slots:
+    void setupContactCollections();
+
+
 private:
     ContactsModel *m_contacts;
     MessageModel *m_messages;
@@ -52,24 +77,7 @@ private slots:
 
     void emailSent(KJob* job);
 
-public:
-    CommunicationCentral(QObject *parent);
-    ~CommunicationCentral();
-
-    ContactsModel *getContacts() const { return m_contacts; }
-    MessageModel *getMessageModel() const { return m_messages; }
-
-    void callSkype(const QString& user);
-    void callPhone(const QString& user);
-    void hangUp();
-    void getMessages(const QString& user);
-    void sendSMS(const QString& user, const QString& message);
-    void sendMail(const QString& user, const QString& message);
-    void readMessage(int messageIndex);
-
-public slots:
-    void setupContactCollections();
-
+    void handleCall(const QString& user, VoIPProvider::CallState state);
 };
 
 #endif // COMMUNICATIONCENTRAL_H

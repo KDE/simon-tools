@@ -21,6 +21,10 @@ public:
     virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
 
     KABC::Addressee getContact(const QString& id);
+    KABC::Addressee getContactBySkypeHandle(const QString& handle);
+
+    QString getName(KABC::Addressee contact) const;
+    QString getAvatar(KABC::Addressee contact) const;
 
 private:
     QList< KABC::Addressee > m_contacts;
