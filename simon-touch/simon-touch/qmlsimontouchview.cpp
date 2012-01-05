@@ -13,7 +13,6 @@
 #include "messagemodel.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
-#include "qmlwrapwidget.h"
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), dlg(new QWidget()),
