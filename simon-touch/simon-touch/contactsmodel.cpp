@@ -51,7 +51,11 @@ KABC::Addressee ContactsModel::getContactBySkypeHandle(const QString& handle)
 
 QString ContactsModel::getName(KABC::Addressee contact) const
 {
-    return contact.formattedName();
+    QString name = contact.formattedName();
+    if (name.isEmpty()) {
+        name = QString("%1 %2").arg(contact.givenName()).arg(contact.familyName());
+    }
+    return name;
 }
 
 QString ContactsModel::getAvatar(KABC::Addressee contact) const
