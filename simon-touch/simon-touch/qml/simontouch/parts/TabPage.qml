@@ -16,7 +16,7 @@ import QtQuick 1.1
              setScreen("MainScreen")
      }
 
-     function setOpacities() {
+     function setOpacities(FFFBC7) {
          for (var i = 0; i < tabWidget.children.length; ++i) {
              if (tabWidget.children[i] == btBack)
                  continue;

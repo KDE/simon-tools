@@ -41,12 +41,8 @@ KABC::Addressee ContactsModel::getContact(const QString& id)
 KABC::Addressee ContactsModel::getContactBySkypeHandle(const QString& handle)
 {
     foreach (const KABC::Addressee& a, m_contacts) {
-        if (a.custom("KADDRESSBOOK", "skype") == handle) {
-            qDebug() << "DOES match handle: " << a.custom("KADDRESSBOOK", "skype") << a.formattedName() << handle;
+        if (a.custom("KADDRESSBOOK", "skype") == handle)
             return a;
-        } else {
-            qDebug() << "Doesn't match handle: " << a.custom("KADDRESSBOOK", "skype") << a.formattedName() << handle;
-        }
     }
 
     return KABC::Addressee();

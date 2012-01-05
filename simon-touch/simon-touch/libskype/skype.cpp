@@ -472,84 +472,88 @@ void Skype::skypeMessage(const QString &message) {
 			}
 		}
 	} else if (messageType == "CALL") {
-		const QString &callId = message.section(' ', 1, 1).trimmed();
-		if (message.section(' ', 2, 2).trimmed().toUpper() == "CONF_ID") {
-			if (d->knownCalls.indexOf(callId) == -1) {//new call
-                                d->knownCalls << callId;
-				const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
-                                emit newCall(callId, userId);
-			}
-			const QString &confId = message.section(' ', 3, 3).trimmed().toUpper();
-			if (confId != "0") {//It is an conference
-				emit groupCall(callId, confId);
-			}
-		}
-		if (message.section(' ', 2, 2).trimmed().toUpper() == "STATUS") {
-      if (message.contains("VM_SENT")) 
-        emit voiceMessageSent();
-			if (d->knownCalls.indexOf(callId) == -1) {//new call
-				d->knownCalls << callId;
-        const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
-        if (message.contains("ROUTING")) 
-          kDebug() << "Skipping as this is an outgoing call...";
-        else
-          emit newCall(callId, userId);
-			}
-			const QString &status = message.section(' ', 3, 3).toUpper();
-			if (status == "FAILED") {
-				int reason = (d->connection % QString("GET CALL %1 FAILUREREASON").arg(callId)).section(' ', 3, 3).trimmed().toInt();
-				QString errorText = i18n("Unknown error");
-				switch (reason) {
-					case 1:
-						errorText = i18n("Misc error");
-						break;
-					case 2:
-						errorText = i18n("User or phone number does not exist");
-						break;
-					case 3:
-						errorText = i18n("User is offline");
-						break;
-					case 4:
-						errorText = i18n("No proxy found");
-						break;
-					case 5:
-						errorText = i18n("Session terminated");
-						break;
-					case 6:
-						errorText = i18n("No common codec found");
-						break;
-					case 7:
-						errorText = i18n("Sound I/O error");
-						break;
-					case 8:
-						errorText = i18n("Problem with remote sound device");
-						break;
-					case 9:
-						errorText = i18n("Call blocked by recipient");
-						break;
-					case 10:
-						errorText = i18n("Recipient not a friend");
-						break;
-					case 11:
-						errorText = i18n("User not authorized by recipient");
-						break;
-					case 12:
-						errorText = i18n("Sound recording error");
-						break;
-				}
-				emit callError(callId, errorText);
-			}
-			emit callStatus(callId, status);
-		} else if ( message.section(' ', 2, 2).trimmed().toUpper() == "VIDEO_RECEIVE_STATUS" ) {
-			const QString &status = message.section(' ', 3, 3).trimmed().toUpper();
-			if ( status == "RUNNING" ) {
-				kDebug(SKYPE_DEBUG_GLOBAL) << "Start receiving video";
-				emit startReceivingVideo(callId);
-			} else if ( status == "STOPPING" ) {
-				kDebug(SKYPE_DEBUG_GLOBAL) << "Stop receiving video";
-				emit stopReceivingVideo(callId);
-			}
-		}
+            const QString &callId = message.section(' ', 1, 1).trimmed();
+            if (message.section(' ', 2, 2).trimmed().toUpper() == "CONF_ID") {
+                if (d->knownCalls.indexOf(callId) == -1) {//new call
+                    d->knownCalls << callId;
+                    const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
+                    emit newCall(callId, userId);
+                }
+                const QString &confId = message.section(' ', 3, 3).trimmed().toUpper();
+                if (confId != "0") {//It is an conference
+                    emit groupCall(callId, confId);
+                }
+            }
+            if (message.section(' ', 2, 2).trimmed().toUpper() == "VIDEO_STATUS") {
+                if (message.section(' ', 3, 3).trimmed().toUpper() == "VIDEO_BOTH_ENABLED")
+                    emit videoEnabled(callId);
+            }
+            if (message.section(' ', 2, 2).trimmed().toUpper() == "STATUS") {
+                if (message.contains("VM_SENT"))
+                    emit voiceMessageSent();
+                if (d->knownCalls.indexOf(callId) == -1) {//new call
+                    d->knownCalls << callId;
+                    const QString &userId = (d->connection % QString("GET CALL %1 PARTNER_HANDLE").arg(callId)).section(' ', 3, 3).trimmed();
+                    if (message.contains("ROUTING"))
+                        kDebug() << "Skipping as this is an outgoing call...";
+                    else
+                        emit newCall(callId, userId);
+                }
+                const QString &status = message.section(' ', 3, 3).toUpper();
+                if (status == "FAILED") {
+                    int reason = (d->connection % QString("GET CALL %1 FAILUREREASON").arg(callId)).section(' ', 3, 3).trimmed().toInt();
+                    QString errorText = i18n("Unknown error");
+                    switch (reason) {
+                    case 1:
+                        errorText = i18n("Misc error");
+                        break;
+                    case 2:
+                        errorText = i18n("User or phone number does not exist");
+                        break;
+                    case 3:
+                        errorText = i18n("User is offline");
+                        break;
+                    case 4:
+                        errorText = i18n("No proxy found");
+                        break;
+                    case 5:
+                        errorText = i18n("Session terminated");
+                        break;
+                    case 6:
+                        errorText = i18n("No common codec found");
+                        break;
+                    case 7:
+                        errorText = i18n("Sound I/O error");
+                        break;
+                    case 8:
+                        errorText = i18n("Problem with remote sound device");
+                        break;
+                    case 9:
+                        errorText = i18n("Call blocked by recipient");
+                        break;
+                    case 10:
+                        errorText = i18n("Recipient not a friend");
+                        break;
+                    case 11:
+                        errorText = i18n("User not authorized by recipient");
+                        break;
+                    case 12:
+                        errorText = i18n("Sound recording error");
+                        break;
+                    }
+                    emit callError(callId, errorText);
+                }
+                emit callStatus(callId, status);
+            } else if ( message.section(' ', 2, 2).trimmed().toUpper() == "VIDEO_RECEIVE_STATUS" ) {
+                const QString &status = message.section(' ', 3, 3).trimmed().toUpper();
+                if ( status == "RUNNING" ) {
+                    kDebug(SKYPE_DEBUG_GLOBAL) << "Start receiving video";
+                    emit startReceivingVideo(callId);
+                } else if ( status == "STOPPING" ) {
+                    kDebug(SKYPE_DEBUG_GLOBAL) << "Stop receiving video";
+                    emit stopReceivingVideo(callId);
+                }
+            }
         } else if (messageType == "SMS") {
             QString smsId = message.section(' ', 1, 1).trimmed();
             QString subType = message.section(' ', 2, 2).trimmed();

@@ -21,6 +21,8 @@ class CommunicationCentral : public QObject
 signals:
     void activeCall(const QString& user, const QString& avatar, bool ring);
     void callEnded();
+    void videoAvailable();
+    void videoEnded();
 
 public:
     CommunicationCentral(QObject *parent);
@@ -37,6 +39,8 @@ public:
     void sendSMS(const QString& user, const QString& message);
     void sendMail(const QString& user, const QString& message);
     void readMessage(int messageIndex);
+
+    QWidget *getVideoCallWidget();
 
 public slots:
     void setupContactCollections();

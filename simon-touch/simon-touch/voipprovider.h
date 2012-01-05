@@ -17,6 +17,7 @@ public:
     virtual void pickUp()=0;
     virtual void sendSMS(const QString& userId, const QString& message) = 0;
 
+    virtual QWidget *videoWidget() = 0;
 
     enum CallState {
         RingingRemotely=1,
@@ -27,6 +28,8 @@ public:
 signals:
     void activeCall(const QString& userId, VoIPProvider::CallState state);
     void callEnded();
+    void videoAvailable();
+    void videoEnded();
 };
 
 Q_DECLARE_METATYPE(VoIPProvider::CallState);

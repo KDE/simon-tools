@@ -26,6 +26,8 @@ signals:
     void currentStatus(const QString&);
     void activeCall(const QString& user, const QString& avatar, bool ring);
     void callEnded();
+    void videoAvailable();
+    void videoEnded();
 
 private:
     ImagesModel *m_images;
@@ -77,6 +79,8 @@ public:
     void sendSMS(const QString& user, const QString& message);
     void sendMail(const QString& user, const QString& message);
     void readMessage(int messageIndex);
+
+    QWidget *getVideoCallWidget();
 
     ~SimonTouch();
 };

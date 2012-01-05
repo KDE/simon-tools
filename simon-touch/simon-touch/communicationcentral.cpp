@@ -68,6 +68,8 @@ CommunicationCentral::CommunicationCentral(QObject *parent) : QObject(parent),
     connect(m_voipProvider, SIGNAL(activeCall(QString,VoIPProvider::CallState)),
             this, SLOT(handleCall(QString, VoIPProvider::CallState)));
     connect(m_voipProvider, SIGNAL(callEnded()), this, SIGNAL(callEnded()));
+    connect(m_voipProvider, SIGNAL(videoAvailable()), this, SIGNAL(videoAvailable()));
+    connect(m_voipProvider, SIGNAL(videoEnded()), this, SIGNAL(videoEnded()));
 }
 
 void CommunicationCentral::handleCall(const QString& user, VoIPProvider::CallState state)
@@ -89,6 +91,11 @@ void CommunicationCentral::handleCall(const QString& user, VoIPProvider::CallSta
         emit activeCall(name, avatar, false);
         break;
     }
+}
+
+QWidget* CommunicationCentral::getVideoCallWidget()
+{
+    return m_voipProvider->videoWidget();
 }
 
 CommunicationCentral::~CommunicationCentral()

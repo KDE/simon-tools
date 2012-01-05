@@ -24,7 +24,7 @@ symbian:TARGET.CAPABILITY += NetworkServices
 
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
-CONFIG += mobility qdbus dbusadaptors
+CONFIG += mobility qdbus dbusadaptors plugin
 MOBILITY += multimedia
 
 # Speed up launching on MeeGo/Harmattan when using applauncherd daemon
@@ -60,7 +60,8 @@ SOURCES +=  libskype/skype.cpp \
             libskype/skypedbus/skypeconnection.cpp
 HEADERS +=  libskype/skype.h \
             libskype/skypedbus/skypeconnection.h \
-    mail.h
+    mail.h \
+    qmlwrapwidget.h
 
 DBUS_ADAPTORS = libskype/skypedbus/com.Skype.API.Client.xml
 
@@ -100,72 +101,6 @@ LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui \
         -lakonadi-kde -lakonadi-contact -lakonadi-kmime \
         -leventsimulation -lnepomuk -lnepomukquery \
         -lmailtransport -lkpimidentities
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

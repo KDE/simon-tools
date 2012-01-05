@@ -10,7 +10,7 @@ Rectangle {
     function changeButtonVisibility(visibility) {
             keyboardButton.opacity = visibility;
             calculatorButton.opacity = visibility;
-            console.debug("changeButtonVisibility: " + visibility);
+            //console.debug("changeButtonVisibility: " + visibility);
     }
     function activeCall() {
         console.debug("Receiving active call...");

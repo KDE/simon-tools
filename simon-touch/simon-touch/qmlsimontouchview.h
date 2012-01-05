@@ -35,11 +35,14 @@ public slots:
 
 
 private:
-    QScopedPointer<QmlApplicationViewer> viewer;
+    QWidget *dlg;
+    QmlApplicationViewer *viewer;
 
 private slots:
     void activeCall(const QString& user, const QString& avatar, bool ring);
     void callEnded();
+    void videoEnabled();
+    void videoEnded();
 };
 
 #endif // QMLSIMONTOUCHVIEW_H

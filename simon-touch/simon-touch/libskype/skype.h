@@ -601,6 +601,8 @@ class Skype : public QObject
 
 		void startReceivingVideo(const QString &callId);
 		void stopReceivingVideo(const QString &callId);
+
+                void videoEnabled(const QString &callId);
 };
 
 #endif

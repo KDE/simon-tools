@@ -21,6 +21,8 @@ SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
     setupCommunication();
     connect(m_communicationCentral, SIGNAL(activeCall(QString,QString,bool)), this, SIGNAL(activeCall(QString,QString,bool)));
     connect(m_communicationCentral, SIGNAL(callEnded()), this, SIGNAL(callEnded()));
+    connect(m_communicationCentral, SIGNAL(videoAvailable()), this, SIGNAL(videoAvailable()));
+    connect(m_communicationCentral, SIGNAL(videoEnded()), this, SIGNAL(videoEnded()));
 }
 
 SimonTouch::~SimonTouch()
@@ -147,3 +149,8 @@ void SimonTouch::readMessage(int messageIndex)
     m_communicationCentral->readMessage(messageIndex);
 }
 
+
+QWidget* SimonTouch::getVideoCallWidget()
+{
+    return m_communicationCentral->getVideoCallWidget();
+}

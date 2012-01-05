@@ -13,9 +13,11 @@
 #include "messagemodel.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
+#include "qmlwrapwidget.h"
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
-    SimonTouchView(logic), viewer(QmlApplicationViewer::create())
+    SimonTouchView(logic), dlg(new QWidget()),
+    viewer(QmlApplicationViewer::create())
 {
     viewer->engine()->addImageProvider("images", new DeclarativeImageProvider);
     viewer->rootContext()->setContextProperty("imagesModel", logic->images());
@@ -28,8 +30,6 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
 
     viewer->setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
     viewer->setMainQmlFile(QLatin1String("qml/simontouch/main.qml"));
-    viewer->showExpanded();
-//    viewer->showFullScreen();
 
     connect(logic, SIGNAL(rssFeedReady()),
             viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"), SLOT(displayFeed()));
@@ -39,7 +39,55 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(logic, SIGNAL(activeCall(QString,QString,bool)),
             this, SLOT(activeCall(QString,QString,bool)));
     connect(logic, SIGNAL(callEnded()), this, SLOT(callEnded()));
+
+    connect(logic, SIGNAL(videoAvailable()), this, SLOT(videoEnabled()));
+    connect(logic, SIGNAL(videoEnded()), this, SLOT(videoEnded()));
+
+    dlg->resize(viewer->size());
+    QPalette p = dlg->palette();
+    p.setColor(QPalette::Window, QColor(255,251,199));
+    dlg->setPalette(p);
+
+    QVBoxLayout *layout = new QVBoxLayout();
+    layout->addWidget(viewer);
+    layout->setSpacing(0);
+    if (logic->getVideoCallWidget()) {
+        QHBoxLayout *hBox = new QHBoxLayout();
+        hBox->addStretch(1);
+        hBox->addWidget(logic->getVideoCallWidget());
+        hBox->addStretch(1);
+        logic->getVideoCallWidget()->hide();
+        layout->addLayout(hBox);
+        hBox->setContentsMargins(0,0,0,0);
+    }
+
+    dlg->setLayout(layout);
+    layout->setContentsMargins(0,0,0,0);
+
+    dlg->show();
+    connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
 }
+
+
+void QMLSimonTouchView::videoEnabled()
+{
+    qDebug() << "Showing video";
+    QWidget *w = m_logic->getVideoCallWidget();
+    if (w) {
+        w->show();
+        qDebug() << "Shown video widget";
+    }
+}
+
+void QMLSimonTouchView::videoEnded()
+{
+    QWidget *w = m_logic->getVideoCallWidget();
+    if (w) {
+        w->hide();
+        qDebug() << "Hidden video widget";
+    }
+}
+
 void QMLSimonTouchView::callSkype(const QString& user)
 {
     m_logic->callSkype(user);
