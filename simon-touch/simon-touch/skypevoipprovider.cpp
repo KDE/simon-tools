@@ -66,7 +66,8 @@ void SkypeVoIPProvider::realVideoProcessing()
             qDebug() << "Window: " << info.name();
         }
     }
-    qFatal("Video widget not found");
+    // not found this time, try again in a second
+    QTimer::singleShot(1000, this, SLOT(realVideoProcessing()));
 #endif
 }
 
@@ -97,10 +98,15 @@ void SkypeVoIPProvider::callStatus(const QString &callId, const QString &status)
       emit videoEnded();
   }
   if (status == "INPROGRESS") {
-    usleep(500000);
-    s->startSendingVideo(callId);
     emit activeCall(calls.value(callId), VoIPProvider::Connected);
+    QTimer::singleShot(500, this, SLOT(startVideoStream()));
   }
+}
+
+void SkypeVoIPProvider::startVideoStream()
+{
+    foreach (const QString& callId, s->searchActiveCalls())
+        s->startSendingVideo(callId);
 }
 
 void SkypeVoIPProvider::newCall(const QString& userId)

@@ -42,6 +42,8 @@ private slots:
 
     void processVideo();
     void realVideoProcessing();
+
+    void startVideoStream();
 };
 
 #endif // SKYPEVOIPPROVIDER_H
