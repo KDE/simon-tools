@@ -252,24 +252,6 @@ TabPage {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
         }
-        Button {
-            anchors.top: readMessages.bottom
-            anchors.left: readMessages.left
-            buttonText: qsTr("Hang up (!FIXME!)")
-            width: lvContactsView.width
-            anchors.topMargin: 10
-            height: 50
-            buttonImage: "../img/go-down.svgz"
-            spokenText: true
-            buttonLayout: Qt.Horizontal
-            onButtonClick: {
-                simonTouch.hangUp()
-            }
-            Behavior on opacity {
-                NumberAnimation {properties: "opacity"; duration: 500}
-            }
-        }
-
         states: [
             State {
                 name: "openCall"

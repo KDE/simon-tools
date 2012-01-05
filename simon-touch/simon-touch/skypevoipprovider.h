@@ -41,6 +41,7 @@ private slots:
     void callStatus(const QString& callId, const QString& status);
 
     void processVideo();
+    void realVideoProcessing();
 };
 
 #endif // SKYPEVOIPPROVIDER_H

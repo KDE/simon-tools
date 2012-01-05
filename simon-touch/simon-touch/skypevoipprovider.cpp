@@ -7,6 +7,7 @@
 
 #ifdef Q_OS_LINUX
 #include <QX11EmbedContainer>
+#include <QTimer>
 
 #include <KWindowSystem>
 #include <KWindowInfo>
@@ -39,6 +40,13 @@ QWidget* SkypeVoIPProvider::videoWidget()
 }
 
 void SkypeVoIPProvider::processVideo()
+{
+#ifdef Q_OS_LINUX
+    QTimer::singleShot(1500, this, SLOT(realVideoProcessing()));
+#endif
+}
+
+void SkypeVoIPProvider::realVideoProcessing()
 {
 #ifdef Q_OS_LINUX
     QList<WId> windows = KWindowSystem::windows();
@@ -89,7 +97,7 @@ void SkypeVoIPProvider::callStatus(const QString &callId, const QString &status)
       emit videoEnded();
   }
   if (status == "INPROGRESS") {
-    usleep(1000000);
+    usleep(500000);
     s->startSendingVideo(callId);
     emit activeCall(calls.value(callId), VoIPProvider::Connected);
   }
