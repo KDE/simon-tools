@@ -17,6 +17,10 @@ SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype), dropVoiceMail(false)
 {
 #ifdef Q_OS_LINUX
     videoContainer = new QX11EmbedContainer();
+    videoContainer->setMinimumHeight(280);
+    videoContainer->setMaximumHeight(280);
+    videoContainer->setMinimumWidth(347);
+    videoContainer->setMaximumWidth(347);
 #endif
 
     connect(s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
