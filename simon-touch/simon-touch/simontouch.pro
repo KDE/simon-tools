@@ -60,8 +60,7 @@ SOURCES +=  libskype/skype.cpp \
             libskype/skypedbus/skypeconnection.cpp
 HEADERS +=  libskype/skype.h \
             libskype/skypedbus/skypeconnection.h \
-    mail.h \
-    qmlwrapwidget.h
+    mail.h
 
 DBUS_ADAPTORS = libskype/skypedbus/com.Skype.API.Client.xml
 
