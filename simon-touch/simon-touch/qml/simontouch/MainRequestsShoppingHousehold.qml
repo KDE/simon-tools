@@ -59,24 +59,24 @@ TabPage {
         }
 
         function setActiveFocus(listView) {
-            listView.forceActiveFocus()
-
+            listView.forceActiveFocus();
         }
 
         function moveUp() {
-            if (lvShoppingDrinks.activeFocus) {
+            console.debug("lvShoppingDrinksModel.count: " + lvShoppingDrinksModel.count + " / lvShoppingDrinksSelectionModel.count: "+lvShoppingDrinksSelectionModel.count+" / Index: " +lvShoppingDrinks.currentIndex)
+            if (lvShoppingDrinks.activeFocus && lvShoppingDrinks.currentIndex >= 1) {
                 --lvShoppingDrinks.currentIndex
-            } else {
+            } else if (lvShoppingDrinksSelection.activeFocus && lvShoppingDrinksSelection.currentIndex >= 1){
                 --lvShoppingDrinksSelection.currentIndex
-            }
+            } else { return; }
         }
 
         function moveDown() {
-            if (lvShoppingDrinks.activeFocus) {
+            if (lvShoppingDrinks.activeFocus && lvShoppingDrinks.currentIndex < lvShoppingDrinksModel.count-1) {
                 ++lvShoppingDrinks.currentIndex
-            } else {
+            } else if (lvShoppingDrinksSelection.activeFocus && lvShoppingDrinksSelection.currentIndex >= lvShoppingDrinksSelectionModel.count-1){
                 ++lvShoppingDrinksSelection.currentIndex
-            }
+            } else { return; }
         }
 
 /*
@@ -382,21 +382,9 @@ TabPage {
         SelectionListView {
             id: lvShoppingDrinks
             objectName: "lvShoppingDrinks"
-
-//            anchors {
-//                left: lvShoppingCategory.right
-//                top: parent.top
-//                bottom: parent.bottom
-//                topMargin: 160
-//                leftMargin: 10
-//                rightMargin: 0
-//                bottomMargin: 200
-//            }
             anchors {
-//                left: parent.left
                 top: parent.top
                 bottom: parent.bottom
-//                margins: 160
                 leftMargin: 0
                 rightMargin: 0
                 topMargin: 160

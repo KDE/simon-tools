@@ -48,8 +48,8 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen.png")
 //                onButtonClick: showScreen("MainIncomingCall")
 //                onButtonClick: showScreen("MainOutgoingCall")
-                onButtonClick: showScreen("MainActiveCall")
-//                onButtonClick: showScreen("MainRequests")
+//                onButtonClick: showScreen("MainActiveCall")
+                onButtonClick: showScreen("MainRequests")
             }
         }
     }

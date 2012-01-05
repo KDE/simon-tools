@@ -2,7 +2,7 @@ import QtQuick 1.1
 
 Rectangle {
     id: button
-    property string buttonText: qsTr("DemoButtonText")
+    property string buttonText: ""
     property string buttonImage: ""
     property color onHoverColor: "#FEF57B"
     property color normalColor: "#FFFBC7"
@@ -15,12 +15,14 @@ Rectangle {
     signal buttonClick()
     property bool horizontalMiddleText:  true
     property string horizontalIconAlign: "left"
+    property bool active : false
+    property bool activeHover: true
 
     width: 240
     height: 250
     radius: 10
     smooth: true
-    color: normalColor
+    color: (active || buttonMouseArea.isHovering) ? onHoverColor : normalColor
     border.color: "#8A8A8A"
     border.width: 1
     Text {
@@ -34,15 +36,7 @@ Rectangle {
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
         anchors.margins: 9
-//        anchors.topMargin: 6
-//        anchors.leftMargin: 6
-//        anchors.rightMargin: 6
-//        anchors.bottomMargin: 0
         color: (spokenText == true) ? "#000099" : "#000000"
-
-        /*
-        anchors.leftMargin: 50
-        anchors.left: parent.left*/
         anchors.horizontalCenter: parent.horizontalCenter
     }
     Text {
@@ -77,6 +71,7 @@ Rectangle {
         smooth: true
     }
     MouseArea{
+        property bool isHovering : false
         id: buttonMouseArea
         x: 0
         y: 0
@@ -86,9 +81,9 @@ Rectangle {
         anchors.topMargin: 0
         anchors.fill: parent
         onClicked: buttonClick()
-        hoverEnabled: true
-        onEntered: parent.color = onHoverColor
-        onExited: parent.color = normalColor
+        hoverEnabled: parent.activeHover
+        onEntered: isHovering = true
+        onExited: isHovering = false
     }
     onButtonClick: {
         console.log(mainButtonText.text + " clicked" )
