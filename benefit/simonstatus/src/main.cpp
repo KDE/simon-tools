@@ -22,14 +22,13 @@
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
 #include <KDE/KLocale>
-#include "../../../version.h"
 
 static const char description[] =
 I18N_NOOP("A small widget that displays activated / deactivated with a symbol");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("simonstatus", 0, ki18n("simonstatus"), simon_version, ki18n(description),
+  KAboutData about("simonstatus", 0, ki18n("simonstatus"), "0.1", ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 

@@ -22,14 +22,13 @@
 #include <kcmdlineargs.h>
 #include <KDE/KLocale>
 #include "simonskype.h"
-#include "../../../version.h"
 
 static const char description[] =
 I18N_NOOP("A simple skype wrapper");
 
 int main(int argc, char **argv)
 {
-  KAboutData about("simonskype", 0, ki18n("simonskype"), simon_version, ki18n(description),
+  KAboutData about("simonskype", 0, ki18n("simonskype"), "0.1", ki18n(description),
     KAboutData::License_GPL, ki18n("(C) 2011 Peter Grasch"), KLocalizedString(), 0, "grasch@simon-listens.org");
   about.addAuthor( ki18n("Peter Grasch"), KLocalizedString(), "grasch@simon-listens.org" );
 

@@ -20,7 +20,7 @@
 
 #include "simonskype.h"
 #include "unistd.h"
-#include <eventsimulation/eventhandler.h>
+#include <simon/eventsimulation/eventhandler.h>
 #include <KDebug>
 #include <QTimer>
 #include <QKeySequence>

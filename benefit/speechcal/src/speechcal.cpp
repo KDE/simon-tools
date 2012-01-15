@@ -19,7 +19,7 @@
 #include "speechcal.h"
 #include "speechcalview.h"
 #include "calendarmodel.h"
-#include <simonlogging/logger.h>
+#include <simon/logging/logger.h>
 #include <exception>
 
 #include <QSharedPointer>

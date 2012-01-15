@@ -20,7 +20,7 @@
 #include "speechcalview.h"
 #include "calendarmodel.h"
 #include "speechcal.h"
-#include <simonlogging/logger.h>
+#include <simon/logging/logger.h>
 
 #include <KStandardAction>
 #include <KActionCollection>
