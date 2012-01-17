@@ -1,9 +1,20 @@
 [Desktop Entry]
 Name=speechcal
+Name[es]=speechcal
+Name[ga]=speechcal
+Name[pt]=speechcal
+Name[pt_BR]=speechcal
+Name[uk]=speechcal
+Name[x-test]=xxspeechcalxx
 Exec=speechcal %i -caption "%c"
 Icon=speechcal
 Type=Application
 #X-DocPath=speechcal/index.html
 GenericName=Speech controlled calendar
+GenericName[es]=Calendario controlado por la voz
+GenericName[pt]=Calendário controlado pela fala
+GenericName[pt_BR]=Calendário controlado por voz
+GenericName[uk]=Календар, керований голосом
+GenericName[x-test]=xxSpeech controlled calendarxx
 Terminal=false
 Categories=Qt;KDE;Office;Accessibility;

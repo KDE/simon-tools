@@ -1,9 +1,21 @@
 [Desktop Entry]
 Name=simonstatus
+Name[es]=simonstatus
+Name[ga]=simonstatus
+Name[nl]=simonstatus
+Name[pt]=simonstatus
+Name[pt_BR]=simonstatus
+Name[uk]=simonstatus
+Name[x-test]=xxsimonstatusxx
 Exec=simonstatus %i -caption "%c"
 Icon=simonstatus
 Type=Application
 #X-DocPath=simonstatus/index.html
 GenericName=simon status widget
+GenericName[es]=Elemento gráfico del estado de simon
+GenericName[pt]=item de estado do Simon
+GenericName[pt_BR]=widget de status do Simon
+GenericName[uk]=Віджет стану simon
+GenericName[x-test]=xxsimon status widgetxx
 Terminal=false
 Categories=Qt;KDE;Office;Accessibility;
