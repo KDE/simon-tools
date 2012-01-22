@@ -103,7 +103,7 @@ void SpeechCal::collectionJobFinished(KJob* job)
 {
   Akonadi::CollectionFetchJob *fetchJob = static_cast<Akonadi::CollectionFetchJob*>( job );
   if ( job->error() ) {
-      Logger::log(i18n("Job returned error: %1", job->errorString()), Logger::Error);
+      Logger::log(i18nc("%1 is the error message", "Job returned error: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
       return;
   }
@@ -114,7 +114,7 @@ void SpeechCal::itemJobFinished(KJob* job)
 {
   Akonadi::ItemFetchJob *fetchJob = static_cast<Akonadi::ItemFetchJob*>( job );
   if ( job->error() ) {
-      Logger::log(i18n("Job returned error: %1", job->errorString()), Logger::Error);
+      Logger::log(i18nc("%1 is the error message", "Job returned error: %1", job->errorString()), Logger::Error);
       kError() << job->errorString();
       return;
   }
@@ -135,7 +135,7 @@ void SpeechCal::retrieveEvents()
   foreach (const Akonadi::Collection &collection, collectionList)
   {
     kDebug() << "Received collection: " << collection.name();
-    Logger::log(i18n("Received collection: %1", collection.name()));
+    Logger::log(i18nc("%1 is collection name", "Received collection: %1", collection.name()));
     Akonadi::ItemFetchJob *itemFetcher = new Akonadi::ItemFetchJob(collection, this);
     itemFetcher->fetchScope().fetchFullPayload();
     connect(itemFetcher, SIGNAL(finished(KJob*)), this, SLOT(itemJobFinished(KJob*)));
@@ -149,7 +149,7 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
     kDebug() << "Ignoring empty fetch result";
     return;
   }
-  Logger::log(i18n("Retrieved %1 items from collection", items.count()));
+  Logger::log(i18nc("%1 is number of items", "Retrieved %1 items from collection", items.count()));
 
 
   QList< QSharedPointer<KCalCore::Event> > consideredItems;
@@ -213,7 +213,7 @@ void SpeechCal::itemsReceived(Akonadi::Item::List items)
     if (j == relevantItems.count())
       relevantItems << event;
   }
-  Logger::log(i18n("Retrieved %1 relevant items", relevantItems.count()));
+  Logger::log(i18nc("%1 is number of relevant items", "Retrieved %1 relevant items", relevantItems.count()));
   calendar->addItems(relevantItems);
   updateView();
 }
