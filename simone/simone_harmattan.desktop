@@ -4,6 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=simone
+Name[de]=Simone
 Name[es]=simone
 Name[ga]=simone
 Name[pt]=simone

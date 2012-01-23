@@ -11,6 +11,7 @@ Icon=speechcal
 Type=Application
 #X-DocPath=speechcal/index.html
 GenericName=Speech controlled calendar
+GenericName[de]=Sprachgesteuerter Kalender
 GenericName[es]=Calendario controlado por la voz
 GenericName[pt]=Calendário controlado pela fala
 GenericName[pt_BR]=Calendário controlado por voz

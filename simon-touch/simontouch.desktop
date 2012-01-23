@@ -4,6 +4,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=simon-touch
+Name[de]=Simon-Touch
 Name[es]=simon-touch
 Name[ga]=simon-touch
 Name[pt]=simon-touch
