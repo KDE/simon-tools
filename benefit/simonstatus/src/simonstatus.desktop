@@ -15,6 +15,7 @@ Type=Application
 GenericName=simon status widget
 GenericName[de]=Simon-Statusanzeige
 GenericName[es]=Elemento gráfico del estado de simon
+GenericName[nl]=Widget met simonstatus
 GenericName[pt]=item de estado do Simon
 GenericName[pt_BR]=widget de status do Simon
 GenericName[uk]=Віджет стану simon
