@@ -10,6 +10,7 @@ Name[ga]=simon-touch
 Name[nl]=simon-aanraking
 Name[pt]=simon-touch
 Name[pt_BR]=simon-touch
+Name[sv]=Simon-pek
 Name[uk]=simon-touch
 Name[x-test]=xxsimon-touchxx
 Exec=/opt/simon-touch/bin/simon-touch
