@@ -91,7 +91,7 @@ void SoundInput::stateChanged()
         emit error(tr("Failed to read data from microphone"));
         break;
     case QAudio::FatalError:
-        emit error(tr("A fatal error occured during recording."));
+        emit error(tr("A fatal error occurred during recording."));
         init();
         break;
     }
