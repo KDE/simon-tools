@@ -13,6 +13,8 @@
     *************************************************************************
 */
 
+#include "skypewindow.h"
+
 #include <QString>
 #include <QRegExp>
 #include <QHash>
@@ -30,8 +32,6 @@
 
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
-
-#include "skypewindow.h"
 
 class SkypeWindowPrivate
 {
@@ -86,7 +86,7 @@ bool SkypeWindow::isCallDialog(const QString &user, WId wid) {
 
 	if ( d->pid == 0 || d->pid == pid ) { //check if process id of window id is same as in constructor
 		QString userExp = user;
-		if ( user.startsWith("+") ) { //check if it is phone number, it may start with "+"
+		if ( user.startsWith('+') ) { //check if it is phone number, it may start with "+"
 			userExp.insert(0, "\\");
 		}
 		//english regular exp for skype call dialog

@@ -13,8 +13,8 @@
 
     You should have received a copy of the GNU Library General Public License
     along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
+    Free Software Foundation, Inc.,
+    51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 */
 
@@ -33,8 +33,8 @@
 
 SimonSkype::SimonSkype() : dropVoiceMail(false)
 {
-  connect(&s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
-  connect(&s, SIGNAL(callStatus(const QString&, const QString&)), this, SLOT(callStatus(const QString&, const QString&)));
+  connect(&s, SIGNAL(newCall(QString,QString)), this, SLOT(newCall(QString,QString)));
+  connect(&s, SIGNAL(callStatus(QString,QString)), this, SLOT(callStatus(QString,QString)));
 
   kDebug() << "Setting up skype connection";
   s.setOnline();

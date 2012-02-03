@@ -28,7 +28,7 @@ private:
     QString m_destination;
 
 public:
-    DestinationCommand(const QString& trigger=QString(), const QString& destination=QString());
+    explicit DestinationCommand(const QString& trigger=QString(), const QString& destination=QString());
     static DestinationCommand* deSerialize(const QString& data);
     QString serialize();
 

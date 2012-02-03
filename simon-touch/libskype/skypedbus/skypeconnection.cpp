@@ -13,9 +13,8 @@
 
     You should have received a copy of the GNU Library General Public License
     along with this library; see the file COPYING.LIB.  If not, write to
-    the Free Software Foundation, Inc., 59 Temple Place - Suite 330,
-    Boston, MA 02111-1307, USA.
-
+    the Free Software Foundation, Inc., 
+    51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 #include "skypeconnection.h"
 #include "client_adaptor.h"
@@ -63,7 +62,7 @@ SkypeConnection::SkypeConnection() {
 	d = new SkypeConnectionPrivate;//create the d pointer
 	d->fase = cfNotConnected;//not connected yet
 	d->startTimer = 0L;
-	connect(this, SIGNAL(received(const QString&)), this, SLOT(parseMessage(const QString&)));//look into all messages
+	connect(this, SIGNAL(received(QString)), this, SLOT(parseMessage(QString)));//look into all messages
 }
 
 SkypeConnection::~SkypeConnection() {

@@ -50,7 +50,7 @@ SimondConnector::SimondConnector(QObject *parent) :
     connect(socket, SIGNAL(disconnected()), this, SLOT(connectionLost()));
 
     connect(mic, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
-    connect(mic, SIGNAL(microphoneLevel(int, int, int)), this, SIGNAL(microphoneLevel(int, int, int)));
+    connect(mic, SIGNAL(microphoneLevel(int,int,int)), this, SIGNAL(microphoneLevel(int,int,int)));
     connect(mic, SIGNAL(listening()), this, SLOT(startRecording()));
     connect(mic, SIGNAL(complete()), this, SLOT(commitRecording()));
     connect(mic, SIGNAL(readyRead()), this, SLOT(soundDataAvailable()));
@@ -128,7 +128,7 @@ void SimondConnector::socketError()
     QString errorMessage;
     if (!errors.isEmpty()) {
         for (int i=0; i < errors.count(); i++)
-            errorMessage += errors[i].errorString()+"\n";
+            errorMessage += errors[i].errorString()+'\n';
         errorMessage = errorMessage.trimmed();
     } else
         errorMessage = socket->errorString();

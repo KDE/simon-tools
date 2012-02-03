@@ -29,7 +29,7 @@ private:
     QString m_number;
 
 public:
-    ContactCommand(const QString& trigger=QString(), const QString& displayName=QString(), const QString& number=QString());
+    explicit ContactCommand(const QString& trigger=QString(), const QString& displayName=QString(), const QString& number=QString());
     static ContactCommand* deSerialize(const QString& data);
     QString serialize();
 

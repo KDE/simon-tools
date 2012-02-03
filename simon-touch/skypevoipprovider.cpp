@@ -1,3 +1,22 @@
+/*
+ *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
+ *
+ *   This program is free software; you can redistribute it and/or modify
+ *   it under the terms of the GNU General Public License version 2,
+ *   or (at your option) any later version, as published by the Free
+ *   Software Foundation
+ *
+ *   This program is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU General Public License for more details
+ *
+ *   You should have received a copy of the GNU General Public
+ *   License along with this program; if not, write to the
+ *   Free Software Foundation, Inc.,
+ *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
+ */
+
 #include "skypevoipprovider.h"
 #include "libskype/skype.h"
 #include <simon/eventsimulation/eventhandler.h>
@@ -23,8 +42,8 @@ SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype), dropVoiceMail(false)
     videoContainer->setMaximumWidth(347);
 #endif
 
-    connect(s, SIGNAL(newCall(const QString&, const QString&)), this, SLOT(newCall(const QString&, const QString&)));
-    connect(s, SIGNAL(callStatus(const QString&, const QString&)), this, SLOT(callStatus(const QString&, const QString&)));
+    connect(s, SIGNAL(newCall(QString,QString)), this, SLOT(newCall(QString,QString)));
+    connect(s, SIGNAL(callStatus(QString,QString)), this, SLOT(callStatus(QString,QString)));
     connect(s, SIGNAL(voiceMailActive(int)), this, SLOT(voiceMailActive(int)));
     connect(s, SIGNAL(voiceMessageSent()), this, SLOT(voiceMessageSent()));
     connect(s, SIGNAL(videoEnabled(QString)), this, SLOT(processVideo()));

@@ -54,7 +54,7 @@ SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
     
   }
   if ( !Akonadi::Control::start( view ) ) {
-    Logger::log(i18n("Failed to contact akonadi.", Logger::Error));
+    Logger::log(i18n("Failed to contact akonadi."), Logger::Error);
     qApp->exit( -1 );
     return;
   }
@@ -64,9 +64,9 @@ SpeechCal::SpeechCal() : calendar(new CalendarModel(this))
   
   monitor = new Akonadi::Monitor(this);
   monitor->setMimeTypeMonitored(KCalCore::Event::eventMimeType(), true);
-  connect(monitor, SIGNAL(collectionAdded (const Akonadi::Collection &, const Akonadi::Collection &)),
+  connect(monitor, SIGNAL(collectionAdded(Akonadi::Collection,Akonadi::Collection)),
 	  this, SLOT(setupCollections()));
-  connect(monitor, SIGNAL(collectionChanged (const Akonadi::Collection &collection)), this, SLOT(setupCollections()));
+  connect(monitor, SIGNAL(collectionChanged(Akonadi::Collection&collection)), this, SLOT(setupCollections()));
   connect(monitor, SIGNAL(itemAdded(Akonadi::Item,Akonadi::Collection)), this, SLOT(retrieveEvents()));
   connect(monitor, SIGNAL(itemChanged(Akonadi::Item,QSet<QByteArray>)), this, SLOT(retrieveEvents()));
   connect(monitor, SIGNAL(itemRemoved(Akonadi::Item)), this, SLOT(retrieveEvents()));
