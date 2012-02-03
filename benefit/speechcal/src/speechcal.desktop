@@ -22,4 +22,4 @@ GenericName[sv]=Talstyrd kalender
 GenericName[uk]=Календар, керований голосом
 GenericName[x-test]=xxSpeech controlled calendarxx
 Terminal=false
-Categories=Qt;KDE;Office;Accessibility;
+Categories=Qt;KDE;Utility;Accessibility;

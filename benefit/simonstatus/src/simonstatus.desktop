@@ -23,4 +23,4 @@ GenericName[sv]=Simon grafisk statuskomponent
 GenericName[uk]=Віджет стану simon
 GenericName[x-test]=xxsimon status widgetxx
 Terminal=false
-Categories=Qt;KDE;Office;Accessibility;
+Categories=Qt;KDE;Utility;Accessibility;

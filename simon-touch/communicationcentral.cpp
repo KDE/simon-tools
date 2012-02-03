@@ -152,7 +152,7 @@ void CommunicationCentral::contactCollectionJobFinished(KJob* job)
 
     m_contactCollections.clear();
     foreach (const Akonadi::Collection& c, fetchJob->collections())
-        if (!c.name().startsWith("simontouch-"))
+        if (!c.name().startsWith(QLatin1String("simontouch-")))
             m_contactCollections << c;
     fetchContacts();
 }
