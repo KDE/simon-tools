@@ -32,6 +32,8 @@
 #include <KWindowInfo>
 #endif
 
+#include <KLocalizedString>
+
 SkypeVoIPProvider::SkypeVoIPProvider() : s(new Skype), dropVoiceMail(false)
 {
 #ifdef Q_OS_LINUX
@@ -81,7 +83,7 @@ void SkypeVoIPProvider::realVideoProcessing()
         //skype window "Call with..."
         KWindowInfo info = KWindowSystem::windowInfo(*it, KWindowSystem::WMName);
         if (info.valid()) {
-            if (info.name().contains(QRegExp(tr(" \\\\| Call with ")))) {
+            if (info.name().contains(QRegExp(i18nc("Regular expression that is supposed to match the skype window title for an active call", " \\\\| Call with ")))) {
                 videoContainer->embedClient(*it);
                 emit videoAvailable();
                 return;

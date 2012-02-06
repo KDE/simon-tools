@@ -96,7 +96,7 @@ QVariant MessageModel::data(const QModelIndex& index, int role) const
     }
     case Qt::UserRole+2: {
         KMime::Headers::Subject *s = msg->subject();
-        if (!s) return tr("No Subject");
+        if (!s) return i18n("No Subject");
         return s->asUnicodeString();
     }
     case Qt::UserRole+3: {

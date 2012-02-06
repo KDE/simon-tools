@@ -25,6 +25,7 @@
 
 #include <QStringList>
 #include <QTimer>
+#include <KLocalizedString>
 
 #include <kjob.h>
 
@@ -380,7 +381,7 @@ void CommunicationCentral::sendMail(const QString& user, const QString& message)
     msg->from()->fromUnicodeString(QString("%1 <%2>").arg(identity.fullName(), identity.emailAddr()), "utf-8");
     msg->to()->fromUnicodeString(targetMail, "utf-8");
     msg->date()->setDateTime(KDateTime::currentLocalDateTime());
-    msg->subject()->fromUnicodeString(tr("Message from %1").arg(identity.fullName()), "utf-8");
+    msg->subject()->fromUnicodeString(i18n("Message from %1").arg(identity.fullName()), "utf-8");
 
     msg->contentType()->setCharset("utf-8");
     msg->fromUnicodeString(message);

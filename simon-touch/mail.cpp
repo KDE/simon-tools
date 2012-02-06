@@ -24,6 +24,7 @@
 #include <Akonadi/ItemFetchJob>
 #include <Akonadi/ItemFetchScope>
 #include <kmime/kmime_message.h>
+#include <KLocalizedString>
 
 Mail::Mail(Akonadi::Item item, KMime::Message::Ptr msg) :
     QObject(),
@@ -57,7 +58,7 @@ void Mail::fetchDetails(const Akonadi::Item& item)
 
     QString subject;
     KMime::Headers::Subject *s = m_msg->subject();
-    if (!s) subject = tr("No Subject");
+    if (!s) subject = i18n("No Subject");
     else subject = s->asUnicodeString();
     qDebug() << "Fetching details for " << subject;
 
@@ -98,7 +99,7 @@ QString Mail::body()
     if (!m_bodyFetched) {
         //start fetching full item
         fetchDetails(m_item);
-        return tr("Please wait...");
+        return i18n("Please wait...");
     }
     KMime::Content *c = m_msg->mainBodyPart();
     return c->decodedText(true,true);
