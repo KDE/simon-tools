@@ -59,7 +59,6 @@ private:
 
     QNetworkAccessManager *m_rssLoader;
 
-    QProcess *m_calculatorProcess;
     QProcess *m_keyboardProcess;
 
 private slots:

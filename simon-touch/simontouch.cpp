@@ -29,13 +29,17 @@
 #include <QtXml/QDomElement>
 #include <QtNetwork/QNetworkAccessManager>
 #include <QtNetwork/QNetworkReply>
+#include <QDBusConnection>
+#include <QDBusMessage>
+#include <QDBusInterface>
+#include <KLocalizedString>
 
 SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
                        RSSFeeds* feeds) :
     m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
     m_currentRssFeed(new RSSFeed()), m_communicationCentral(new CommunicationCentral(this)),
     m_rssLoader(new QNetworkAccessManager(this)),
-    m_calculatorProcess(new QProcess(this)), m_keyboardProcess(new QProcess(this))
+    m_keyboardProcess(new QProcess(this))
 {
     setupCommunication();
     connect(m_communicationCentral, SIGNAL(activeCall(QString,QString,bool)), this, SIGNAL(activeCall(QString,QString,bool)));
@@ -101,7 +105,12 @@ void SimonTouch::showKeyboard()
 
 void SimonTouch::showCalculator()
 {
-    m_calculatorProcess->start("gcalctool");
+    QDBusMessage m = QDBusMessage::createMethodCall("org.simon-listens.ActionManager",
+                                                    "/ActionManager",
+                                                    "local.ActionManager",
+                                                    "triggerCommand");
+    m.setArguments(QList<QVariant>() << i18n("Calculator") << i18n("Calculator"));
+    QDBusConnection::sessionBus().send(m);
 }
 
 void SimonTouch::hideKeyboard()
@@ -111,7 +120,13 @@ void SimonTouch::hideKeyboard()
 
 void SimonTouch::hideCalculator()
 {
-    m_calculatorProcess->terminate();
+    QDBusMessage m = QDBusMessage::createMethodCall("org.simon-listens.ActionManager",
+                                                    "/ActionManager",
+                                                    "local.ActionManager",
+                                                    "triggerCommand");
+    m.setArguments(QList<QVariant>() << i18n("Calculator") << i18n("Cancel"));
+    QDBusConnection::sessionBus().send(m);
+    QDBusConnection::sessionBus().send(m); //cancel popup if necessary
 }
 
 void SimonTouch::setupCommunication()
@@ -167,7 +182,6 @@ void SimonTouch::readMessage(int messageIndex)
 {
     m_communicationCentral->readMessage(messageIndex);
 }
-
 
 QWidget* SimonTouch::getVideoCallWidget()
 {
