@@ -26,6 +26,14 @@ TabPage {
     objectName: "MainInformationMusic"
     stateName: "Music"
 
+    function nextTitle() {
+        if (lvMusic.currentIndex + 1 < lvMusic.count) {
+            lvMusic.currentIndex += 1
+            return true;
+        } else
+            return false;
+    }
+
     onOpacityChanged: {
         playMusic.stop()
         lvMusic.focus = (opacity == 1)
@@ -152,9 +160,8 @@ TabPage {
             spokenText: true
             height: 90
             width: 90
-            onButtonClick: if (lvMusic.currentIndex + 1 < lvMusic.count) lvMusic.currentIndex += 1
+            onButtonClick: nextTitle()
         }
-
 
         Audio {
             id: playMusic
@@ -174,14 +181,10 @@ TabPage {
                 }
                 lbStatus.text = msToStr(playMusic.position)+ " / " + msToStr(playMusic.duration)
                 console.debug("Playing changed: "+position+ " "+duration)
-                if (position == duration) {
-                    nextTitle();
-                }
             }
             onStatusChanged: {
                 if (status == Audio.EndOfMedia) {
-                    if (lvMusic.currentIndex + 1 < lvMusic.count) {
-                        lvMusic.currentIndex++;
+                    if (nextTitle()) {
                         playMusic.play();
                         console.debug("Start playing...")
                     }
