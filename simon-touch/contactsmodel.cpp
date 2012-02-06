@@ -33,9 +33,6 @@ ContactsModel::ContactsModel(QObject *parent) :
     names.insert(Qt::UserRole+5, "image");
     names.insert(Qt::UserRole+6, "existingMessages");
     names.insert(Qt::UserRole+7, "uid");
-    names.insert(Qt::UserRole+8, "hasPhone");
-    names.insert(Qt::UserRole+9, "hasSkype");
-    names.insert(Qt::UserRole+10, "hasMail");
     setRoleNames(names);
 }
 
@@ -95,6 +92,7 @@ QString ContactsModel::getAvatar(KABC::Addressee contact) const
 
 QVariant ContactsModel::data(const QModelIndex& index, int role) const
 {
+    qWarning() << "Getting contacts data for index " << index.row() << " in role " << role;
     const KABC::Addressee& contact = m_contacts[index.row()];
     switch (role) {
     case Qt::UserRole: {
@@ -116,7 +114,10 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
         return mails.first();
     }
     case Qt::UserRole+4: {
-        return contact.custom("KADDRESSBOOK", "skype");
+        QString skypeUid = contact.custom("KADDRESSBOOK", "skype");
+        if (skypeUid.isEmpty())
+            return "-";
+        return skypeUid;
     }
     case Qt::UserRole+5: {
         return getAvatar(contact);
@@ -126,15 +127,6 @@ QVariant ContactsModel::data(const QModelIndex& index, int role) const
     }
     case Qt::UserRole+7: {
         return contact.uid();
-    }
-    case Qt::UserRole+8: {
-        return (data(index, Qt::UserRole+2).toString() != "-");
-    }
-    case Qt::UserRole+9: {
-        return !(data(index, Qt::UserRole+4).toString().isEmpty());
-    }
-    case Qt::UserRole+10: {
-        return (data(index, Qt::UserRole+3).toString() != "-");
     }
     }
 

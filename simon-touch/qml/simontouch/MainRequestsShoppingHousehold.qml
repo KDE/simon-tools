@@ -57,7 +57,8 @@ TabPage {
                 lvShoppingDrinksSelectionModel.append({"name":lvShoppingDrinksModel.get(lvShoppingDrinks.currentIndex).name,"amount":lvShoppingDrinksModel.get(lvShoppingDrinks.currentIndex).amount,"price":lvShoppingDrinksModel.get(lvShoppingDrinks.currentIndex).price,"category":lvShoppingDrinksModel.get(lvShoppingDrinks.currentIndex).category, "index":lvShoppingDrinks.currentIndex});
                 lvShoppingDrinksModel.remove(lvShoppingDrinks.currentIndex);
             } else {
-                if(lvShoppingDrinksSelection.currentIndex) {
+                if(lvShoppingDrinksSelection.activeFocus) {
+                    console.debug(lvShoppingDrinksSelection.currentIndex);
                     lvShoppingDrinksSelectionModel.set(lvShoppingDrinksSelection.currentIndex, {"amount": ++lvShoppingDrinksSelectionModel.get(lvShoppingDrinksSelection.currentIndex).amount})
                 }
             }
@@ -75,7 +76,7 @@ TabPage {
                 }
             }
 
-            if (model.get(modelLv.currentIndex).amount > 1) model.set(modelLv.currentIndex, {"amount": --model.get(modelLv.currentIndex).amount})
+//            if (model.get(modelLv.currentIndex).amount > 1) model.set(modelLv.currentIndex, {"amount": --model.get(modelLv.currentIndex).amount})
         }
 
         function setActiveFocus(listView) {
@@ -612,7 +613,7 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
-            onButtonClick: parent.decreaseAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection);
+            onButtonClick: parent.decreaseAmount();
         }
         Button {
             width: 50
@@ -627,7 +628,7 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
-            onButtonClick: parent.addAmount(lvShoppingDrinksSelectionModel, lvShoppingDrinksSelection)
+            onButtonClick: parent.addAmount()
         }
         Button {
             width: lvCursorUp.width

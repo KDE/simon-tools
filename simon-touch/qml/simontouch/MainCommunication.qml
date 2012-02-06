@@ -25,6 +25,10 @@ TabPage {
     id: screen
     objectName: "MainCommunication"
     stateName: "Communication"
+    onOpacityChanged: {
+//        lvContactsView.focus = (opacity == 1)
+        lvContactsView.currentIndex = 0
+    }
 
     Page {
         stateName: parent.stateName
@@ -35,10 +39,10 @@ TabPage {
             id: contactsDelegate
             Item {
                 property alias name: lbPrettyName.text
-                property bool hasPhone: (lbPhoneNumber.text != qsTr("Phone: -")) || (lbSkype.text != qsTr("Skype: -"))
+                property bool hasPhone: (lbPhoneNumber.text != qsTr("Phone: -"))
+                property bool hasSkype: (lbSkype.text != qsTr("Skype: -"))
                 property bool hasMail: lbMail.text != qsTr("Mail: -")
                 property alias contactId: uidWrapper.objectName
-                property bool hasMessages: true
 
                 height: 100
                 width: lvContactsView.width
@@ -101,6 +105,18 @@ TabPage {
             id: lvContactsView
             objectName: "lvContactsView"
 
+            Component {
+                id: highlight
+                Rectangle {
+                        color: "#FEF57B" // "lightsteelblue"
+                        radius: 5
+                        width: parent.width -2
+                        border.color: "#8A8A8A"
+                        border.width: 1
+                }
+            }
+            highlight: highlight
+
             anchors {
                 left: parent.left
 //                right: parent.right
@@ -127,6 +143,15 @@ TabPage {
             } else {
                 mainCommunicationSendMessage.smsAvailable = 0
             }
+            console.debug("HasSkype: "+ lvContactsView.currentItem.hasSkype)
+            console.debug("HasPhone: "+ lvContactsView.currentItem.hasPhone)
+            console.debug("HasMail: "+ lvContactsView.currentItem.hasMail)
+            if (lvContactsView.currentItem.hasSkype) {
+                callSkype.opacity = 1
+            } else {
+                callSkype.opacity = 0
+            }
+
             if (lvContactsView.currentItem.hasMail) {
                 mainCommunicationSendMessage.mailAvailable = 1
             } else {
@@ -134,20 +159,20 @@ TabPage {
             }
 
             if (lvContactsView.currentItem.hasPhone) {
-                callPhone.opacity = true
+                callTelephone.opacity = true
             } else {
-                callPhone.opacity = false
+                callTelephone.opacity = false
             }
             if (lvContactsView.currentItem.hasPhone || lvContactsView.currentItem.hasMail) {
                 sendMessage.opacity = true
             } else {
                 sendMessage.opacity = false
             }
-            if (lvContactsView.currentItem.hasMessages) {
-                readMessages.opacity = true
-            } else {
-                readMessages.opacity = false
-            }
+//            if (lvContactsView.currentItem.hasMessages) {
+//                readMessages.opacity = true
+//            } else {
+//                readMessages.opacity = false
+//            }
         }
 
         Button {
@@ -179,38 +204,40 @@ TabPage {
             buttonLayout: Qt.Horizontal
             onButtonClick: if (lvContactsView.currentIndex + 1 < lvContactsView.count) lvContactsView.currentIndex += 1
         }
+//        Button {
+//            id: callPhone
+//            anchors.top: lvImagesUp.top
+//            anchors.left: lvContactsView.right
+//            anchors.leftMargin: 20
+////            anchors.topMargin: 160
+//            buttonText: qsTr("Call")
+//            width: lvContactsView.width
+//            height: 50
+//            buttonImage: "../img/go-down.svgz"
+//            spokenText: false
+//            buttonNumber: qsTr("Ok")
+//            buttonLayout: Qt.Horizontal
+//            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
+//            Behavior on opacity {
+//                NumberAnimation {properties: "opacity"; duration: 500}
+//            }
+//        }
+
         Button {
-            id: callPhone
+            id: callSkype
             anchors.top: lvImagesUp.top
             anchors.left: lvContactsView.right
             anchors.leftMargin: 20
 //            anchors.topMargin: 160
-            buttonText: qsTr("Call")
+            buttonText: qsTr("Call on computer")
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
             spokenText: false
-            buttonNumber: qsTr("Ok")
             buttonLayout: Qt.Horizontal
-            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
-            Behavior on opacity {
-                NumberAnimation {properties: "opacity"; duration: 500}
-            }
-        }
-
-        Button {
-            id: callSkype
-            anchors.top: callPhone.bottom
-            anchors.left: callPhone.left
-//            anchors.leftMargin: 20
-            anchors.topMargin: 10
-            buttonText: qsTr("Skype")
-            width: lvContactsView.width / 2 -5
-            height: 50
-            buttonImage: "../img/go-down.svgz"
-            spokenText: true
-            buttonLayout: Qt.Horizontal
-            opacity: 0
+            opacity: 1
+            buttonNumber: "1"
+            shortcut: Qt.Key_1
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
@@ -219,17 +246,19 @@ TabPage {
 
         Button {
             id: callTelephone
-            anchors.top: callPhone.bottom
-            anchors.right: callPhone.right
+            anchors.top: callSkype.bottom
+            anchors.left: callSkype.left
 //            anchors.leftMargin: 20
             anchors.topMargin: 10
-            buttonText: qsTr("Phone")
-            width: lvContactsView.width /2 - 5
+            buttonText: qsTr("Call on phone")
+            width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
-            spokenText: true
+            spokenText: false
             buttonLayout: Qt.Horizontal
-            opacity: 0
+            opacity: 1
+            buttonNumber: "2"
+            shortcut: Qt.Key_2
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
@@ -237,8 +266,8 @@ TabPage {
         }
         Button {
             id: sendMessage
-            anchors.top: /*(callPhone.opacity == 1) ? */callPhone.bottom /*: lvImagesUp.top*/
-            anchors.left: callPhone.left
+            anchors.top: callTelephone.bottom
+            anchors.left: callSkype.left
             buttonText: qsTr("Send message")
             width: lvContactsView.width
             anchors.topMargin: 10
@@ -247,7 +276,8 @@ TabPage {
             spokenText: false
             buttonLayout: Qt.Horizontal
             onButtonClick: setScreen("MainCommunicationSendMessage")
-            buttonNumber: "1"
+            buttonNumber: "3"
+            shortcut: Qt.Key_3
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration:500}
             }
@@ -255,7 +285,7 @@ TabPage {
         Button {
             id: readMessages
             anchors.top: sendMessage.bottom
-            anchors.left: callPhone.left
+            anchors.left: callSkype.left
             buttonText: qsTr("Read messages")
             width: lvContactsView.width
             anchors.topMargin: 10
@@ -267,7 +297,8 @@ TabPage {
                 simonTouch.fetchMessages(lvContactsView.currentItem.contactId)
                 setScreen("MainCommunicationReadMessages")
             }
-            buttonNumber:"2"
+            buttonNumber:"4"
+            shortcut: Qt.Key_4
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
@@ -277,11 +308,11 @@ TabPage {
                 name: "openCall"
                 PropertyChanges {
                     target: callSkype
-                    opacity: 1
+                    opacity: 0
                 }
                 PropertyChanges {
                     target: callTelephone
-                    opacity: 1
+                    opacity: 0
                 }
                 PropertyChanges {
                     target: sendMessage
