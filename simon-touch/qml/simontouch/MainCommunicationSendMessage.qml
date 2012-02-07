@@ -112,7 +112,7 @@ TabPage {
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
-                    buttonNumber: "1"
+//                    buttonNumber: "1"
                     onButtonClick: {
                         simonTouch.sendMail(recipientUid, messageInput.text)
                         back()
@@ -130,8 +130,7 @@ TabPage {
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right
-                    buttonNumber: "2"
-
+//                    buttonNumber: "2"
                     onButtonClick: {
                         simonTouch.sendSMS(recipientUid, messageInput.text)
                         back()
