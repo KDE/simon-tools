@@ -41,7 +41,7 @@ TabPage {
             }
             Button {
                 objectName: "btRequestsShoppingMedic"
-                buttonText: qsTr("Medic")
+                buttonText: qsTr("Medicine")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")

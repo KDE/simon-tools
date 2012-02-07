@@ -528,9 +528,9 @@ TabPage {
             anchors.top: lvShoppingDrinks.bottom
 //            anchors.left: lvShoppingDrinks.left
             anchors.topMargin: 10
-            x: screen.width / 2 - 760 / 2
+            x: screen.width / 2 - ((5*150)+100+60) / 2
             anchors.rightMargin: 10
-            width: 120
+            width: 150
             height: 50
             buttonImage: "../img/go-up.svgz"
             buttonText: qsTr("Up")
@@ -553,6 +553,7 @@ TabPage {
             shortcut: Qt.Key_Down
             spokenText: true
             buttonLayout: Qt.Horizontal
+            horizontalIconAlign: "right"
             onButtonClick: parent.moveDown()
         }
 
@@ -563,6 +564,9 @@ TabPage {
             buttonText: qsTr("Left")
             spokenText: true
             shortcut: Qt.Key_Left
+            buttonLayout: Qt.Horizontal
+            buttonImage: "../img/go-previous.svgz"
+            horizontalIconAlign: "left"
             anchors {
                 top: lvShoppingDrinks.bottom
                 left: lvCursorDown.right
@@ -578,6 +582,9 @@ TabPage {
             buttonText: qsTr("Right")
             spokenText: true
             shortcut: Qt.Key_Right
+            buttonLayout: Qt.Horizontal
+            horizontalIconAlign: "right"
+            buttonImage: "../img/go-next.svgz"
             anchors {
                 top: lvShoppingDrinks.bottom
                 left: categoryLeft.right
@@ -586,20 +593,6 @@ TabPage {
             }
             onButtonClick: lvShoppingDrinks.activeFocus ? lvShoppingDrinksSelection.forceActiveFocus() : lvShoppingDrinks.forceActiveFocus()
         }
-//        Button {
-//            id: selectItem
-//            width: 100
-//            height: 50
-//            buttonText: qsTr("Select")
-//            spokenText: true
-//            shortcut: Qt.Key_Return
-//            anchors {
-//                top: lvShoppingDrinks.bottom
-//                left: categoryRight.right
-//                leftMargin: 10
-//                topMargin: 10
-//            }
-//        }
         Button {
             width: 50
             height: 50
@@ -636,7 +629,10 @@ TabPage {
             id: drinkDeselect
             buttonText: qsTr("Order")
             spokenText: true
-            shortcut: Qt.Key_Backspace
+            shortcut: Qt.Key_Enter
+            buttonLayout: Qt.Horizontal
+            buttonImage: "../img/Button_Anfragen_Bestellung.png"
+            horizontalIconAlign: "left"
             anchors {
                 top: lvShoppingDrinks.bottom
                 left: addAmount.right
