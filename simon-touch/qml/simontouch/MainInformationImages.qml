@@ -178,17 +178,20 @@ TabPage {
             Button {
                 id: stopSlideshow
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: (parent.state =="windowed") ? 0 : 1
+                opacity: (parent.state =="windowed") ? 0 : 1
                 height: 50
                 width: 300
                 z: 1
                 buttonImage: "../img/go-down.svgz"
                 buttonText: qsTr("Stop slideshow")
-                shortcut: Qt.Key_Down
+                shortcut: Qt.Key_S
                 spokenText: false
                 buttonNumber: qsTr("Stop")
                 buttonLayout: Qt.Horizontal
-                onButtonClick: if (lvImages.currentIndex + 1 < lvImages.count) lvImages.currentIndex += 1
+                onButtonClick: imageWindow.toggleSlideshow()
+                Behavior on opacity {
+                    NumberAnimation {properties: "opacity"; duration: 500}
+                }
             }
 
             Image {

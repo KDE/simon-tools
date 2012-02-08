@@ -114,10 +114,10 @@ TabPage {
                 anchors.topMargin: 10
                 anchors.leftMargin: 10
                 objectName: "btPlay"
-                buttonText: qsTr("Abspielen")
-                buttonNumber: ""
+                buttonText: qsTr("Play")
+                buttonNumber: "Ok"
                 buttonImage: ("../img/play.png")
-                spokenText: true
+                spokenText: false
                 height: 50
                 width: 170
                 shortcut: Qt.Key_P
