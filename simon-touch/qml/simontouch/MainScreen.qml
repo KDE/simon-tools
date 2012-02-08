@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -40,6 +40,8 @@ TabPage {
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Information.png")
                 onButtonClick: showScreen("MainInformation")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 id: btButton2
@@ -49,6 +51,8 @@ TabPage {
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Kommunikation.png")
                 onButtonClick: showScreen("MainCommunication")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 id: btButton3
@@ -58,6 +62,8 @@ TabPage {
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Auftraege.png")
                 onButtonClick: showScreen("MainOrders")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button{
                 id: btButton4
@@ -66,10 +72,9 @@ TabPage {
                 buttonNumber: "4"
                 shortcut: Qt.Key_4
                 buttonImage: ("../img/Button_Anfragen.png")
-//                onButtonClick: showScreen("MainIncomingCall")
-//                onButtonClick: showScreen("MainOutgoingCall")
-//                onButtonClick: showScreen("MainActiveCall")
                 onButtonClick: showScreen("MainRequests")
+                width: screen.width / 4
+                height: screen.height / 3
             }
         }
     }

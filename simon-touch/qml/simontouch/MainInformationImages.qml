@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -25,9 +25,6 @@ TabPage {
     objectName: "MainInformationImages"
     stateName: "Images"
     anchors.fill: parent
-    /*onOpacityChanged: {
-        lvImages.focus = (opacity == 1)
-    }*/
 
     Page {
         stateName: parent.stateName
@@ -123,12 +120,11 @@ TabPage {
                 width: 200
                 anchors.left: parent.left
                 anchors.top: parent.bottom
-                shortcut: Qt.Key_S
+                shortcut: Qt.Key_Enter
                 anchors.topMargin: 10
                 height: 50
                 color: Qt.darker("#FFFBC7", 1.1)
                 buttonText: (state == "slideshowDisabled") ? qsTr("Slideshow") : qsTr("Stop slideshow")
-//                disableImage: true
                 spokenText: false
                 buttonNumber: "Ok"
                 buttonLayout: Qt.Horizontal
@@ -182,17 +178,20 @@ TabPage {
             Button {
                 id: stopSlideshow
                 anchors.horizontalCenter: parent.horizontalCenter
-                visible: (parent.state =="windowed") ? 0 : 1
+                opacity: (parent.state =="windowed") ? 0 : 1
                 height: 50
                 width: 300
                 z: 1
                 buttonImage: "../img/go-down.svgz"
                 buttonText: qsTr("Stop slideshow")
-                shortcut: Qt.Key_Down
+                shortcut: Qt.Key_S
                 spokenText: false
                 buttonNumber: qsTr("Stop")
                 buttonLayout: Qt.Horizontal
-                onButtonClick: if (lvImages.currentIndex + 1 < lvImages.count) lvImages.currentIndex += 1
+                onButtonClick: imageWindow.toggleSlideshow()
+                Behavior on opacity {
+                    NumberAnimation {properties: "opacity"; duration: 500}
+                }
             }
 
             Image {

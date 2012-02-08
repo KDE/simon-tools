@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -39,18 +39,9 @@ TabPage {
 */
 
         function selectCurrentItem (inputModel, outputModel, inputLv, outputLv) {
-//            console.debug(inputModel.currentIndex);
-//            console.debug(inputModel+" : " + outputModel);
             outputModel.append({"name":inputModel.get(inputLv.currentIndex).name,"amount":inputModel.get(inputLv.currentIndex).amount,"price":inputModel.get(inputLv.currentIndex).price,"category":inputModel.get(inputLv.currentIndex).category});
             inputModel.remove(inputLv.currentIndex);
         }
-
-        /*
-          lvShoppingDrinksModel
-          lvShoppingDrinksSelectionModel
-          lvShoppingDrinks
-          lvShoppingDrinksSelection
-          */
 
         function addAmount () {
             if (lvShoppingDrinks.activeFocus) {
@@ -58,7 +49,6 @@ TabPage {
                 lvShoppingDrinksModel.remove(lvShoppingDrinks.currentIndex);
             } else {
                 if(lvShoppingDrinksSelection.activeFocus) {
-                    console.debug(lvShoppingDrinksSelection.currentIndex);
                     lvShoppingDrinksSelectionModel.set(lvShoppingDrinksSelection.currentIndex, {"amount": ++lvShoppingDrinksSelectionModel.get(lvShoppingDrinksSelection.currentIndex).amount})
                 }
             }
@@ -76,7 +66,6 @@ TabPage {
                 }
             }
 
-//            if (model.get(modelLv.currentIndex).amount > 1) model.set(modelLv.currentIndex, {"amount": --model.get(modelLv.currentIndex).amount})
         }
 
         function setActiveFocus(listView) {
@@ -84,7 +73,6 @@ TabPage {
         }
 
         function moveUp() {
-            console.debug("lvShoppingDrinksModel.count: " + lvShoppingDrinksModel.count + " / lvShoppingDrinksSelectionModel.count: "+lvShoppingDrinksSelectionModel.count+" / Index: " +lvShoppingDrinks.currentIndex)
             if (lvShoppingDrinks.activeFocus && lvShoppingDrinks.currentIndex >= 1) {
                 --lvShoppingDrinks.currentIndex
             } else if (lvShoppingDrinksSelection.activeFocus && lvShoppingDrinksSelection.currentIndex >= 1){
@@ -99,81 +87,6 @@ TabPage {
                 ++lvShoppingDrinksSelection.currentIndex
             } else { return; }
         }
-
-/*
-############## Categories
-*/
-
-//        ListModel {
-//            id: lvShoppingCategoryModel
-//            ListElement {
-//                category: "Drinks"
-//            }
-//            ListElement {
-//                category: "Food"
-//            }
-//            ListElement {
-//                category: "Hygiene"
-//            }
-//        }
-
-//        Component {
-//            id: categoryModelDelegate
-//            Text {
-//                text: category
-//                font.family: "Arial"
-//                font.pointSize: 16
-//                width: parent.width
-//                MouseArea {
-//                    anchors.fill: parent
-//                    onClicked: {
-//                        lvShoppingCategory.currentIndex = index;
-//                    }
-//                }
-//            }
-//        }
-
-//        SelectionListView {
-//            id: lvShoppingCategory
-//            objectName: "lvShoppingCategory"
-
-//            anchors {
-//                left: parent.left
-//                top: parent.top
-//                bottom: parent.bottom
-//                margins: 160
-//                leftMargin: 0
-//                rightMargin: 0
-//            }
-//            width: screen.width / 2 - 310
-//            model: lvShoppingCategoryModel
-//            delegate: categoryModelDelegate
-//            Keys.onPressed: {
-//                if (activeFocus){
-//                    if (event.key == Qt.Key_Right) {
-//                        lvShoppingDrinks.forceActiveFocus();
-//                    } else if (event.key == Qt.Key_Left) {
-//                        lvShoppingDrinksSelection.forceActiveFocus();
-//                    }
-//                }
-//            }
-//        }
-
-//        Button {
-//            width: lvShoppingCategory.width
-//            height: 50
-//            id: categoryLabel
-//            buttonText: qsTr("Category")
-//            activeHover: false
-//            active: lvShoppingCategory.activeFocus
-//            anchors {
-//                bottom: lvShoppingCategory.top
-//                left: lvShoppingCategory.left
-//                bottomMargin: 10
-//            }
-//            onButtonClick: parent.setActiveFocus(lvShoppingCategory)
-////            onActiveChanged: console.debug("CategoryActive: " + categoryLabel.active)
-//        }
 
 /*
 ############## Items
@@ -419,16 +332,6 @@ TabPage {
             section.property: "category"
             section.criteria: ViewSection.FullString
             section.delegate: sectionDelegate
-
-//            Keys.onPressed: {
-//                if (activeFocus){
-//                    if (event.key == Qt.Key_Right) {
-//                        lvShoppingDrinksSelection.forceActiveFocus();
-//                    } else if (event.key == Qt.Key_Left) {
-//                        lvShoppingDrinksSelection.forceActiveFocus();
-//                    }
-//                }
-//            }
         }
 
         Button {
@@ -444,7 +347,6 @@ TabPage {
                 bottomMargin: 10
             }
             onButtonClick: parent.setActiveFocus(lvShoppingDrinks)
-//            onActiveChanged: console.debug("ItemActive: " + itemLabel.active)
         }
 
 /*
@@ -490,15 +392,6 @@ TabPage {
             width: lvShoppingDrinks.width
             model: lvShoppingDrinksSelectionModel
             delegate: drinkModelDelegateSelection
-//            Keys.onPressed: {
-//                if (activeFocus){
-//                    if (event.key == Qt.Key_Right) {
-//                        lvShoppingDrinks.forceActiveFocus();
-//                    } else if (event.key == Qt.Key_Left) {
-//                        lvShoppingDrinks.forceActiveFocus();
-//                    }
-//                }
-//            }
         }
 
 
@@ -515,7 +408,6 @@ TabPage {
                 bottomMargin: 10
             }
             onButtonClick: parent.setActiveFocus(lvShoppingDrinksSelection)
-//            onActiveChanged: console.debug("CartActive: " + cartLabel.active)
         }
 
 /*
@@ -526,7 +418,6 @@ TabPage {
         Button {
             id: lvCursorUp
             anchors.top: lvShoppingDrinks.bottom
-//            anchors.left: lvShoppingDrinks.left
             anchors.topMargin: 10
             x: screen.width / 2 - ((5*150)+100+60) / 2
             anchors.rightMargin: 10

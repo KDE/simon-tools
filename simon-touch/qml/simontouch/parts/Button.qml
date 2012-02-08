@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -32,11 +32,11 @@ Rectangle {
     property int shortcut
     property bool extraSpokenText: true
     property int buttonLayout: Qt.Vertical
-    signal buttonClick()
     property bool horizontalMiddleText:  true
     property string horizontalIconAlign: "left"
     property bool active : false
     property bool activeHover: true
+    signal buttonClick()
 
     width: 240
     height: 250
@@ -84,6 +84,7 @@ Rectangle {
         anchors.horizontalCenter: (buttonLayout == Qt.Vertical && horizontalIconAlign != "right") ? parent.horizontalCenter : undefined
         anchors.top: (buttonLayout == Qt.Horizontal && horizontalMiddleText == false) ? parent.top : undefined
         height: (buttonLayout == Qt.Horizontal) ? parent.height - 20 : parent.height * 0.7
+        width: (buttonLayout == Qt.Vertical) ? parent.width * 0.7 : undefined
 
         visible: (buttonImage == "") ? 0 : 1
 
