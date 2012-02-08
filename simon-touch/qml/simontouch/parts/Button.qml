@@ -119,7 +119,7 @@ Rectangle {
     }
 
     function handleKey(key) {
-        if (key == shortcut) {
+        if ((key == shortcut) && (button.opacity == 1)) {
             buttonClick()
             return true
         }

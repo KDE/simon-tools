@@ -32,44 +32,9 @@ TabPage {
         stateName:parent.stateName
         id: readMessagePage
 
-        Component {
-            id: messagesDelegate
-            Item {
-                height: 30
-                width: lvContactsView.width
-                Row {
-                    spacing: 20
-                    height: parent.height
-                    width: parent.width
-                    Image {
-                        source: icon
-                        height: parent.height
-                        fillMode: Image.PreserveAspectFit
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    Text {
-                        text: subject
-                        font.family: "Arial"
-                        font.pointSize: 10
-                        anchors.verticalCenter: parent.verticalCenter
-                    }
-                    Text {
-                        text: datetime
-                        font.family: "Arial"
-                        font.pointSize: 10
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.right: parent.right
-                    }
-                }
-
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: {
-                        lvContactsView.currentIndex = index;
-                    }
-                }
-            }
+        onOpacityChanged: {
+            if (opacity == 0)
+                simonTouch.interruptReading()
         }
 
         SelectionListView {
@@ -91,6 +56,13 @@ TabPage {
             width: screen.width - 320
             model: messagesModel
             delegate: MessagesListDelegate {}
+
+            onCurrentItemChanged: {
+                if (!currentItem) return;
+                simonTouch.interruptReading()
+                if (currentItem.content != qsTr("Please wait..."))
+                    simonTouch.readAloud(currentItem.content)
+            }
         }
 
         Button {

@@ -86,6 +86,17 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
 }
 
+void QMLSimonTouchView::readAloud(const QString& message)
+{
+    qDebug() << "Reading aloud " << message;
+    m_logic->readAloud(message);
+}
+
+void QMLSimonTouchView::interruptReading()
+{
+    qDebug() << "Interrupting TTS";
+    m_logic->interruptReading();
+}
 
 void QMLSimonTouchView::videoEnabled()
 {

@@ -128,6 +128,24 @@ void SimonTouch::hideCalculator()
     QDBusConnection::sessionBus().send(m);
     QDBusConnection::sessionBus().send(m); //cancel popup if necessary
 }
+void SimonTouch::readAloud(const QString& message)
+{
+    QDBusMessage m = QDBusMessage::createMethodCall("org.simon-listens.SimonTTS",
+                                                    "/SimonTTS",
+                                                    "local.SimonTTS",
+                                                    "say");
+    m.setArguments(QList<QVariant>() << message);
+    QDBusConnection::sessionBus().send(m);
+}
+
+void SimonTouch::interruptReading()
+{
+    QDBusMessage m = QDBusMessage::createMethodCall("org.simon-listens.SimonTTS",
+                                                    "/SimonTTS",
+                                                    "local.SimonTTS",
+                                                    "interrupt");
+    QDBusConnection::sessionBus().send(m);
+}
 
 void SimonTouch::setupCommunication()
 {

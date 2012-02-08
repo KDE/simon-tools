@@ -52,6 +52,8 @@ public slots:
 
     void readMessage(int messageIndex);
 
+    void readAloud(const QString& message);
+    void interruptReading();
 
 private:
     QWidget *dlg;

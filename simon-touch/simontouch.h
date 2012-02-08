@@ -98,6 +98,9 @@ public:
     void sendMail(const QString& user, const QString& message);
     void readMessage(int messageIndex);
 
+    void readAloud(const QString& message);
+    void interruptReading();
+
     QWidget *getVideoCallWidget();
 
     ~SimonTouch();

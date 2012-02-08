@@ -76,6 +76,7 @@ TabPage {
         onOpacityChanged: {
             if (opacity == 0) {
                 rssFlip.flipped = false
+                simonTouch.interruptReading()
             }
 
             lvFeed.focus = (opacity == 1)
@@ -94,6 +95,11 @@ TabPage {
         AutoFlippable {
             id: rssFlip
             anchors.fill: parent
+            onFlippedChanged: {
+                if (!flipped)
+                    simonTouch.interruptReading();
+            }
+
             front: BusyIndicator {
                 id: busyIndicator
                 visible: true
@@ -113,8 +119,15 @@ TabPage {
                     currentIndex = 0
                 }
 
+                onCurrentIndexChanged: {
+                    if (currentItem) {
+                        simonTouch.interruptReading()
+                        simonTouch.readAloud(currentItem.article)
+                    }
+                }
                 snapMode: ListView.SnapToItem
                 delegate: RSSArticle {
+                    id: rssArticle
                     height: lvFeed.height - 75
                     width: feedPage.width - 200
                     heading: header
