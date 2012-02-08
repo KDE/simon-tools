@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -29,7 +29,6 @@ Component {
         height: 30
 
         property int fontHeight: 30
-//        property int itemMargin: 10
 
         Image {
             id: messageIcon

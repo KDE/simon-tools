@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -30,7 +30,6 @@ Rectangle {
     function changeButtonVisibility(visibility) {
             keyboardButton.opacity = visibility;
             calculatorButton.opacity = visibility;
-            //console.debug("changeButtonVisibility: " + visibility);
     }
     function activeCall() {
         console.debug("Receiving active call...");
@@ -87,6 +86,7 @@ Rectangle {
             else
                 simonTouch.showCalculator()
         }
+        width: parent.width / 4
     }
     KeyCalcButton {
         id: keyboardButton
@@ -102,8 +102,8 @@ Rectangle {
             else
                 simonTouch.showKeyboard()
         }
+        width: parent.width / 4
     }
-    //}
     Rectangle {
         id: closebutton
         anchors.top: parent.top

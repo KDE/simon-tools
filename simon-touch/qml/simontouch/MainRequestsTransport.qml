@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -37,6 +37,8 @@ TabPage {
                 buttonNumber: "1"
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 objectName: "btRequestsTransportAmbulance"
@@ -44,6 +46,8 @@ TabPage {
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 objectName: "btRequestsTransportPrivate"
@@ -51,13 +55,9 @@ TabPage {
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
+                width: screen.width / 4
+                height: screen.height / 3
             }
-//            Button {
-//                objectName: "btRequestsSupportPrivate"
-//                buttonText: qsTr("Known person")
-//                buttonNumber: "4"
-//                buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
-//            }
         }
     }
 }

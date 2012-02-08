@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -76,31 +76,44 @@ TabPage {
                     width: parent.width //- textLabel.width -10
                     height: parent.height - textLabel.height - 10
                     color: "Lightsteelblue"
-                    TextEdit {
-                         id: messageInput
-                         text: ""
-                         focus: true
-                         font.family: "Arial"
-                         font.pointSize: 16
-//                        MouseArea {
-//                           anchors.fill: parent
-//                           onClicked: {
-//                               if (!messageInput.activeFocus) {
-//                                   messageInput.forceActiveFocus();
-//                                   messageInput.openSoftwareInputPanel();
-//                               } else {
-//                                   messageInput.focus = false;
-//                               }
-//                           }
-//                           onPressAndHold: textInput.closeSoftwareInputPanel
-//                        }
+                    id: textEditBackground
+                    Flickable {
+                        id: flickArea
+                        anchors.fill: parent
+                        contentWidth: messageInput.width
+                        contentHeight: messageInput.height
+                        flickableDirection: Flickable.VerticalFlick
+                        width: parent.width
+                        height: parent.height
+                        clip: true
+                        function ensureVisible(r)
+                        {
+                            if (contentX >= r.x)
+                                contentX = r.x;
+                            else if (contentX+width <= r.x+r.width)
+                                contentX = r.x+r.width-width;
+                            if (contentY >= r.y)
+                                contentY = r.y;
+                            else if (contentY+height <= r.y+r.height)
+                                contentY = r.y+r.height-height;
+                        }
+                        TextEdit {
+                             id: messageInput
+                             width: textEditBackground.width
+                             height: textEditBackground.height
+                             text: ""
+                             focus: true
+                             font.family: "Arial"
+                             font.pointSize: 16
+                             onCursorRectangleChanged: flickArea.ensureVisible(cursorRectangle)
+                             wrapMode: "WordWrap"
+                        }
                     }
                 }
             }
             Item {
                 width: parent.width
                 height: sendMail.height
-//                spacing: 20
                 Button {
                     id: sendMail
                     anchors.topMargin: 10
@@ -108,11 +121,9 @@ TabPage {
                     height: 50
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to computer")
-                    shortcut: Qt.Key_Down
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
-//                    buttonNumber: "1"
                     onButtonClick: {
                         simonTouch.sendMail(recipientUid, messageInput.text)
                         back()
@@ -126,11 +137,9 @@ TabPage {
                     height: 50
                     buttonImage: "../img/go-down.svgz"
                     buttonText: qsTr("Send to mobile phone")
-                    shortcut: Qt.Key_Down
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right
-//                    buttonNumber: "2"
                     onButtonClick: {
                         simonTouch.sendSMS(recipientUid, messageInput.text)
                         back()

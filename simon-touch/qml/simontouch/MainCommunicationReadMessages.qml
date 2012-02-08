@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -80,13 +80,10 @@ TabPage {
 
             anchors {
                 left: parent.left
-//                right: parent.right
                 top: parent.top
                 bottom: parent.bottom
                 margins: 160
-//                topMargin: 210
                 rightMargin: 0
-//                bottomMargin: 200
             }
             width: screen.width - 320
             model: messagesModel

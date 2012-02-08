@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -26,7 +26,6 @@ TabPage {
     objectName: "MainCommunication"
     stateName: "Communication"
     onOpacityChanged: {
-//        lvContactsView.focus = (opacity == 1)
         lvContactsView.currentIndex = 0
     }
 
@@ -119,13 +118,11 @@ TabPage {
 
             anchors {
                 left: parent.left
-//                right: parent.right
                 top: parent.top
                 bottom: parent.bottom
                 margins: 160
                 topMargin: 160
                 rightMargin: 0
-//                bottomMargin: 200
             }
             width: screen.width / 2 - 210
             model: contactsModel
@@ -143,9 +140,6 @@ TabPage {
             } else {
                 mainCommunicationSendMessage.smsAvailable = 0
             }
-            console.debug("HasSkype: "+ lvContactsView.currentItem.hasSkype)
-            console.debug("HasPhone: "+ lvContactsView.currentItem.hasPhone)
-            console.debug("HasMail: "+ lvContactsView.currentItem.hasMail)
             if (lvContactsView.currentItem.hasSkype) {
                 callSkype.opacity = 1
             } else {
@@ -168,11 +162,6 @@ TabPage {
             } else {
                 sendMessage.opacity = false
             }
-//            if (lvContactsView.currentItem.hasMessages) {
-//                readMessages.opacity = true
-//            } else {
-//                readMessages.opacity = false
-//            }
         }
 
         Button {
@@ -204,31 +193,12 @@ TabPage {
             buttonLayout: Qt.Horizontal
             onButtonClick: if (lvContactsView.currentIndex + 1 < lvContactsView.count) lvContactsView.currentIndex += 1
         }
-//        Button {
-//            id: callPhone
-//            anchors.top: lvImagesUp.top
-//            anchors.left: lvContactsView.right
-//            anchors.leftMargin: 20
-////            anchors.topMargin: 160
-//            buttonText: qsTr("Call")
-//            width: lvContactsView.width
-//            height: 50
-//            buttonImage: "../img/go-down.svgz"
-//            spokenText: false
-//            buttonNumber: qsTr("Ok")
-//            buttonLayout: Qt.Horizontal
-//            onButtonClick: (mainCommunication.state == "noCall") ? mainCommunication.state = "openCall" : mainCommunication.state = "noCall"
-//            Behavior on opacity {
-//                NumberAnimation {properties: "opacity"; duration: 500}
-//            }
-//        }
 
         Button {
             id: callSkype
             anchors.top: lvImagesUp.top
             anchors.left: lvContactsView.right
             anchors.leftMargin: 20
-//            anchors.topMargin: 160
             buttonText: qsTr("Call on computer")
             width: lvContactsView.width
             height: 50
@@ -241,14 +211,13 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
-            onButtonClick: simonTouch.callSkype(lvContactsView.currentItem.contactId)
+            onButtonClick: if (opacity == 1) simonTouch.callSkype(lvContactsView.currentItem.contactId)
         }
 
         Button {
             id: callTelephone
             anchors.top: callSkype.bottom
             anchors.left: callSkype.left
-//            anchors.leftMargin: 20
             anchors.topMargin: 10
             buttonText: qsTr("Call on phone")
             width: lvContactsView.width
@@ -262,7 +231,7 @@ TabPage {
             Behavior on opacity {
                 NumberAnimation {properties: "opacity"; duration: 500}
             }
-            onButtonClick: simonTouch.callPhone(lvContactsView.currentItem.contactId)
+            onButtonClick: if (opacity == 1) simonTouch.callPhone(lvContactsView.currentItem.contactId)
         }
         Button {
             id: sendMessage
@@ -275,7 +244,7 @@ TabPage {
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal
-            onButtonClick: setScreen("MainCommunicationSendMessage")
+            onButtonClick: if (opacity == 1) setScreen("MainCommunicationSendMessage")
             buttonNumber: "3"
             shortcut: Qt.Key_3
             Behavior on opacity {

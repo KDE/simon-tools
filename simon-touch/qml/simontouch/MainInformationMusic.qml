@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -87,80 +87,95 @@ TabPage {
                     playMusic.play()
             }
         }
-
-        Button {
-            id: btMusicUp
-            anchors.left: lvMusic.left
+        Rectangle {
             anchors.top: lvMusic.bottom
-            anchors.topMargin: 10
-            objectName: "btMusicUp"
-            buttonText: qsTr("Up")
-            buttonNumber: ""
-            buttonImage: ("../img/go-up.svgz")
-            spokenText: true
-            shortcut: Qt.Key_Up
-            height: 90
-            width: 90
-            onButtonClick: if (lvMusic.currentIndex > 0) lvMusic.currentIndex -= 1
-        }
+            x: screen.width / 2 - ((680 + lbStatus.width + 40)/2)
+            Button {
+                id: btMusicUp
+//                anchors.left: lvMusic.left
+//                anchors.top: lvMusic.bottom
+                anchors.topMargin: 10
+                objectName: "btMusicUp"
+                buttonText: qsTr("Up")
+                buttonNumber: ""
+                buttonImage: ("../img/go-up.svgz")
+                spokenText: true
+                shortcut: Qt.Key_Up
+                height: 50
+                width: 170
+                buttonLayout: Qt.Horizontal
+                onButtonClick: if (lvMusic.currentIndex > 0) lvMusic.currentIndex -= 1
+            }
 
-        Button {
-            id: btMusicPlay
-            anchors.left: btMusicUp.right
-            anchors.top: lvMusic.bottom
-            anchors.topMargin: 10
-            anchors.leftMargin: 10
-            objectName: "btPlay"
-            buttonText: qsTr("Play")
-            buttonNumber: ""
-            buttonImage: ("../img/play.png")
-            spokenText: true
-            height: 90
-            width: 90
-            shortcut: Qt.Key_P
-            onButtonClick: playMusic.play()
-        }
+            Button {
+                id: btMusicPlay
+                anchors.left: btMusicUp.right
+//                anchors.top: lvMusic.bottom
+                anchors.topMargin: 10
+                anchors.leftMargin: 10
+                objectName: "btPlay"
+                buttonText: qsTr("Abspielen")
+                buttonNumber: ""
+                buttonImage: ("../img/play.png")
+                spokenText: true
+                height: 50
+                width: 170
+                shortcut: Qt.Key_P
+                buttonLayout: Qt.Horizontal
+                onButtonClick: playMusic.play()
+            }
 
 
-        Text {
-            id: lbStatus
-            anchors.verticalCenter: btMusicPlay.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "00:00:00 / 00:00:00"
-            font.family: "Arial"
-            font.pointSize: 16
-        }
+            Text {
+                id: lbStatus
+                anchors.verticalCenter: btMusicPlay.verticalCenter
+//                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: btMusicPlay.right
+                anchors.leftMargin: 10
+                anchors.rightMargin: 10
+                text: "00:00:00 / 00:00:00"
+                font.family: "Arial"
+                font.pointSize: 14
+            }
 
-        Button {
-            anchors.right: btMusicDown.left
-            anchors.top: lvMusic.bottom
-            anchors.topMargin: 10
-            anchors.rightMargin: 10
-            objectName: "btStop"
-            buttonText: qsTr("Stop")
-            buttonNumber: ""
-            buttonImage: ("../img/stop.png")
-            shortcut: Qt.Key_S
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: playMusic.stop()
-        }
+            Button {
+                id: btMusicStop
+//                anchors.right: btMusicDown.left
+//                anchors.top: lvMusic.bottom
+                anchors.left: lbStatus.right
+                anchors.leftMargin: 10
+                anchors.topMargin: 10
+                anchors.rightMargin: 10
+                objectName: "btStop"
+                buttonText: qsTr("Stop")
+                buttonNumber: ""
+                buttonImage: ("../img/stop.png")
+                shortcut: Qt.Key_S
+                spokenText: true
+                height: 50
+                width: 170
+                buttonLayout: Qt.Horizontal
+                onButtonClick: playMusic.stop()
+            }
 
-        Button {
-            id: btMusicDown
-            anchors.right: lvMusic.right
-            anchors.top: lvMusic.bottom
-            anchors.topMargin: 10
-            objectName: "btMusicDown"
-            buttonText: qsTr("Down")
-            buttonNumber: ""
-            buttonImage: ("../img/go-down.svgz")
-            shortcut: Qt.Key_Down
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: nextTitle()
+            Button {
+                id: btMusicDown
+//                anchors.right: lvMusic.right
+//                anchors.top: lvMusic.bottom
+                anchors.left: btMusicStop.right
+                anchors.leftMargin: 10
+                anchors.topMargin: 10
+                objectName: "btMusicDown"
+                buttonText: qsTr("Down")
+                buttonNumber: ""
+                buttonImage: ("../img/go-down.svgz")
+                shortcut: Qt.Key_Down
+                spokenText: true
+                height: 50
+                width: 170
+                buttonLayout: Qt.Horizontal
+                onButtonClick: nextTitle()
+            }
         }
 
         Audio {

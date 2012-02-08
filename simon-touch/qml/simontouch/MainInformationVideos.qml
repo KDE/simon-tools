@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -158,116 +158,114 @@ TabPage {
 
             }
         }
-
-        function toggleFullscreen() {
-            console.debug("VideoWrapper.state: "+videoWrapper.state)
-            if (videoWrapper.state == "windowed") {
-                videoWrapper.state = "fullscreen"
-            } else {
-                videoWrapper.state = "windowed"
-            }
-        }
-
-
-        Button {
-            id: btVideosUp
-            anchors.left: videoFlip.left
+        Rectangle {
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
-            objectName: "btVideosUp"
-            buttonText: qsTr("Up")
-            buttonNumber: ""
-            buttonImage: ("../img/go-up.svgz")
-            shortcut: Qt.Key_Up
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: if (lvVideos.currentIndex > 0) lvVideos.currentIndex -= 1
-        }
+            x: (btFullscreen.opacity == 1) ? screen.width / 2 - ((700 + lbStatus.width + 40)/2) : screen.width / 2 - ((530 + lbStatus.width + 40)/2)
 
-        Button {
-            id: btVideosPlay
-            anchors.left: btVideosUp.right
-            anchors.top: videoFlip.bottom
-            anchors.topMargin: 10
-            anchors.leftMargin: 10
-            objectName: "btPlay"
-            buttonText: qsTr("Play")
-            buttonNumber: ""
-            buttonImage: ("../img/play.png")
-            shortcut: Qt.Key_P
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: {
-                playVideos.play()
-                videoFlip.flipped = true
+            function toggleFullscreen() {
+                if (videoWrapper.state == "windowed") {
+                    videoWrapper.state = "fullscreen"
+                } else {
+                    videoWrapper.state = "windowed"
+                }
             }
 
-        }
 
-
-        Text {
-            id: lbStatus
-            //anchors.left: btVideosPlay.right
-            //anchors.leftMargin: 10
-            anchors.verticalCenter: btVideosPlay.verticalCenter
-            text: "00:00:00 / 00:00:00"
-            font.family: "Arial"
-            font.pointSize: 16
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.horizontalCenterOffset:  (videoFlip.flipped) ? -btFullscreen.width/2 - 5 : 0
-        }
-
-        Button{
-            id:btFullscreen
-            anchors.right: btStop.left
-            anchors.top: btStop.top
-            anchors.rightMargin: 10
-            buttonText: qsTr("Fullscreen")
-            buttonNumber: ""
-            buttonImage: ("../img/fullscreen.png")
-            shortcut: Qt.Key_F
-            spokenText: false
-            height: 90
-            width: 130
-            opacity: videoFlip.flipped ? 1 : 0
-            onButtonClick: parent.toggleFullscreen();
-        }
-
-        Button{
-            id: btStop
-            anchors.right: btVideosDown.left
-            anchors.top: videoFlip.bottom
-            anchors.topMargin: 10
-            anchors.rightMargin: 10
-            buttonText: qsTr("Stop")
-            buttonNumber: ""
-            buttonImage: ("../img/stop.png")
-            shortcut: Qt.Key_S
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: {
-                playVideos.stop()
-                videoFlip.flipped = false
+            Button {
+                id: btVideosUp
+                objectName: "btVideosUp"
+                buttonText: qsTr("Up")
+                buttonNumber: ""
+                buttonImage: ("../img/go-up.svgz")
+                shortcut: Qt.Key_Up
+                spokenText: true
+                height: 50
+                width: 120
+                buttonLayout: Qt.Horizontal
+                onButtonClick: if (lvVideos.currentIndex > 0) lvVideos.currentIndex -= 1
             }
-        }
 
-        Button {
-            id: btVideosDown
-            anchors.right: videoFlip.right
-            anchors.top: videoFlip.bottom
-            anchors.topMargin: 10
-            objectName: "btMusicDown"
-            buttonText: qsTr("Down")
-            buttonNumber: ""
-            buttonImage: ("../img/go-down.svgz")
-            shortcut: Qt.Key_Down
-            spokenText: true
-            height: 90
-            width: 90
-            onButtonClick: if (lvVideos.currentIndex + 1 < lvVideos.count) lvVideos.currentIndex += 1
+            Button {
+                id: btVideosPlay
+                anchors.left: btVideosUp.right
+                anchors.leftMargin: 10
+                objectName: "btPlay"
+                buttonText: qsTr("Play")
+                buttonNumber: ""
+                buttonImage: ("../img/play.png")
+                shortcut: Qt.Key_P
+                spokenText: true
+                height: 50
+                width: 170
+                buttonLayout: Qt.Horizontal
+                onButtonClick: {
+                    playVideos.play()
+                    videoFlip.flipped = true
+                }
+
+            }
+
+
+            Text {
+                id: lbStatus
+                anchors.verticalCenter: btVideosPlay.verticalCenter
+                anchors.left: btVideosPlay.right
+                anchors.leftMargin: 10
+                text: "00:00:00 / 00:00:00"
+                font.family: "Arial"
+                font.pointSize: 16
+            }
+
+            Button{
+                id:btFullscreen
+                anchors.left: lbStatus.right
+                anchors.leftMargin: 10
+                buttonText: qsTr("Fullscreen")
+                buttonNumber: ""
+                buttonImage: ("../img/fullscreen.png")
+                shortcut: Qt.Key_F
+                spokenText: false
+                height: 50
+                width: 170
+                buttonLayout: Qt.Horizontal
+                opacity: videoFlip.flipped ? 1 : 0
+                onButtonClick: parent.toggleFullscreen();
+            }
+
+            Button{
+                id: btStop
+                anchors.left: lbStatus.right
+                anchors.leftMargin: (btFullscreen.opacity == 1) ? 20 + btFullscreen.width : 10
+                buttonText: qsTr("Stop")
+                buttonNumber: ""
+                buttonImage: ("../img/stop.png")
+                shortcut: Qt.Key_S
+                spokenText: true
+                height: 50
+                width: 120
+                buttonLayout: Qt.Horizontal
+                onButtonClick: {
+                    playVideos.stop()
+                    videoFlip.flipped = false
+                }
+            }
+
+            Button {
+                id: btVideosDown
+                anchors.left: btStop.right
+                anchors.leftMargin: 10
+                objectName: "btMusicDown"
+                buttonText: qsTr("Down")
+                buttonNumber: ""
+                buttonImage: ("../img/go-down.svgz")
+                shortcut: Qt.Key_Down
+                spokenText: true
+                height: 50
+                width: 120
+                buttonLayout: Qt.Horizontal
+                onButtonClick: if (lvVideos.currentIndex + 1 < lvVideos.count) lvVideos.currentIndex += 1
+            }
         }
     }
 }

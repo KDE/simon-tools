@@ -1,5 +1,5 @@
 /*
- *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@cyber-byte.at>
+ *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
  *   This program is free software; you can redistribute it and/or modify
@@ -38,6 +38,8 @@ TabPage {
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Anfragen_Bestellung.png")
                 onButtonClick: setScreen("MainRequestsShopping")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 objectName: "btRequestsTransport"
@@ -46,6 +48,8 @@ TabPage {
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
                 onButtonClick: setScreen("MainRequestsTransport")
+                width: screen.width / 4
+                height: screen.height / 3
             }
             Button {
                 objectName: "btRequestsSupport"
@@ -54,14 +58,9 @@ TabPage {
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
                 onButtonClick: setScreen("MainRequestsSupport")
+                width: screen.width / 4
+                height: screen.height / 3
             }
-    //        Button {
-    //            objectName: "btOrdersGas"
-    //            buttonText: qsTr("Gas control")
-    //            buttonNumber: "4"
-    //            shortcut: Qt.Key_4
-    //            buttonImage: ("../img/Button_Auftraege_Gas.png")
-    //        }
         }
     }
     MainRequestsShopping {
