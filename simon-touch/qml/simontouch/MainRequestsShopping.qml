@@ -28,12 +28,12 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Shopping")
+        title: i18n("Shopping")
         PageGrid {
             id: pageGrid
             Button {
                 objectName: "btRequestsShoppingHousehold"
-                buttonText: qsTr("Household")
+                buttonText: i18n("Household")
                 buttonNumber: "1"
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Anfragen_Bestellung.png")
@@ -43,7 +43,7 @@ TabPage {
             }
             Button {
                 objectName: "btRequestsShoppingMedic"
-                buttonText: qsTr("Medicine")
+                buttonText: i18n("Medicine")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")

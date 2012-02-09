@@ -31,16 +31,16 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Communication")
+        title: i18n("Communication")
         state: "noCall"
         id: mainCommunication
         Component {
             id: contactsDelegate
             Item {
                 property alias name: lbPrettyName.text
-                property bool hasPhone: (lbPhoneNumber.text != qsTr("Phone: -"))
-                property bool hasSkype: (lbSkype.text != qsTr("Skype: -"))
-                property bool hasMail: lbMail.text != qsTr("Mail: -")
+                property bool hasPhone: (lbPhoneNumber.text != i18n("Phone: -"))
+                property bool hasSkype: (lbSkype.text != i18n("Skype: -"))
+                property bool hasMail: lbMail.text != i18n("Mail: -")
                 property alias contactId: uidWrapper.objectName
 
                 height: 100
@@ -71,19 +71,19 @@ TabPage {
                         }
                         Text {
                             id: lbPhoneNumber
-                            text: qsTr("Phone: ") + phoneNumber
+                            text: i18n("Phone: ") + phoneNumber
                             font.family: "Arial"
                             font.pointSize: 10
                         }
                         Text {
                             id: lbMail
-                            text: qsTr("Mail: ") + email
+                            text: i18n("Mail: ") + email
                             font.family: "Arial"
                             font.pointSize: 10
                         }
                         Text {
                             id: lbSkype
-                            text: qsTr("Skype: ") + skype
+                            text: i18n("Skype: ") + skype
                             font.family: "Arial"
                             font.pointSize: 10
                         }
@@ -172,7 +172,7 @@ TabPage {
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-up.svgz"
-            buttonText: qsTr("Up")
+            buttonText: i18n("Up")
             shortcut: Qt.Key_Up
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -187,7 +187,7 @@ TabPage {
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
-            buttonText: qsTr("Down")
+            buttonText: i18n("Down")
             shortcut: Qt.Key_Down
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -199,7 +199,7 @@ TabPage {
             anchors.top: lvImagesUp.top
             anchors.left: lvContactsView.right
             anchors.leftMargin: 20
-            buttonText: qsTr("Call on computer")
+            buttonText: i18n("Call on computer")
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
@@ -219,7 +219,7 @@ TabPage {
             anchors.top: callSkype.bottom
             anchors.left: callSkype.left
             anchors.topMargin: 10
-            buttonText: qsTr("Call on phone")
+            buttonText: i18n("Call on phone")
             width: lvContactsView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
@@ -237,7 +237,7 @@ TabPage {
             id: sendMessage
             anchors.top: callTelephone.bottom
             anchors.left: callSkype.left
-            buttonText: qsTr("Send message")
+            buttonText: i18n("Send message")
             width: lvContactsView.width
             anchors.topMargin: 10
             height: 50
@@ -255,7 +255,7 @@ TabPage {
             id: readMessages
             anchors.top: sendMessage.bottom
             anchors.left: callSkype.left
-            buttonText: qsTr("Read messages")
+            buttonText: i18n("Read messages")
             width: lvContactsView.width
             anchors.topMargin: 10
             height: 50

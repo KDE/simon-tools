@@ -28,7 +28,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Images")
+        title: i18n("Images")
         anchors.fill: parent
         id: imageWindow
 
@@ -96,7 +96,7 @@ TabPage {
                 width: parent.width
                 height: 50
                 buttonImage: "../img/go-up.svgz"
-                buttonText: qsTr("Up")
+                buttonText: i18n("Up")
                 shortcut: Qt.Key_Up
                 spokenText: true
                 buttonLayout: Qt.Horizontal
@@ -109,7 +109,7 @@ TabPage {
                 anchors.left: leftColumn.left
                 height: 50
                 buttonImage: "../img/go-down.svgz"
-                buttonText: qsTr("Down")
+                buttonText: i18n("Down")
                 shortcut: Qt.Key_Down
                 spokenText: true
                 buttonLayout: Qt.Horizontal
@@ -124,7 +124,7 @@ TabPage {
                 anchors.topMargin: 10
                 height: 50
                 color: Qt.darker("#FFFBC7", 1.1)
-                buttonText: (state == "slideshowDisabled") ? qsTr("Slideshow") : qsTr("Stop slideshow")
+                buttonText: (state == "slideshowDisabled") ? i18n("Slideshow") : i18n("Stop slideshow")
                 spokenText: false
                 buttonNumber: "Ok"
                 buttonLayout: Qt.Horizontal
@@ -183,10 +183,10 @@ TabPage {
                 width: 300
                 z: 1
                 buttonImage: "../img/go-down.svgz"
-                buttonText: qsTr("Stop slideshow")
+                buttonText: i18n("Stop slideshow")
                 shortcut: Qt.Key_S
                 spokenText: false
-                buttonNumber: qsTr("Stop")
+                buttonNumber: i18n("Stop")
                 buttonLayout: Qt.Horizontal
                 onButtonClick: imageWindow.toggleSlideshow()
                 Behavior on opacity {

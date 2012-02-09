@@ -32,7 +32,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Medicine")
+        title: i18n("Medicine")
         anchors.fill: parent
 /*
 ############## JS Functions
@@ -187,7 +187,7 @@ TabPage {
             width: lvShoppingMedicine.width
             height: 50
             id: itemLabel
-            buttonText: qsTr("Articles")
+            buttonText: i18n("Articles")
             activeHover: false
             active: lvShoppingMedicine.activeFocus
             anchors {
@@ -248,7 +248,7 @@ TabPage {
             width: lvShoppingMedicineSelection.width
             height: 50
             id: cartLabel
-            buttonText: qsTr("Shopping cart")
+            buttonText: i18n("Shopping cart")
             activeHover: false
             active: lvShoppingMedicineSelection.activeFocus
             anchors {
@@ -273,7 +273,7 @@ TabPage {
             width: 150
             height: 50
             buttonImage: "../img/go-up.svgz"
-            buttonText: qsTr("Up")
+            buttonText: i18n("Up")
             shortcut: Qt.Key_Up
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -289,7 +289,7 @@ TabPage {
             width: lvCursorUp.width
             height: 50
             buttonImage: "../img/go-down.svgz"
-            buttonText: qsTr("Down")
+            buttonText: i18n("Down")
             shortcut: Qt.Key_Down
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -301,7 +301,7 @@ TabPage {
             id: categoryLeft
             width: lvCursorUp.width
             height: 50
-            buttonText: qsTr("Left")
+            buttonText: i18n("Left")
             spokenText: true
             shortcut: Qt.Key_Left
             buttonLayout: Qt.Horizontal
@@ -319,7 +319,7 @@ TabPage {
             id: categoryRight
             width: lvCursorUp.width
             height: 50
-            buttonText: qsTr("Right")
+            buttonText: i18n("Right")
             spokenText: true
             shortcut: Qt.Key_Right
             buttonLayout: Qt.Horizontal
@@ -337,7 +337,7 @@ TabPage {
             width: 50
             height: 50
             id: decreaseAmount
-            buttonText: qsTr("-")
+            buttonText: i18n("-")
             shortcut: Qt.Key_Minus
             spokenText: true
             anchors {
@@ -352,7 +352,7 @@ TabPage {
             width: 50
             height: 50
             id: addAmount
-            buttonText: qsTr("+")
+            buttonText: i18n("+")
             shortcut: Qt.Key_Plus
             spokenText: true
             anchors {
@@ -367,7 +367,7 @@ TabPage {
             width: lvCursorUp.width
             height: 50
             id: medicineDeselect
-            buttonText: qsTr("Order")
+            buttonText: i18n("Order")
             spokenText: true
             shortcut: Qt.Key_Enter
             buttonLayout: Qt.Horizontal

@@ -28,13 +28,13 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Information")
+        title: i18n("Information")
         PageGrid {
             id: pageGrid
             Button {
                 id: btButton1
                 objectName: "btInformationImages"
-                buttonText: qsTr("Images")
+                buttonText: i18n("Images")
                 buttonNumber: "1"
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Information_Bilder.png")
@@ -45,7 +45,7 @@ TabPage {
             Button {
                 id: btButton2
                 objectName: "btInformationMusic"
-                buttonText: qsTr("Music")
+                buttonText: i18n("Music")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Information_Musik.png")
@@ -56,7 +56,7 @@ TabPage {
             Button {
                 id: btButton3
                 objectName: "btInformationVideo"
-                buttonText: qsTr("Videos")
+                buttonText: i18n("Videos")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Information_Video.png")
@@ -67,7 +67,7 @@ TabPage {
             Button {
                 id: btButton4
                 objectName: "btInformationNews"
-                buttonText: qsTr("News")
+                buttonText: i18n("News")
                 buttonNumber: "4"
                 shortcut: Qt.Key_4
                 buttonImage: ("../img/Button_Information_Zeitung.png")

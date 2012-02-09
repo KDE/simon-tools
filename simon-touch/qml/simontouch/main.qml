@@ -82,7 +82,7 @@ Rectangle {
         z: (keyboardButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
         x: (parent.width / 2) - (calculatorButton.width + 10)
-        btKeyCalcButtonText: (state == "collapsed") ? qsTr("Calculator") : qsTr("Close calculator")
+        btKeyCalcButtonText: (state == "collapsed") ? i18n("Calculator") : i18n("Close calculator")
         btKeyCalcButtonImage: ("../img/calculator.png")
         spokenText: true
         shortcut: Qt.Key_0
@@ -99,7 +99,7 @@ Rectangle {
         z: (calculatorButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
         x: (parent.width / 2) + 10
-        btKeyCalcButtonText: (state == "collapsed") ? qsTr("Keyboard") : qsTr("Close keyboard")
+        btKeyCalcButtonText: (state == "collapsed") ? i18n("Keyboard") : i18n("Close keyboard")
         btKeyCalcButtonImage: ("../img/keyboard.png")
         spokenText: true
         shortcut: Qt.Key_9

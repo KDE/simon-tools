@@ -20,13 +20,13 @@
 #ifndef QMLSIMONTOUCHVIEW_H
 #define QMLSIMONTOUCHVIEW_H
 
-class RSSFeed;
-
 #include "simontouchview.h"
 #include "qmlapplicationviewer.h"
 #include <QScopedPointer>
 
+class RSSFeed;
 class SimonTouch;
+class KDeclarative;
 
 class QDeclarativeItem;
 
@@ -57,6 +57,7 @@ public slots:
 
 private:
     QWidget *dlg;
+    KDeclarative *decl;
     QmlApplicationViewer *viewer;
 
 private slots:

@@ -55,7 +55,7 @@ Item {
     }
     Text {
         id: messageText
-        text: delegateItem.state == "current" ? message : qsTr("Please wait...")
+        text: delegateItem.state == "current" ? message : i18n("Please wait...")
         font.family: "Arial"
         font.pointSize: 10
         anchors.left: messageSubject.left

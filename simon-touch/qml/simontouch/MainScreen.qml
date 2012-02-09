@@ -35,7 +35,7 @@ TabPage {
             Button {
                 id: btButton1
                 objectName: "btInformation"
-                buttonText: qsTr("Information")
+                buttonText: i18n("Information")
                 buttonNumber: "1"
                 shortcut: Qt.Key_1
                 buttonImage: ("../img/Button_Information.png")
@@ -46,7 +46,7 @@ TabPage {
             Button {
                 id: btButton2
                 objectName: "btCommunication"
-                buttonText: qsTr("Communication")
+                buttonText: i18n("Communication")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
                 buttonImage: ("../img/Button_Kommunikation.png")
@@ -57,7 +57,7 @@ TabPage {
             Button {
                 id: btButton3
                 objectName: "btOrders"
-                buttonText: qsTr("Orders")
+                buttonText: i18n("Orders")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Auftraege.png")
@@ -68,7 +68,7 @@ TabPage {
             Button{
                 id: btButton4
                 objectName: "btRequests"
-                buttonText: qsTr("Requests")
+                buttonText: i18n("Requests")
                 buttonNumber: "4"
                 shortcut: Qt.Key_4
                 buttonImage: ("../img/Button_Anfragen.png")

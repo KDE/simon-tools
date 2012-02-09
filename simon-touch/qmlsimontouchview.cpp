@@ -18,11 +18,6 @@
  */
 
 #include "qmlsimontouchview.h"
-#include <QDeclarativeContext>
-#include <QGraphicsObject>
-#include <QMetaObject>
-#include <QDebug>
-#include <QDeclarativeComponent>
 #include "qmlapplicationviewer.h"
 #include "simontouch.h"
 #include "imagesmodel.h"
@@ -32,11 +27,22 @@
 #include "messagemodel.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
+#include <QDeclarativeContext>
+#include <QGraphicsObject>
+#include <QMetaObject>
+#include <QDebug>
+#include <QDeclarativeComponent>
+#include <kdeclarative.h>
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), dlg(new QWidget()),
+    decl(new KDeclarative),
     viewer(new QmlApplicationViewer())
 {
+    decl->setDeclarativeEngine(viewer->engine());
+    decl->initialize();
+    decl->setupBindings();
+
     viewer->engine()->addImageProvider("images", new DeclarativeImageProvider);
     viewer->rootContext()->setContextProperty("imagesModel", logic->images());
     viewer->rootContext()->setContextProperty("musicModel", logic->music());
@@ -186,4 +192,5 @@ void QMLSimonTouchView::callEnded()
 QMLSimonTouchView::~QMLSimonTouchView()
 {
     delete viewer;
+    delete decl;
 }

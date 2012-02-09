@@ -34,7 +34,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Videos")
+        title: i18n("Videos")
         id: videoPage
 
 
@@ -175,7 +175,7 @@ TabPage {
             Button {
                 id: btVideosUp
                 objectName: "btVideosUp"
-                buttonText: qsTr("Up")
+                buttonText: i18n("Up")
                 buttonNumber: ""
                 buttonImage: ("../img/go-up.svgz")
                 shortcut: Qt.Key_Up
@@ -191,7 +191,7 @@ TabPage {
                 anchors.left: btVideosUp.right
                 anchors.leftMargin: 10
                 objectName: "btPlay"
-                buttonText: qsTr("Play")
+                buttonText: i18n("Play")
                 buttonNumber: "Ok"
                 buttonImage: ("../img/play.png")
                 shortcut: Qt.Key_Return
@@ -221,7 +221,7 @@ TabPage {
                 id:btFullscreen
                 anchors.left: lbStatus.right
                 anchors.leftMargin: 10
-                buttonText: qsTr("Fullscreen")
+                buttonText: i18n("Fullscreen")
                 buttonNumber: ""
                 buttonImage: ("../img/fullscreen.png")
                 shortcut: Qt.Key_F
@@ -237,7 +237,7 @@ TabPage {
                 id: btStop
                 anchors.left: lbStatus.right
                 anchors.leftMargin: (btFullscreen.opacity == 1) ? 20 + btFullscreen.width : 10
-                buttonText: qsTr("Stop")
+                buttonText: i18n("Stop")
                 buttonNumber: ""
                 buttonImage: ("../img/stop.png")
                 shortcut: Qt.Key_S
@@ -256,7 +256,7 @@ TabPage {
                 anchors.left: btStop.right
                 anchors.leftMargin: 10
                 objectName: "btMusicDown"
-                buttonText: qsTr("Down")
+                buttonText: i18n("Down")
                 buttonNumber: ""
                 buttonImage: ("../img/go-down.svgz")
                 shortcut: Qt.Key_Down

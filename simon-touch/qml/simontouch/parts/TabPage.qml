@@ -82,7 +82,7 @@ import QtQuick 1.1
          y: -11
          width: 240
          height: 100
-         buttonText: qsTr("Back")
+         buttonText: i18n("Back")
          buttonImage: ("../img/back.png")
          buttonLayout: Qt.Horizontal
          normalColor: "#FEF57B"

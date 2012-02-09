@@ -43,7 +43,7 @@ TabPage {
     }
 
     Page {
-        title: qsTr("Send message to ") + parent.prettyName
+        title: i18n("Send message to ") + parent.prettyName
         stateName:parent.stateName
         id: sendMessagePage
         opacity: 0
@@ -67,7 +67,7 @@ TabPage {
 
                 Text {
                     id: textLabel
-                    text: qsTr("Message:")
+                    text: i18n("Message:")
                     font.family: "Arial"
                     font.pointSize: 16
                 }
@@ -120,7 +120,7 @@ TabPage {
                     width: sendMessageColumn.width / 2 -10
                     height: 50
                     buttonImage: "../img/go-down.svgz"
-                    buttonText: qsTr("Send to computer")
+                    buttonText: i18n("Send to computer")
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.left: parent.left
@@ -136,7 +136,7 @@ TabPage {
                     width: sendMessageColumn.width / 2 -10
                     height: 50
                     buttonImage: "../img/go-down.svgz"
-                    buttonText: qsTr("Send to mobile phone")
+                    buttonText: i18n("Send to mobile phone")
                     spokenText: false
                     buttonLayout: Qt.Horizontal
                     anchors.right: parent.right

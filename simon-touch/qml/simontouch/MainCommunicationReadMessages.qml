@@ -28,7 +28,7 @@ TabPage {
     property string prettyName: ""
 
     Page {
-        title: qsTr("Read messages from ") + parent.prettyName
+        title: i18n("Read messages from ") + parent.prettyName
         stateName:parent.stateName
         id: readMessagePage
 
@@ -57,7 +57,7 @@ TabPage {
             onCurrentItemChanged: {
                 if (!currentItem) return;
                 simonTouch.interruptReading()
-                if (currentItem.content != qsTr("Please wait..."))
+                if (currentItem.content != i18n("Please wait..."))
                     simonTouch.readAloud(currentItem.content)
             }
         }
@@ -70,7 +70,7 @@ TabPage {
             width: lvMessagesView.width
             height: 50
             buttonImage: "../img/go-up.svgz"
-            buttonText: qsTr("Up")
+            buttonText: i18n("Up")
             shortcut: Qt.Key_Up
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -85,7 +85,7 @@ TabPage {
             width: lvMessagesView.width
             height: 50
             buttonImage: "../img/go-down.svgz"
-            buttonText: qsTr("Down")
+            buttonText: i18n("Down")
             shortcut: Qt.Key_Down
             spokenText: true
             buttonLayout: Qt.Horizontal

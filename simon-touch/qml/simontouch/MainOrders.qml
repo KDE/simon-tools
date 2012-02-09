@@ -28,12 +28,12 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Orders")
+        title: i18n("Orders")
         PageGrid {
             id: pageGrid
             Button {
                 objectName: "btOrdersWater"
-                buttonText: qsTr("Water control")
+                buttonText: i18n("Water control")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Auftraege_Wasser.png")
                 width: screen.width / 4
@@ -41,7 +41,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersDoors"
-                buttonText: qsTr("Doors control")
+                buttonText: i18n("Doors control")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Auftraege_Tueren.png")
                 width: screen.width / 4
@@ -49,7 +49,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersCooker"
-                buttonText: qsTr("Cooker control")
+                buttonText: i18n("Cooker control")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Auftraege_Herd.png")
                 width: screen.width / 4
@@ -57,7 +57,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersGas"
-                buttonText: qsTr("Gas control")
+                buttonText: i18n("Gas control")
                 buttonNumber: "4"
                 buttonImage: ("../img/Button_Auftraege_Gas.png")
                 width: screen.width / 4

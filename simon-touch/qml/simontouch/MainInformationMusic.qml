@@ -41,7 +41,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("Music")
+        title: i18n("Music")
         anchors.fill: parent
 
         SelectionListView {
@@ -96,7 +96,7 @@ TabPage {
 //                anchors.top: lvMusic.bottom
                 anchors.topMargin: 10
                 objectName: "btMusicUp"
-                buttonText: qsTr("Up")
+                buttonText: i18n("Up")
                 buttonNumber: ""
                 buttonImage: ("../img/go-up.svgz")
                 spokenText: true
@@ -114,7 +114,7 @@ TabPage {
                 anchors.topMargin: 10
                 anchors.leftMargin: 10
                 objectName: "btPlay"
-                buttonText: qsTr("Play")
+                buttonText: i18n("Play")
                 buttonNumber: "Ok"
                 buttonImage: ("../img/play.png")
                 spokenText: false
@@ -147,7 +147,7 @@ TabPage {
                 anchors.topMargin: 10
                 anchors.rightMargin: 10
                 objectName: "btStop"
-                buttonText: qsTr("Stop")
+                buttonText: i18n("Stop")
                 buttonNumber: ""
                 buttonImage: ("../img/stop.png")
                 shortcut: Qt.Key_S
@@ -166,7 +166,7 @@ TabPage {
                 anchors.leftMargin: 10
                 anchors.topMargin: 10
                 objectName: "btMusicDown"
-                buttonText: qsTr("Down")
+                buttonText: i18n("Down")
                 buttonNumber: ""
                 buttonImage: ("../img/go-down.svgz")
                 shortcut: Qt.Key_Down

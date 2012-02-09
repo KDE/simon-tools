@@ -28,7 +28,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: qsTr("News")
+        title: i18n("News")
 
         Component.onCompleted: {
             var count = simonTouch.availableRssFeedsCount();
@@ -69,7 +69,7 @@ TabPage {
     }
     Page {
         id: feedPage
-        title: qsTr("News")
+        title: i18n("News")
         objectName: "MainInformationNewsFeed"
         anchors.fill: parent
 
@@ -149,7 +149,7 @@ TabPage {
             width: 200
             height: 50
             buttonImage: "../img/go-previous.svgz"
-            buttonText: qsTr("Left")
+            buttonText: i18n("Left")
             shortcut: Qt.Key_Left
             spokenText: true
             buttonLayout: Qt.Horizontal
@@ -167,7 +167,7 @@ TabPage {
             width: 200
             height: 50
             buttonImage: "../img/go-next.svgz"
-            buttonText: qsTr("Right")
+            buttonText: i18n("Right")
             shortcut: Qt.Key_Right
             spokenText: true
             buttonLayout: Qt.Horizontal

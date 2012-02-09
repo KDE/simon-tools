@@ -71,7 +71,7 @@ TabPage {
                 }
                 Button {
                     id: acceptCall
-                    buttonText: qsTr("Accept")
+                    buttonText: i18n("Accept")
                     height: 50
                     buttonImage: "../img/go-down.svgz"
                     spokenText: true
@@ -83,7 +83,7 @@ TabPage {
                 }
                 Button {
                     id: declineCall
-                    buttonText: qsTr("Hang up")
+                    buttonText: i18n("Hang up")
                     height: 50
                     buttonImage: "../img/go-down.svgz"
                     spokenText: true

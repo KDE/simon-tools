@@ -71,4 +71,4 @@ OTHER_FILES += \
 LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui \
         -lakonadi-kde -lakonadi-contact -lakonadi-kmime \
         -leventsimulation -lnepomuk -lnepomukquery \
-        -lmailtransport -lkpimidentities -lskype
+        -lmailtransport -lkpimidentities -lskype -lkdeclarative
