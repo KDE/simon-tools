@@ -17,6 +17,10 @@
  *   51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 
+#include <KApplication>
+#include <KLocalizedString>
+#include <KCmdLineArgs>
+#include <KAboutData>
 #include <QtGui/QApplication>
 #include <QtDBus/QDBusConnection>
 #include "qmlsimontouchview.h"
@@ -30,21 +34,41 @@
 
 Q_DECL_EXPORT int main(int argc, char *argv[])
 {
-    QScopedPointer<QApplication> app(createApplication(argc, argv));
+    KAboutData aboutData( "simon-touch", "simon-touch",
+    			  ki18n("simon-touch"), "0.1",
+    			  ki18n("Voice controlled media center and personal communication portal"),
+			  KAboutData::License_GPL,
+			  ki18n("Copyright (c) 2011-2012 Peter Grasch, Mathias Stieger") );
 
-    if (app->arguments().count() < 5)
-        qFatal("Call with: <path to images> <path to music> <path to videos> <feeds>");
+    KCmdLineOptions options;
+    options.add("+images", ki18n("Path to images"));
+    options.add("+music", ki18n("Path to music"));
+    options.add("+videos", ki18n("Path to videos"));
+    options.add("+feeds", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,..."));
+    KCmdLineArgs::addCmdLineOptions(options);
+    
+    KCmdLineArgs::init(argc, argv, &aboutData);
+    KApplication app;
 
-    ImagesModel img(app->arguments()[1]);
-    MusicModel music(app->arguments()[2]);
-    VideosModel vids(app->arguments()[3]);
-    QStringList feeds = app->arguments()[4].split(';');
+    KGlobal::locale()->insertCatalog("libskype");
+
+    if (KCmdLineArgs::parsedArgs()->count() < 4) {
+    	qWarning() << i18n("Call with: <path to images> <path to music> <path to videos> <feeds>");
+	return -1;
+    }
+
+    ImagesModel img(KCmdLineArgs::parsedArgs()->arg(0));
+    MusicModel music(KCmdLineArgs::parsedArgs()->arg(1));
+    VideosModel vids(KCmdLineArgs::parsedArgs()->arg(2));
+    QStringList feeds = KCmdLineArgs::parsedArgs()->arg(3).split(';');
 
     QStringList titles, urls, icons;
     foreach (const QString& feed, feeds) {
         QStringList details = feed.split(',');
-        if (details.count() != 3)
-            qFatal("Feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,...\"");
+        if (details.count() != 3)  {
+            qWarning() << i18n("RSS feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,...\"");
+	    return -1;
+	}
         titles << details[0];
         urls << details[1];
         icons << details[2];
@@ -65,5 +89,5 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     touch.enteredState("Main");
 
-    return app->exec();
+    return app.exec();
 }

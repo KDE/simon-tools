@@ -20,6 +20,7 @@
 #include <kapplication.h>
 #include <kaboutdata.h>
 #include <kcmdlineargs.h>
+#include <KDE/KGlobal>
 #include <KDE/KLocale>
 #include "simonskype.h"
 
@@ -42,6 +43,7 @@ int main(int argc, char **argv)
 
   KApplication app;
 
+  KGlobal::locale()->insertCatalog("libskype");
   SimonSkype s;
 
   return app.exec();

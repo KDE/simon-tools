@@ -35,7 +35,7 @@
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), dlg(new QWidget()),
-    viewer(QmlApplicationViewer::create())
+    viewer(new QmlApplicationViewer())
 {
     viewer->engine()->addImageProvider("images", new DeclarativeImageProvider);
     viewer->rootContext()->setContextProperty("imagesModel", logic->images());
@@ -185,4 +185,5 @@ void QMLSimonTouchView::callEnded()
 
 QMLSimonTouchView::~QMLSimonTouchView()
 {
+    delete viewer;
 }
