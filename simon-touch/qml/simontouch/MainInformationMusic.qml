@@ -120,7 +120,7 @@ TabPage {
                 spokenText: false
                 height: 50
                 width: 170
-                shortcut: Qt.Key_P
+                shortcut: Qt.Key_Return
                 buttonLayout: Qt.Horizontal
                 onButtonClick: playMusic.play()
             }

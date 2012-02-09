@@ -72,21 +72,27 @@ Rectangle {
         }
     }
 
+    Keys.onPressed: {
+        if (calculatorButton.handleKey(event.key)) return true;
+        if (keyboardButton.handleKey(event.key)) return true
+    }
+
     KeyCalcButton {
         id: calculatorButton
         z: (keyboardButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        x: (parent.width / 2) - 250
+        x: (parent.width / 2) - (calculatorButton.width + 10)
         btKeyCalcButtonText: (state == "collapsed") ? qsTr("Calculator") : qsTr("Close calculator")
         btKeyCalcButtonImage: ("../img/calculator.png")
         spokenText: true
+        shortcut: Qt.Key_0
         onButtonClick: {
             if (state == "collapsed")
                 simonTouch.hideCalculator()
             else
                 simonTouch.showCalculator()
         }
-        width: parent.width / 4
+        width: main.width / 4
     }
     KeyCalcButton {
         id: keyboardButton
@@ -96,13 +102,14 @@ Rectangle {
         btKeyCalcButtonText: (state == "collapsed") ? qsTr("Keyboard") : qsTr("Close keyboard")
         btKeyCalcButtonImage: ("../img/keyboard.png")
         spokenText: true
+        shortcut: Qt.Key_9
         onButtonClick: {
             if (state == "collapsed")
                 simonTouch.hideKeyboard()
             else
                 simonTouch.showKeyboard()
         }
-        width: parent.width / 4
+        width: main.width / 4
     }
     Rectangle {
         id: closebutton

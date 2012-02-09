@@ -194,7 +194,7 @@ TabPage {
                 buttonText: qsTr("Play")
                 buttonNumber: "Ok"
                 buttonImage: ("../img/play.png")
-                shortcut: Qt.Key_P
+                shortcut: Qt.Key_Return
                 spokenText: false
                 height: 50
                 width: 170

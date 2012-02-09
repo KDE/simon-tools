@@ -25,7 +25,6 @@ Item {
     property alias btKeyCalcButtonText: btInternal.buttonText
     property alias btKeyCalcButtonImage: btInternal.buttonImage
     property alias spokenText: btInternal.spokenText
-
     property alias shortcut: btInternal.shortcut
 
     signal buttonClick()
@@ -36,7 +35,7 @@ Item {
             name: "collapsed"
             PropertyChanges {
                 target: btKeyCalcButton
-                width: 242
+                width: main.width / 4
                 height: 90
             }
         },
@@ -44,9 +43,9 @@ Item {
             name: "open"
             PropertyChanges {
                 target: btKeyCalcButton
-                width: 800
+                width: main.width / 4 * 3
                 height: 350
-                x: 112
+                x: (main.width / 2) - (btKeyCalcButton.width / 2)
             }
         }
     ]
@@ -57,6 +56,10 @@ Item {
 
     Behavior on opacity {
         NumberAnimation {properties: "opacity"; duration: 500}
+    }
+
+    function handleKey(key) {
+        return btInternal.handleKey(key)
     }
 
     SideButton {
