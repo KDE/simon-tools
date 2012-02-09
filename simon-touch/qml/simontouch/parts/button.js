@@ -29,7 +29,8 @@ function addButton(btn) {
 function relayKey(key) {
 //    console.debug("Relaying key: "+key+" buttons length: "+buttons.length)
     for (var i=0; i < buttons.length; i++)
-        if (buttons[i].handleKey(key))
+        if (buttons[i].handleKey(key)) {
             return true
+        }
     return false
 }

@@ -40,7 +40,7 @@ Rectangle {
     }
 
     function handleKey(key) {
-        if (key == shortcut) {
+        if ((key == shortcut) && (btSideButton.opacity == 1)) {
             buttonClick()
             return true
         }
