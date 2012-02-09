@@ -22,6 +22,7 @@ import Qt 4.7
 
 // Delegate for the detail list
 Item {
+    property alias heading: messageSubject.text
     property alias content: messageText.text
     id: delegateItem
     width: parent.width
@@ -64,6 +65,10 @@ Item {
         opacity: 0
         width: parent.width - 50
         wrapMode: Text.Wrap
+        onTextChanged: {
+            if (text != i18n("Please wait..."))
+                simonTouch.readAloud(text)
+        }
     }
 
     MouseArea {
@@ -94,9 +99,6 @@ Item {
         }
     ]
 
-    // When moving to "current" state, first enlarge the item and scroll everything into
-    // place, only after this make the phone number visible. When leaving the state do the
-    // same effects but backwards.
     transitions: [
         Transition {
             to: "current"

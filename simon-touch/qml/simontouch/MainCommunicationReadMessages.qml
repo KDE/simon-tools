@@ -27,15 +27,15 @@ TabPage {
     stateName: "CommunicationReadMessages"
     property string prettyName: ""
 
+    onOpacityChanged: {
+        if (opacity == 0)
+            simonTouch.interruptReading()
+    }
+
     Page {
         title: i18n("Read messages from ") + parent.prettyName
         stateName:parent.stateName
         id: readMessagePage
-
-        onOpacityChanged: {
-            if (opacity == 0)
-                simonTouch.interruptReading()
-        }
 
         SelectionListView {
             id: lvMessagesView
@@ -57,6 +57,7 @@ TabPage {
             onCurrentItemChanged: {
                 if (!currentItem) return;
                 simonTouch.interruptReading()
+                simonTouch.readAloud(currentItem.heading)
                 if (currentItem.content != i18n("Please wait..."))
                     simonTouch.readAloud(currentItem.content)
             }
