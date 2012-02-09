@@ -18,7 +18,7 @@
  */
 
 #include "skypevoipprovider.h"
-#include "libskype/skype.h"
+#include <skype/skype.h>
 #include <simon/eventsimulation/eventhandler.h>
 #include <QKeySequence>
 #include <QStringList>

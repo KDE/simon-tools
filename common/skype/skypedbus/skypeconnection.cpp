@@ -13,9 +13,8 @@
 
     You should have received a copy of the GNU Library General Public License
     along with this library; see the file COPYING.LIB.  If not, write to
-    Free Software Foundation, Inc.,
+    the Free Software Foundation, Inc., 
     51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-
 */
 #include "skypeconnection.h"
 #include "skypeadaptor.h"
@@ -168,7 +167,7 @@ void SkypeConnection::connectSkype(const QString &start, const QString &appName,
 	d->protocolVer = protocolVer;
 	d->bus = bus;
 
-	new SkypeAdaptor(this);
+        new SkypeAdaptor(this);
 	QDBusConnection busConn = BUS;
 	bool registered = busConn.registerObject("/com/Skype/Client", this); //Register skype client to dbus for receiving messages to slot Notify
 
@@ -340,5 +339,3 @@ void SkypeConnection::tryConnect() {
 	} else
 		startLogOn();//OK, it's your choise
 }
-
-#include "skypeconnection.moc"

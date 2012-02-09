@@ -1,67 +1,25 @@
-find_package(Qt4 COMPONENTS QtCore QtDbus QtGui)
-
-
-add_definitions (${QT_DEFINITIONS} ${KDE4_DEFINITIONS})
-########### next target ###############
+project(simonskype)
 
 include_directories(${QT_INCLUDES} ${KDE4_INCLUDES}
 	${QT_QTDBUS_INCLUDE_DIR}
 	${CMAKE_CURRENT_SOURCE_DIR}
-	${CMAKE_CURRENT_SOURCE_DIR}/../../../simonlib
-	${CMAKE_CURRENT_SOURCE_DIR}/libskype
-	${CMAKE_CURRENT_SOURCE_DIR}/libskype/skypedbus
-
-	${CMAKE_CURRENT_BUILD_DIR}
-  ${CMAKE_CURRENT_BINARY_DIR}
+	${EVENTSIMULATION_INCLUDE_DIR}
+	${SKYPE_INCLUDE_DIR}
 )
-
-add_definitions(-DSKYPE_DEBUG_GLOBAL=14311)
-
-########### next target ###############
-
-set(
-	skypedbus_SRCS
-	libskype/skypedbus/skypeconnection.cpp
-)
-
-QT4_ADD_DBUS_ADAPTOR(
-	skypedbus_SRCS
-	libskype/skypedbus/com.Skype.API.Client.xml
-	libskype/skypedbus/skypeconnection.h
-	SkypeConnection
-	skypeadaptor
-	SkypeAdaptor
-)
-
-set(
-	libskype_SRCS
-	libskype/skype.cpp
-)
-
-if(UNIX)
-set(
-	libskype_SRCS
-	${libskype_SRCS}
-	libskype/skypewindow.cpp
-	)
-endif(UNIX)
 
 set(
 	simon_skype_SRCS
-  main.cpp
-  simonskype.cpp
-	${skypedbus_SRCS}
-	${libskype_SRCS}
+	main.cpp
+	simonskype.cpp
 )
 
 kde4_add_executable(simonskype ${simon_skype_SRCS})
 
 target_link_libraries(
-	simonskype eventsimulation
+	simonskype
+	${SKYPE_LIBRARY} ${EVENTSIMULATION_LIBRARY}
 	${KDE4_KDEUI_LIBS}
 	${X11_X11_LIB}
 )
-
-########### install files ###############
 
 install( TARGETS simonskype DESTINATION ${BIN_INSTALL_DIR} )

@@ -8,31 +8,10 @@ QML_IMPORT_PATH =
 
 QT += xml dbus network
 
-symbian:TARGET.UID3 = 0xEAB67D3B
-
-# Smart Installer package's UID
-# This UID is from the protected range and therefore the package will
-# fail to install if self-signed. By default qmake uses the unprotected
-# range value if unprotected UID is defined for the application and
-# 0x2002CCCF value if protected UID is given to the application
-#symbian:DEPLOYMENT.installer_header = 0x2002CCCF
-
-DEFINES = SKYPE_DEBUG_GLOBAL=14311
-
-# Allow network access on Symbian
-symbian:TARGET.CAPABILITY += NetworkServices
-
 # If your application uses the Qt Mobility libraries, uncomment the following
 # lines and add the respective components to the MOBILITY variable.
 CONFIG += mobility qdbus dbusadaptors plugin
 MOBILITY += multimedia
-
-# Speed up launching on MeeGo/Harmattan when using applauncherd daemon
-# CONFIG += qdeclarative-boostable
-
-# Add dependency to Symbian components
-# CONFIG += qt-components
-
 
 SOURCES += main.cpp \
     simontouchview.cpp \
@@ -55,14 +34,6 @@ SOURCES += main.cpp \
     skypevoipprovider.cpp \
     mail.cpp
 
-
-SOURCES +=  libskype/skype.cpp \
-            libskype/skypedbus/skypeconnection.cpp
-HEADERS +=  libskype/skype.h \
-            libskype/skypedbus/skypeconnection.h \
-    mail.h
-
-DBUS_ADAPTORS = libskype/skypedbus/com.Skype.API.Client.xml
 
 # Please do not modify the following two lines. Required for deployment.
 include(qmlapplicationviewer/qmlapplicationviewer.pri)
@@ -91,7 +62,8 @@ HEADERS += \
     declarativeimageprovider.h \
     voipprovider.h \
     voipproviderfactory.h \
-    skypevoipprovider.h
+    skypevoipprovider.h \
+    mail.h
 
 OTHER_FILES += \
     simontouch.xml
@@ -99,9 +71,4 @@ OTHER_FILES += \
 LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui \
         -lakonadi-kde -lakonadi-contact -lakonadi-kmime \
         -leventsimulation -lnepomuk -lnepomukquery \
-        -lmailtransport -lkpimidentities
-
-
-
-
-
+        -lmailtransport -lkpimidentities -lskype

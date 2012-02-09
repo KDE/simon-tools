@@ -19,6 +19,8 @@
 #ifndef SKYPE_H
 #define SKYPE_H
 
+#include "skype_export.h"
+
 #include <QObject>
 #include <QString>
 
@@ -31,7 +33,7 @@ class QDateTime;
  * @author Pali Rohár
  * This class is internal backend for skype. It provides slots for such things like "send a IM" and so
  */
-class Skype : public QObject
+class SKYPE_EXPORT Skype : public QObject
 {
 	Q_OBJECT
 	private:
