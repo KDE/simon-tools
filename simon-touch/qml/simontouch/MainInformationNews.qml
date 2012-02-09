@@ -122,6 +122,7 @@ TabPage {
                 onCurrentIndexChanged: {
                     if (currentItem) {
                         simonTouch.interruptReading()
+                        simonTouch.readAloud(currentItem.heading)
                         simonTouch.readAloud(currentItem.article)
                     }
                 }
