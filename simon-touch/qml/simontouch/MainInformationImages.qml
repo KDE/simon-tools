@@ -120,7 +120,7 @@ TabPage {
                 width: 200
                 anchors.left: parent.left
                 anchors.top: parent.bottom
-                shortcut: Qt.Key_Enter
+                shortcut: Qt.Key_Return
                 anchors.topMargin: 10
                 height: 50
                 color: Qt.darker("#FFFBC7", 1.1)
