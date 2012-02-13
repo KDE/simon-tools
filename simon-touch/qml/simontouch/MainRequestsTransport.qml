@@ -51,7 +51,7 @@ TabPage {
             }
             Button {
                 objectName: "btRequestsTransportPrivate"
-                buttonText: i18n("Private tranport")
+                buttonText: i18n("Private transport")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
