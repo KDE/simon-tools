@@ -22,7 +22,7 @@ import QtQuick 1.1
 
 Rectangle {
     id: btSideButton
-    property string buttonText: i18n("SideButtonText")
+    property string buttonText: "SideButtonText"
     property string buttonImage: "../img/demo.png"
     property color normalColor: "#FEF57B"
     property bool spokenText: false    

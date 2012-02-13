@@ -28,12 +28,12 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: i18n("Orders")
+        title: i18nc("Tell the robot to check the environment","Check")
         PageGrid {
             id: pageGrid
             Button {
                 objectName: "btOrdersWater"
-                buttonText: i18n("Water control")
+                buttonText: i18nc("Check the water pipe","Water control")
                 buttonNumber: "1"
                 buttonImage: ("../img/Button_Auftraege_Wasser.png")
                 width: screen.width / 4
@@ -41,7 +41,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersDoors"
-                buttonText: i18n("Doors control")
+                buttonText: i18nc("Check the entrance","Doors control")
                 buttonNumber: "2"
                 buttonImage: ("../img/Button_Auftraege_Tueren.png")
                 width: screen.width / 4
@@ -49,7 +49,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersCooker"
-                buttonText: i18n("Cooker control")
+                buttonText: i18nc("Check the cooker","Cooker control")
                 buttonNumber: "3"
                 buttonImage: ("../img/Button_Auftraege_Herd.png")
                 width: screen.width / 4
@@ -57,7 +57,7 @@ TabPage {
             }
             Button {
                 objectName: "btOrdersGas"
-                buttonText: i18n("Gas control")
+                buttonText: i18nc("Check the gas pipe","Gas control")
                 buttonNumber: "4"
                 buttonImage: ("../img/Button_Auftraege_Gas.png")
                 width: screen.width / 4

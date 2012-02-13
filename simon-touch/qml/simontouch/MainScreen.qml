@@ -57,7 +57,7 @@ TabPage {
             Button {
                 id: btButton3
                 objectName: "btOrders"
-                buttonText: i18n("Orders")
+                buttonText: i18nc("Tell the robot to check the environment","Check")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
                 buttonImage: ("../img/Button_Auftraege.png")
