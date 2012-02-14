@@ -112,6 +112,10 @@ TabPage {
                                 width: parent.width
                                 height: parent.height
                             }
+                            PropertyChanges {
+                                target: btStopFullscreen
+                                opacity: 0
+                            }
                         },
                         State {
                             name: "fullscreen"
@@ -122,10 +126,33 @@ TabPage {
                                 width: main.width
                                 height: main.height
                             }
+                            PropertyChanges {
+                                target: btStopFullscreen
+                                opacity: 1
+                            }
                         }
                     ]
                     transitions: Transition {
                         NumberAnimation { properties: "width,height,x,y"; easing.type: Easing.InOutQuad }
+                    }
+
+                    Button {
+                        id: btStopFullscreen
+                        anchors.top: videoWrapper.top
+                        anchors.horizontalCenter: videoWrapper.horizontalCenter
+                        objectName: "btStopFullscreen"
+                        buttonText: i18n("Fullscreen")
+                        buttonNumber: ""
+                        buttonImage: ("../img/go-down.svgz")
+        //                shortcut: Qt.Key_F
+                        spokenText: true
+                        height: 50
+                        width: 200
+                        buttonLayout: Qt.Horizontal
+                        onButtonClick: buttonRectangle.toggleFullscreen();
+                        Behavior on opacity {
+                            NumberAnimation {properties: "opacity"; duration: 500}
+                        }
                     }
 
                     Video {
@@ -152,13 +179,14 @@ TabPage {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: videoPage.toggleFullscreen()
+                            onClicked: buttonRectangle.toggleFullscreen()
                         }
                     }
 
             }
         }
         Rectangle {
+            id: buttonRectangle
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
             x: (btFullscreen.opacity == 1) ? screen.width / 2 - ((700 + lbStatus.width + 40)/2) : screen.width / 2 - ((530 + lbStatus.width + 40)/2)
@@ -225,7 +253,7 @@ TabPage {
                 buttonNumber: ""
                 buttonImage: ("../img/fullscreen.png")
                 shortcut: Qt.Key_F
-                spokenText: false
+                spokenText: true
                 height: 50
                 width: 170
                 buttonLayout: Qt.Horizontal
