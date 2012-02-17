@@ -34,6 +34,7 @@
 #include <KDebug>
 #include <KProcess>
 #include <KUrl>
+#include <KStandardDirs>
 
 Astrocam::Astrocam() : 
     m_vlc(new KProcess(this)),
@@ -52,7 +53,8 @@ Astrocam::Astrocam() :
     m_vlc->setProgram("vlc", QStringList() << "-I" << " http" << "--v4l2-width" << 
                       "640" << "--v4l2-height" << "480" << "--v4l2-fps" << 
                       "25" << "--no-sout-mp4-faststart" << "--sout-asf-title" << 
-                      "\"Astromobile\"" << "--vlm-conf" << "vlm.conf" << 
+                      "\"Astromobile\"" << "--vlm-conf" << 
+                      KStandardDirs::locate("appdata", "vlm.conf") << 
                       "--http-port" << "9090" << "--network-caching" << "4096" <<
                       "--http-host=0.0.0.0" << "-vvv");
     m_vlc->start();

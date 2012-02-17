@@ -12,3 +12,4 @@ kde4_add_executable( astrocam ${astrocam_SRC} )
 target_link_libraries( astrocam ${QT_LIBRARIES} ${QT_QTNETWORK_LIBRARY} ${KDE4_KDEUI_LIBS})
 
 install (TARGETS astrocam DESTINATION bin)
+install (FILES vlm.conf DESTINATION ${DATA_INSTALL_DIR}/astrocam)

@@ -1,0 +1,4 @@
+To work with astrocam, you need to install a patched version of the VLC media player.
+The patch (vlc_add_debug_output.patch) has been tested against VLC 2.0.0-rc1.
+
+You may need to adjust the provided vlm.conf to your needs.
