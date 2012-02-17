@@ -1,0 +1,18 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="info.echord.Astromobile.AstroLogic">
+<signal name="robotLocation">
+  <arg name="x" type="i" direction="out" />
+  <arg name="y" type="i" direction="out" />
+  <arg name="text" type="s" direction="out" /> <!-- location name -->
+</signal>
+<method name="checkup">
+  <arg name="location" type="s" direction="in" />
+</method>
+<method name="startWebVideo" />
+<method name="goToUser" />
+<method name="goToKitchen" />
+<method name="quit" />
+</interface>
+</node>
+

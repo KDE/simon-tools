@@ -1,0 +1,145 @@
+/*
+ * Copyright (c) 2011, simon listens, Scuola Superiore Sant´Anna
+ * All rights reserved.
+ * 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *  * Redistributions of source code must retain the above copyright
+ *  notice, this list of conditions and the following disclaimer.
+ *  * Redistributions in binary form must reproduce the above copyright
+ *  notice, this list of conditions and the following disclaimer in the
+ *  documentation and/or other materials provided with the distribution.
+ *  * Neither the name of the <organization> nor the
+ *  names of its contributors may be used to endorse or promote products
+ *  derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS ''AS IS'' AND ANY
+ * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
+
+#include "astrologic.h"
+#include "astromobileadaptor.h"
+#include <QApplication>
+#include <unistd.h>
+#include <KDebug>
+#include <KStandardDirs>
+
+AstroLogic::AstroLogic()
+{
+    // Setting up service
+    new AstroLogicAdaptor(this);
+    QDBusConnection dbus = QDBusConnection::systemBus();
+    dbus.registerObject("/AstroLogic", this);
+    dbus.registerService("info.echord.Astromobile.AstroLogic");
+    kDebug() << "Registered service...";
+    // Done setting up service
+    
+
+    // Connecting to clients
+    m_tts = new QDBusInterface("org.simon-listens.SimonTTS", "/SimonTTS", "local.SimonTTS", QDBusConnection::systemBus());
+    m_navigator = new QDBusInterface("info.echord.Astromobile.Navigator", "/Navigator", "info.echord.Astromobile.Navigator", QDBusConnection::systemBus());
+    m_locator = new QDBusInterface("info.echord.Astromobile.Locator", "/Locator", "info.echord.Astromobile.Locator", QDBusConnection::systemBus());
+    m_astrocam = new QDBusInterface("info.echord.Astromobile.Astrocam", "/Astrocam", "info.echord.Astromobile.Astrocam", QDBusConnection::systemBus());
+    
+    connect(m_locator, SIGNAL(robotLocation(int, int, const QString&)), this, SLOT(processRobotLocation(int, int, const QString&)));
+
+    //initialization
+    m_tts->call("initialize");
+}
+
+void AstroLogic::processRobotLocation(int x, int y, const QString& text)
+{
+    kDebug() << "Received robot location: " << x << y << text;
+    //TODO: Act on this information
+
+    //re-publish info for ui
+    emit robotLocation(x, y, text);
+}
+
+void AstroLogic::goToUser()
+{
+    kDebug() << "Going to the user";
+    m_tts->call("say", "Going to the user");
+    //TODO
+}
+
+void AstroLogic::goToKitchen()
+{
+    kDebug() << "Going to the kitchen";
+    m_tts->call("say", "Going to the kitchen");
+    m_navigator->call("moveForward");
+    usleep(500000);
+    m_navigator->call("moveForward");
+    usleep(500000);
+    m_navigator->call("turnRight");
+    usleep(150000);
+    m_navigator->call("turnRight");
+    usleep(150000);
+    m_navigator->call("turnLeft");
+    usleep(150000);
+    m_navigator->call("turnLeft");
+    usleep(150000);
+    m_navigator->call("moveBackward");
+    usleep(500000);
+    m_navigator->call("moveBackward");
+    usleep(500000);
+}
+
+void AstroLogic::startWebVideo()
+{
+    kDebug() << "Starting to stream video over web interface";
+    m_astrocam->call("startWebVideo");
+}
+
+void AstroLogic::stopWebVideo()
+{
+    kDebug() << "Stopping streaming web video";
+    m_astrocam->call("stopWebVideo");
+}
+
+void AstroLogic::startRecordingToFile()
+{
+    kDebug() << "Starting to record a surveillance video";
+    m_astrocam->call("startRecordingToFile");
+}
+
+void AstroLogic::stopRecordingToFile()
+{
+    kDebug() << "Stopping surveillance video";
+    m_astrocam->call("stopRecordingToFile");
+}
+
+void AstroLogic::checkup(const QString& location)
+{
+//   QString file = KStandardDirs::locateLocal("tmp", location+"-checkup.mp4");
+  
+  // 0. TODO: parse location to something the navigator understands
+  // 1. TODO: go to location using navigator
+  
+  // 2. start recording to file (astrocam)
+  startRecordingToFile();
+  
+  // 3. wait a couple of seconds
+  sleep(5);
+  
+  // 4. stop recording
+  stopRecordingToFile();
+  
+  // 5. TODO: go back
+  // 6. TODO: tell ui to show video
+}
+
+
+void AstroLogic::quit()
+{
+     qApp->quit();
+}
+

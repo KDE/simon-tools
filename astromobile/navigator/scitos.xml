@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<parameters xmlns="http://www.MetraLabs.com/MLRobotic/Parameters/1.0/">
+
+<node name="SCITOS-G5">
+
+  <value name="RobotType" type="string">G5</value>
+  <value name="CANInterface" type="string">PCAN</value>
+
+  <!-- ******************************************************************** -->
+  <!-- The configuration of the drive system -->
+
+  <node name="Drive">
+    <!-- Distance between the two wheels (in meters) -->
+    <value name="WheelDistance" type="double">0.310</value>
+    <!-- The odometry update interval in [ms] -->
+    <value name="OdometryInterval" type="uint16">100</value>
+
+    <!-- Reset the odometry on initialize. -->
+    <value name="ResetOdometryOnInitialize" type="bool">true</value>
+
+    <!-- Reset the odometry on start. -->
+    <value name="ResetOdometryOnStart" type="bool">false</value>
+
+    <!-- The drive controller configuration -->
+    <node name="Controller">
+
+      <!-- Disable the build-it translation and the rotation controllers -->
+      <value name="DisableTranslationRotationCtrl" type="bool">false</value>
+
+      <!-- Configuration of the PID controller for left and right -->
+      <node name="WheelPID">
+        <value name="Kp" type="double">0.200</value>
+        <value name="Ki" type="double">0.002</value>
+        <value name="Kd" type="double">0.007</value>
+      </node>
+
+      <!-- Configuration of the Translation-PID controller -->
+      <node name="TransPID">
+        <value name="Kp" type="double">0.027</value>
+        <value name="Ki" type="double">2.000</value>
+        <value name="Kd" type="double">0.000</value>
+      </node>
+
+      <!-- Configuration of the Rotation-PID controller -->
+      <node name="RotPID">
+        <value name="Kp" type="double">0.800</value>
+        <value name="Ki" type="double">1.800</value>
+        <value name="Kd" type="double">0.014</value>
+      </node>
+
+    </node>
+
+    <!-- The maximum forward translation speed in [m/s] -->
+    <value name="MaxTranslationalSpeedForward" type="double">1.0</value>
+    <!-- The maximum backward translation speed in [m/s] -->
+    <value name="MaxTranslationalSpeedBackward" type="double">-0.5</value>
+    <!-- The maximum rotational speed in [deg/s] -->
+    <value name="MaxRotationalSpeed" type="double">120</value>
+
+    <!-- The stall mode configuration (only firmware 1.3.x, 1.4.x) -->
+    <node name="StallMode">
+      <!-- The stall speed threshold in [m/s] -->
+      <value name="SpeedThreshold" type="double">0.3</value>
+      <!-- The stall PWM threshold in [percent] -->
+      <value name="PWMThreshold" type="double">60.0</value>
+      <!-- The stall time interval in [ms] -->
+      <value name="Interval" type="double">750.0</value>
+      <!-- The stall smoothing factor in the range [0..1] -->
+      <value name="SmoothingFactor" type="double">0.2</value>
+    </node>
+
+    <!-- Additional drive configuration (firmware >= 1.6.x) -->
+    <node name="DriveCfg">
+      <!-- The speed threshold for max PWM in [m/s] -->
+      <value name="MaxPWMSpeedThres" type="float">0.300</value>
+      <!-- The stall speed threshold in [m/s] -->
+      <value name="StallSpeedThreshold" type="float">0.100</value>
+      <!-- The PWM increment in 10ms in [steps] -->
+      <value name="PWMMaxStep" type="float">50</value>
+      <!-- The current limit for 7ms -->
+      <value name="CurrentLimit7ms" type="float">200</value>
+      <!-- The current limit for 115ms -->
+      <value name="CurrentLimit115ms" type="float">120</value>
+      <!-- The current limit for 1800ms -->
+      <value name="CurrentLimit1800ms" type="float">100</value>
+      <!-- The max PWM for slow speed (less than MaxPWMSpeedThres). -->
+      <value name="MaxPWMSlowSpeed" type="float">175</value>
+      <!-- The max PWM for fast speed (more than MaxPWMSpeedThres). -->
+      <value name="MaxPWMFastSpeed" type="float">511</value>
+      <!-- The max PWM when stalling. -->
+      <value name="MaxPWMStall" type="float">80</value>
+    </node>
+
+  </node>
+
+  <!-- ******************************************************************** -->
+  <!-- The configuration of the bumper system -->
+
+  <node name="Bumper">
+  </node>
+
+  <!-- ******************************************************************** -->
+  <!-- The configuration of the sonar system -->
+
+
+  <!-- ******************************************************************** -->
+  <!-- The status display -->
+
+  <node name="StatusDisplay">
+  </node>
+
+  <!-- ******************************************************************** -->
+  <!-- The display unit -->
+
+  <!--
+  <node name="DisplayUnit">
+  </node>
+  -->
+
+  <!-- ********************************************************************* -->
+  <!-- The configuraton of the auxiliary charger -->
+
+  <node name="AuxCharger_">
+    <!-- Steps for motor down movement: default: 500 -->
+    <value name="MotorStepsDown"     type="uint16">500</value>
+
+    <!-- Steps for motor up movement: default: 700 -->
+    <value name="MotorStepsUp"       type="uint16">700</value>
+
+    <!-- Steps for initial motor down movement: default: 120 -->
+    <value name="MotorStepsInitDown" type="uint16">120</value>
+  </node>
+
+  <!-- ******************************************************************** -->
+
+  <!-- This commands will be executed after the initialization of the
+       robot object (Robot::initializeClient_intern). -->
+  <node name="ExecAfterInitialize">
+    <!--
+    <value name="Cmd0" type="string">FEATURE FLOAT EBC0_MaxCurrent5V 1000</value>
+    <value name="Cmd1" type="string">FEATURE BOOL  EBC0_Enable5V     true</value>
+    -->
+  </node>
+
+  <!-- This commands will be executed after the start of the
+       robot object (Robot::startClient_intern). -->
+  <node name="ExecAfterStart">
+  </node>
+
+  <!-- This commands will be executed before the stop of the robot object
+       (Robot::stopClient_intern). -->
+  <node name="ExecBeforeStop">
+  </node>
+
+  <!-- This commands will be executed before the destruction of the
+       robot object (Robot::destroyClient_intern). -->
+  <node name="ExecBeforeDestroy">
+    <!--
+    <value name="Cmd1" type="string">FEATURE BOOL  EBC0_Enable5V     false</value>
+    -->
+  </node>
+
+  <!-- ********************************************************************* -->
+
+</node>
+
+</parameters>

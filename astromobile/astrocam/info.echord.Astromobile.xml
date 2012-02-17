@@ -1,0 +1,10 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="info.echord.Astromobile.Astrocam">
+<method name="startRecordingToFile" />
+<method name="stopRecordingToFile" />
+<method name="startWebVideo" />
+<method name="stopWebVideo" />
+</interface>
+</node>
+

@@ -1,0 +1,21 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="info.echord.Astromobile.Navigator">
+<method name="goTo">
+<arg name="x" type="i" direction="in" />
+<arg name="y" type="i" direction="in" />
+</method>
+
+<!-- low level methods just for demonstration purposes -->
+<method name="moveForward" />
+<method name="moveBackward" />
+<method name="turnLeft" />
+<method name="turnRight" />
+
+<method name="test" />
+
+<!-- management -->
+<method name="quit" />
+</interface>
+</node>
+
