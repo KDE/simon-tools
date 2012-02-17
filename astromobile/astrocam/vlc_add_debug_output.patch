@@ -1,0 +1,45 @@
+diff -Naur vlc-2.0.0-rc1/src/network/httpd.c vlc-2.0.0-rc1_mine/src/network/httpd.c
+--- vlc-2.0.0-rc1/src/network/httpd.c	2011-12-22 11:38:28.000000000 +0100
++++ vlc-2.0.0-rc1_mine/src/network/httpd.c	2012-02-17 14:22:08.248500403 +0100
+@@ -1128,6 +1128,7 @@
+ 
+     if( host != NULL )
+     {
++	msg_Dbg (host, "Closing connection without url!\n");
+         net_ListenClose( host->fds );
+         vlc_cond_destroy( &host->wait );
+         vlc_mutex_destroy( &host->lock );
+@@ -1407,6 +1408,8 @@
+ 
+ static void httpd_ClientClean( httpd_client_t *cl )
+ {
++    if ((cl->url != NULL) && (cl->url->host != NULL))
++        msg_Dbg (cl->url->host, "Closing connection for %s", cl->url->psz_url);
+     if( cl->fd >= 0 )
+     {
+         if( cl->p_tls != NULL )
+@@ -2154,6 +2157,7 @@
+                 {
+                     if( query->i_proto == HTTPD_PROTO_NONE )
+                     {
++		        msg_Dbg (cl->url->host, "Closing connection for %s", cl->url->psz_url);
+                         cl->url = NULL;
+                         cl->i_state = HTTPD_CLIENT_DEAD;
+                     }
+@@ -2254,6 +2258,7 @@
+                                     if( cl->url == NULL )
+                                     {
+                                         cl->url = url;
++                                        msg_Dbg (host, "Accepted incoming connection for %s", url->psz_url);
+                                     }
+                                 }
+                             }
+@@ -2305,6 +2310,8 @@
+                     bool b_keepalive = false;
+                     bool b_query = false;
+ 
++		    if (cl->url)
++	    	        msg_Dbg (cl->url->host, "Closing connection for %s", cl->url->psz_url);
+                     cl->url = NULL;
+                     if( psz_connection )
+                     {
