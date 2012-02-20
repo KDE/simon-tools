@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, simon listens, Scuola Superiore Sant´Anna
+ * Copyright (c) 2011-2012, simon listens, Scuola Superiore Sant´Anna
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -43,7 +43,6 @@ AstroLogic::AstroLogic()
     kDebug() << "Registered service...";
     // Done setting up service
     
-
     // Connecting to clients
     m_tts = new QDBusInterface("org.simon-listens.SimonTTS", "/SimonTTS", "local.SimonTTS", QDBusConnection::sessionBus());
     m_navigator = new QDBusInterface("info.echord.Astromobile.Navigator", "/Navigator", "info.echord.Astromobile.Navigator", QDBusConnection::systemBus());
@@ -156,9 +155,14 @@ void AstroLogic::checkup(const QString& location)
   // 6. TODO: tell ui to show video
 }
 
-
-void AstroLogic::quit()
+QStringList AstroLogic::getLocations()
 {
-     qApp->quit();
+  //FIXME
+  QStringList locations;
+  locations << i18n("Kitchen");
+  locations << i18n("Bedroom");
+  locations << i18n("Bathroom");
+
+  return locations;
 }
 

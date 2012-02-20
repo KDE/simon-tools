@@ -12,7 +12,9 @@
 <method name="startWebVideo" />
 <method name="goToUser" />
 <method name="goToKitchen" />
-<method name="quit" />
+<method name="getLocations">
+  <arg name="locations" type="as" direction="out" />
+</method>
 </interface>
 </node>
 

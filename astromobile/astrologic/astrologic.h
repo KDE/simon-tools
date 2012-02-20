@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2011, simon listens, Scuola Superiore Sant´Anna
+ * Copyright (c) 2011-2012, simon listens, Scuola Superiore Sant´Anna
  * All rights reserved.
  * 
  * Redistribution and use in source and binary forms, with or without
@@ -30,33 +30,15 @@
 
 #include <QObject>
 #include <QDBusInterface>
+#include <QStringList>
 
 class AstroLogic : public QObject
 {
-
 Q_OBJECT
 Q_CLASSINFO("AstroLogic", "info.echord.Astromobile.AstroLogic")
 
 signals:
     void robotLocation(int x, int y, const QString& text);
-
-private:
-    QDBusInterface *m_tts;
-    QDBusInterface *m_navigator;
-    QDBusInterface *m_locator;
-    QDBusInterface *m_astrocam;
-
-private slots:
-    void processRobotLocation(int x, int y, const QString& text);
-    void videoBroadcastStarted();
-    void videoRecordingToFileStarted();
-    void videoRecordingStopped();
-    
-private:
-    void stopWebVideo();
-    
-    void startRecordingToFile();
-    void stopRecordingToFile();
 
 public slots:
     void goToKitchen();
@@ -65,10 +47,27 @@ public slots:
     void startWebVideo();
     void checkup(const QString& location);
     
-    void quit();
+    QStringList getLocations();
 
 public:
     AstroLogic();
+    
+private:
+    QDBusInterface *m_tts;
+    QDBusInterface *m_navigator;
+    QDBusInterface *m_locator;
+    QDBusInterface *m_astrocam;
+    
+    void stopWebVideo();
+    
+    void startRecordingToFile();
+    void stopRecordingToFile();
+
+private slots:
+    void processRobotLocation(int x, int y, const QString& text);
+    void videoBroadcastStarted();
+    void videoRecordingToFileStarted();
+    void videoRecordingStopped();
 };
 
 #endif
