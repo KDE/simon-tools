@@ -48,6 +48,9 @@ private:
 
 private slots:
     void processRobotLocation(int x, int y, const QString& text);
+    void videoBroadcastStarted();
+    void videoRecordingToFileStarted();
+    void videoRecordingStopped();
     
 private:
     void stopWebVideo();

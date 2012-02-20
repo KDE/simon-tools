@@ -31,6 +31,7 @@
 #include <unistd.h>
 #include <KDebug>
 #include <KStandardDirs>
+#include <KLocalizedString>
 
 AstroLogic::AstroLogic()
 {
@@ -44,16 +45,34 @@ AstroLogic::AstroLogic()
     
 
     // Connecting to clients
-    m_tts = new QDBusInterface("org.simon-listens.SimonTTS", "/SimonTTS", "local.SimonTTS", QDBusConnection::systemBus());
+    m_tts = new QDBusInterface("org.simon-listens.SimonTTS", "/SimonTTS", "local.SimonTTS", QDBusConnection::sessionBus());
     m_navigator = new QDBusInterface("info.echord.Astromobile.Navigator", "/Navigator", "info.echord.Astromobile.Navigator", QDBusConnection::systemBus());
     m_locator = new QDBusInterface("info.echord.Astromobile.Locator", "/Locator", "info.echord.Astromobile.Locator", QDBusConnection::systemBus());
     m_astrocam = new QDBusInterface("info.echord.Astromobile.Astrocam", "/Astrocam", "info.echord.Astromobile.Astrocam", QDBusConnection::systemBus());
     
     connect(m_locator, SIGNAL(robotLocation(int, int, const QString&)), this, SLOT(processRobotLocation(int, int, const QString&)));
+    
+    connect(m_astrocam, SIGNAL(broadcastingVideo()), this, SLOT(videoBroadcastStarted()));
+    connect(m_astrocam, SIGNAL(recordingVideoToFile()), this, SLOT(videoRecordingToFileStarted()));
+    connect(m_astrocam, SIGNAL(recordingStopped()), this, SLOT(videoRecordingStopped()));
 
     //initialization
     m_tts->call("initialize");
 }
+
+void AstroLogic::videoBroadcastStarted()
+{
+    m_tts->call("say", i18n("Starting live video stream"));
+}
+void AstroLogic::videoRecordingStopped()
+{
+    m_tts->call("say", i18n("Stopped recording video"));
+}
+void AstroLogic::videoRecordingToFileStarted()
+{
+    m_tts->call("say", i18n("Starting to record surveillance video"));
+}
+
 
 void AstroLogic::processRobotLocation(int x, int y, const QString& text)
 {
@@ -67,14 +86,14 @@ void AstroLogic::processRobotLocation(int x, int y, const QString& text)
 void AstroLogic::goToUser()
 {
     kDebug() << "Going to the user";
-    m_tts->call("say", "Going to the user");
+    m_tts->call("say", i18n("Going to the user"));
     //TODO
 }
 
 void AstroLogic::goToKitchen()
 {
     kDebug() << "Going to the kitchen";
-    m_tts->call("say", "Going to the kitchen");
+    m_tts->call("say", i18n("Going to the kitchen"));
     m_navigator->call("moveForward");
     usleep(500000);
     m_navigator->call("moveForward");

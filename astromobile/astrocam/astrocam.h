@@ -39,6 +39,11 @@ class Astrocam : public QObject
 Q_OBJECT
 Q_CLASSINFO("Astrocam", "info.echord.Astromobile.Astrocam")
 
+signals:
+    void broadcastingVideo();
+    void recordingVideoToFile();
+    void recordingStopped();
+
 public slots:
     void startRecordingToFile();
     void stopRecordingToFile();

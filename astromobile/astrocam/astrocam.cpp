@@ -70,6 +70,7 @@ Astrocam::Astrocam() :
 
 void Astrocam::startRecordingToFile()
 {
+    emit recordingVideoToFile();
     kDebug() << "Starting to record to file";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcamfile%20play")));
 }
@@ -78,10 +79,12 @@ void Astrocam::stopRecordingToFile()
 {
     kDebug() << "Stopping recording to file";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcamfile%20stop")));
+    emit recordingStopped();
 }
 
 void Astrocam::startWebVideo()
 {
+    emit broadcastingVideo();
     kDebug() << "Starting webcam video";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcam%20play")));
 }
@@ -90,6 +93,7 @@ void Astrocam::stopWebVideo()
 {
     kDebug() << "Stopping webcam video";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcam%20stop")));
+    emit recordingStopped();
 }
 
 void Astrocam::vlcOutput()
