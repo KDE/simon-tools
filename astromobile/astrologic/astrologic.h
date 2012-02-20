@@ -41,11 +41,9 @@ signals:
     void robotLocation(int x, int y, const QString& text);
 
 public slots:
-    void goToKitchen();
-    void goToUser();
-    
     void startWebVideo();
-    void checkup(const QString& location);
+    bool checkup(const QString& location);
+    bool navigateTo(const QString& location);
     
     QStringList getLocations();
 

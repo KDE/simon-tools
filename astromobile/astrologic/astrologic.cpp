@@ -82,34 +82,27 @@ void AstroLogic::processRobotLocation(int x, int y, const QString& text)
     emit robotLocation(x, y, text);
 }
 
-void AstroLogic::goToUser()
-{
-    kDebug() << "Going to the user";
-    m_tts->call("say", i18n("Going to the user"));
-    //TODO
-}
-
-void AstroLogic::goToKitchen()
-{
-    kDebug() << "Going to the kitchen";
-    m_tts->call("say", i18n("Going to the kitchen"));
-    m_navigator->call("moveForward");
-    usleep(500000);
-    m_navigator->call("moveForward");
-    usleep(500000);
-    m_navigator->call("turnRight");
-    usleep(150000);
-    m_navigator->call("turnRight");
-    usleep(150000);
-    m_navigator->call("turnLeft");
-    usleep(150000);
-    m_navigator->call("turnLeft");
-    usleep(150000);
-    m_navigator->call("moveBackward");
-    usleep(500000);
-    m_navigator->call("moveBackward");
-    usleep(500000);
-}
+//void AstroLogic::goToKitchen()
+//{
+    //kDebug() << "Going to the kitchen";
+    //m_tts->call("say", i18n("Going to the kitchen"));
+    //m_navigator->call("moveForward");
+    //usleep(500000);
+    //m_navigator->call("moveForward");
+    //usleep(500000);
+    //m_navigator->call("turnRight");
+    //usleep(150000);
+    //m_navigator->call("turnRight");
+    //usleep(150000);
+    //m_navigator->call("turnLeft");
+    //usleep(150000);
+    //m_navigator->call("turnLeft");
+    //usleep(150000);
+    //m_navigator->call("moveBackward");
+    //usleep(500000);
+    //m_navigator->call("moveBackward");
+    //usleep(500000);
+//}
 
 void AstroLogic::startWebVideo()
 {
@@ -135,12 +128,10 @@ void AstroLogic::stopRecordingToFile()
     m_astrocam->call("stopRecordingToFile");
 }
 
-void AstroLogic::checkup(const QString& location)
+bool AstroLogic::checkup(const QString& location)
 {
-//   QString file = KStandardDirs::locateLocal("tmp", location+"-checkup.mp4");
-  
-  // 0. TODO: parse location to something the navigator understands
-  // 1. TODO: go to location using navigator
+  // 1. go to location using navigator
+  navigateTo(location);
   
   // 2. start recording to file (astrocam)
   startRecordingToFile();
@@ -151,8 +142,19 @@ void AstroLogic::checkup(const QString& location)
   // 4. stop recording
   stopRecordingToFile();
   
-  // 5. TODO: go back
+  // 5. go back
+  navigateTo(i18nc("user refers to the patient", "User"));
+
   // 6. TODO: tell ui to show video
+  return true;
+}
+
+bool AstroLogic::navigateTo(const QString& location)
+{
+  kDebug() << "Navigating to: " << location;
+  // 0. TODO: parse location to something the navigator understands
+  // 1. TODO: tell navigator to go there
+  return true;
 }
 
 QStringList AstroLogic::getLocations()
@@ -162,6 +164,7 @@ QStringList AstroLogic::getLocations()
   locations << i18n("Kitchen");
   locations << i18n("Bedroom");
   locations << i18n("Bathroom");
+  locations << i18nc("user refers to the patient", "User");
 
   return locations;
 }

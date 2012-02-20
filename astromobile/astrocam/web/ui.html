@@ -30,6 +30,44 @@ function startPlayback() {
 		wmp.controls.play();
 	}
 }
+
+function navigate() {
+	var loc = document.getElementById("locationSelector");
+	var goal = loc.options[loc.selectedIndex].value;
+
+	//source: http://blogs.digitss.com/javascript/simple-plain-ajax-without-any-javascript-library/
+	var url = "navigate.php";
+	var data="location="+goal;
+	var method = 'POST';
+	var async = true;
+	var xmlHttpRequest = false;
+	if (window.XMLHttpRequest)
+		xmlHttpRequest = new XMLHttpRequest();
+	// IE
+	else if (window.ActiveXObject)
+		xmlHttpRequest = new ActiveXObject("Microsoft.XMLHTTP");
+
+	// If AJAX is not supported
+	if(xmlHttpRequest == false)
+	{
+		alert("Please use browser with Ajax support.!");
+		return;
+	}
+	// Open Http Request connection
+	xmlHttpRequest.open(method, url, async);
+	// Set request header (optional if GET method is used)
+	xmlHttpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	// Callback when ReadyState is changed.
+	xmlHttpRequest.onreadystatechange = 	function()
+						{
+							if (xmlHttpRequest.readyState == 4)
+							{
+								document.getElementById("status").innerHTML = xmlHttpRequest.responseText;
+							}
+						}
+
+	xmlHttpRequest.send(data);
+}
 </script>
 
 <!--[if IE]>
@@ -38,7 +76,7 @@ function startPlayback() {
 <param name="uiMode" value="none"/>
 <param name="autostart" value="0"/>
 <param name="scale" value="tofit"/>
-<param name="URL" value="mms://192.168.0.102:8080/webcam"/>
+<param name="URL" value="mms://192.168.0.91:8080/webcam"/>
 </object>
 <![endif]-->
 
@@ -50,11 +88,17 @@ function startPlayback() {
 <param name="autoplay" value="true" />
 <param name="loop" value="true" />
 <param name="fullscreen" value="false" />
-<param name="mrl" value="mmsh://192.168.0.102:8080/webcam" />
+<param name="mrl" value="mmsh://192.168.0.91:8080/webcam" />
 </object>
 </div>
 
 <!--<![endif]-->
+</p>
+
+<p>
+Go to: {{locationselector}}
+<input type="submit" value="Go" onclick="navigate()"/>
+<span id="status"></span>
 </p>
 
 </body>

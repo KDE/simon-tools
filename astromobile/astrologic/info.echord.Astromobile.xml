@@ -8,10 +8,13 @@
 </signal>
 <method name="checkup">
   <arg name="location" type="s" direction="in" />
+  <arg name="result" type="b" direction="out" />
+</method>
+<method name="navigateTo">
+  <arg name="location" type="s" direction="in" />
+  <arg name="result" type="b" direction="out" />
 </method>
 <method name="startWebVideo" />
-<method name="goToUser" />
-<method name="goToKitchen" />
 <method name="getLocations">
   <arg name="locations" type="as" direction="out" />
 </method>
