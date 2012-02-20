@@ -52,7 +52,7 @@ Astrocam::Astrocam() :
     m_vlc->setOutputChannelMode(KProcess::OnlyStderrChannel);
     m_vlc->setProgram("vlc", QStringList() << "-I" << " http" << "--v4l2-width" << 
                       "640" << "--v4l2-height" << "480" << "--v4l2-fps" << 
-                      "15" << "--no-sout-mp4-faststart" << "--sout-asf-title" << 
+                      "10" << "--no-sout-mp4-faststart" << "--sout-asf-title" << 
                       "\"Astromobile\"" << "--vlm-conf" << 
                       KStandardDirs::locate("appdata", "vlm.conf") << 
                       "--http-port" << "9090" << "--network-caching" << "1000" <<
