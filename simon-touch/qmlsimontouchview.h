@@ -55,6 +55,8 @@ public slots:
     void readAloud(const QString& message);
     void interruptReading();
 
+    void playVideo(const QString& video);
+
 private:
     QWidget *dlg;
     KDeclarative *decl;

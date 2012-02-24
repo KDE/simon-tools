@@ -47,6 +47,7 @@ signals:
     void callEnded();
     void videoAvailable();
     void videoEnded();
+    void playVideo(const QString& path);
 
 private:
     ImagesModel *m_images;
@@ -88,6 +89,8 @@ public:
     ContactsModel *getContacts();
 
     void setupCommunication();
+
+    void requestVideoPlayback(const QString& path);
 
     void callSkype(const QString& user);
     void callPhone(const QString& user);

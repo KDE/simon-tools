@@ -81,11 +81,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     new SimonTouchAdapter(&touch);
     QDBusConnection connection = QDBusConnection::sessionBus();
     connection.registerObject("/Main", &touch);
-    connection.registerService("org.simon-listens.SimonTouch.Status");
+    connection.registerService("org.simon-listens.SimonTouch");
 
 
     QMLSimonTouchView view(&touch);
     QObject::connect(&view, SIGNAL(enterState(QString)), &touch, SLOT(enteredState(QString)));
+    QObject::connect(&touch, SIGNAL(playVideo(QString)), &view, SLOT(playVideo(QString)));
 
     touch.enteredState("Main");
 

@@ -48,6 +48,7 @@ public slots:
     void showCalculator();
     void hideKeyboard();
     void hideCalculator();
+    virtual void playVideo(const QString& video)=0;
 };
 
 #endif // SIMONTOUCHVIEW_H

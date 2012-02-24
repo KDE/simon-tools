@@ -27,6 +27,15 @@ Rectangle {
     height: 768
     color: "#FFFBC7"
 
+    function playVideo(path) {
+        console.debug("Playing video: "+path)
+
+        //stop music?
+
+        tabs.setScreen("MainInformation")
+        pgInformation.playVideo(path)
+    }
+
     function changeButtonVisibility(visibility) {
             keyboardButton.opacity = visibility;
             calculatorButton.opacity = visibility;
@@ -53,6 +62,7 @@ Rectangle {
         }
 
         MainInformation {
+            id: pgInformation
             objectName: "MainInformation"
         }
 

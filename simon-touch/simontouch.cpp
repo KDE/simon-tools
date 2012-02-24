@@ -205,3 +205,9 @@ QWidget* SimonTouch::getVideoCallWidget()
 {
     return m_communicationCentral->getVideoCallWidget();
 }
+
+void SimonTouch::requestVideoPlayback(const QString& path)
+{
+    qDebug() << "Requesting video playback for path: " << path;
+    emit playVideo(path);
+}

@@ -29,6 +29,7 @@ Flipable {
         PropertyChanges { target: rotation; angle: 180 }
         when: flipable.flipped
     }
+
     transform: Rotation {
             id: rotation
             origin.x: flipable.width/2
@@ -38,7 +39,11 @@ Flipable {
     }
 
     transitions: Transition {
-        NumberAnimation { target: rotation; property: "angle"; duration: 200 }
+        NumberAnimation {
+            target: rotation;
+            property: "angle";
+            duration: 200;
+        }
     }
 
 }

@@ -189,6 +189,12 @@ void QMLSimonTouchView::callEnded()
     viewer->rootObject()->findChild<QObject*>("mainMenu")->setProperty("current", "MainScreen");
 }
 
+void QMLSimonTouchView::playVideo(const QString &video)
+{
+    hangUp();
+    QMetaObject::invokeMethod(viewer->rootObject(), "playVideo", Q_ARG(QVariant, video));
+}
+
 QMLSimonTouchView::~QMLSimonTouchView()
 {
     delete viewer;

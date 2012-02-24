@@ -27,9 +27,17 @@ TabPage {
     objectName: "MainInformationVideos"
     stateName: "Videos"
 
+    function playVideo(path) {
+        playVideos.source = path
+        videoFlip.flipped = true
+
+        console.debug("Really playing "+path)
+        playVideos.play()
+    }
+
     onOpacityChanged: {
-        playVideos.stop()
-        lvVideos.focus = (opacity == 1)
+        if (opacity == 0) playVideos.stop()
+        else lvVideos.focus = (opacity == 1)
     }
 
     Page {
@@ -160,6 +168,10 @@ TabPage {
 
                         anchors.fill: parent
 
+                        onStatusChanged: {
+                            console.debug("State changed: " + status)
+                        }
+
                         onPositionChanged: {
                             function msToStr(time) {
                                 var seconds = Math.floor(time / 1000)
@@ -228,8 +240,8 @@ TabPage {
                 width: 170
                 buttonLayout: Qt.Horizontal
                 onButtonClick: {
-                    playVideos.play()
                     videoFlip.flipped = true
+                    playVideos.play()
                 }
 
             }
