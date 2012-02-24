@@ -32,7 +32,6 @@
 #include <QDBusConnection>
 #include <QNetworkRequest>
 #include <QDir>
-#include <QCoreApplication>
 #include <KDebug>
 #include <KProcess>
 #include <KUrl>
@@ -52,7 +51,6 @@ Astrocam::Astrocam() :
     kDebug() << "Starting VLC...";
     m_vlc->setReadChannel(QProcess::StandardError);
     m_vlc->setOutputChannelMode(KProcess::OnlyStderrChannel);
-    m_vlc->setWorkingDirectory(qApp->applicationDirPath());
     m_vlc->setProgram("vlc", QStringList() << "-I" << " http" << "--v4l2-width" << 
                       "640" << "--v4l2-height" << "480" << "--v4l2-fps" << 
                       "10" << "--no-sout-mp4-faststart" << "--sout-asf-title" << 
@@ -77,7 +75,7 @@ QString Astrocam::startRecordingToFile()
     emit recordingVideoToFile();
     kDebug() << "Starting to record to file";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcamfile%20play")));
-    return qApp->applicationDirPath()+QDir::separator()+"webcam.asf";
+    return QDir::currentPath()+QDir::separator()+"webcam.asf";
 }
 
 void Astrocam::stopRecordingToFile()
