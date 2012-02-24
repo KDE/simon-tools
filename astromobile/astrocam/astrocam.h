@@ -45,7 +45,7 @@ signals:
     void recordingStopped();
 
 public slots:
-    void startRecordingToFile();
+    QString startRecordingToFile();
     void stopRecordingToFile();
     
     void startWebVideo();

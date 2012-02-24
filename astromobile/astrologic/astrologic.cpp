@@ -48,6 +48,7 @@ AstroLogic::AstroLogic()
     m_navigator = new QDBusInterface("info.echord.Astromobile.Navigator", "/Navigator", "info.echord.Astromobile.Navigator", QDBusConnection::systemBus());
     m_locator = new QDBusInterface("info.echord.Astromobile.Locator", "/Locator", "info.echord.Astromobile.Locator", QDBusConnection::systemBus());
     m_astrocam = new QDBusInterface("info.echord.Astromobile.Astrocam", "/Astrocam", "info.echord.Astromobile.Astrocam", QDBusConnection::systemBus());
+    m_simontouch = new QDBusInterface("org.simon-listens.SimonTouch", "/Main", "local.SimonTouch", QDBusConnection::sessionBus());
     
     connect(m_locator, SIGNAL(robotLocation(int, int, const QString&)), this, SLOT(processRobotLocation(int, int, const QString&)));
     
@@ -116,10 +117,12 @@ void AstroLogic::stopWebVideo()
     m_astrocam->call("stopWebVideo");
 }
 
-void AstroLogic::startRecordingToFile()
+QString AstroLogic::startRecordingToFile()
 {
     kDebug() << "Starting to record a surveillance video";
-    m_astrocam->call("startRecordingToFile");
+    QDBusReply<QString> r = m_astrocam->call("startRecordingToFile");
+    if (!r.isValid()) return QString();
+    return r.value();
 }
 
 void AstroLogic::stopRecordingToFile()
@@ -134,10 +137,10 @@ bool AstroLogic::checkup(const QString& location)
   navigateTo(location);
   
   // 2. start recording to file (astrocam)
-  startRecordingToFile();
+  QString path = startRecordingToFile();
   
   // 3. wait a couple of seconds
-  sleep(5);
+  sleep(15);
   
   // 4. stop recording
   stopRecordingToFile();
@@ -145,7 +148,8 @@ bool AstroLogic::checkup(const QString& location)
   // 5. go back
   navigateTo(i18nc("user refers to the patient", "User"));
 
-  // 6. TODO: tell ui to show video
+  // 6. tell ui to show video
+  m_simontouch->call("playVideo", path);
   return true;
 }
 
@@ -154,6 +158,7 @@ bool AstroLogic::navigateTo(const QString& location)
   kDebug() << "Navigating to: " << location;
   // 0. TODO: parse location to something the navigator understands
   // 1. TODO: tell navigator to go there
+  sleep(2);
   return true;
 }
 
