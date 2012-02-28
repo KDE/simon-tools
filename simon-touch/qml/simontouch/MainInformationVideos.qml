@@ -121,7 +121,7 @@ TabPage {
                                 height: parent.height
                             }
                             PropertyChanges {
-                                target: btStopFullscreen
+                                target: btStopFullScreen
                                 opacity: 0
                             }
                         },
@@ -135,7 +135,7 @@ TabPage {
                                 height: main.height
                             }
                             PropertyChanges {
-                                target: btStopFullscreen
+                                target: btStopFullScreen
                                 opacity: 1
                             }
                         }
@@ -145,11 +145,11 @@ TabPage {
                     }
 
                     Button {
-                        id: btStopFullscreen
+                        id: btStopFullScreen
                         anchors.top: videoWrapper.top
                         anchors.horizontalCenter: videoWrapper.horizontalCenter
-                        objectName: "btStopFullscreen"
-                        buttonText: i18n("Fullscreen")
+                        objectName: "btStopFullScreen"
+                        buttonText: i18n("FullScreen")
                         buttonNumber: ""
                         buttonImage: ("../img/go-down.svgz")
         //                shortcut: Qt.Key_F
@@ -157,7 +157,7 @@ TabPage {
                         height: 50
                         width: 200
                         buttonLayout: Qt.Horizontal
-                        onButtonClick: buttonRectangle.toggleFullscreen();
+                        onButtonClick: buttonRectangle.toggleFullScreen();
                         Behavior on opacity {
                             NumberAnimation {properties: "opacity"; duration: 500}
                         }
@@ -191,7 +191,7 @@ TabPage {
 
                         MouseArea {
                             anchors.fill: parent
-                            onClicked: buttonRectangle.toggleFullscreen()
+                            onClicked: buttonRectangle.toggleFullScreen()
                         }
                     }
 
@@ -201,9 +201,9 @@ TabPage {
             id: buttonRectangle
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
-            x: (btFullscreen.opacity == 1) ? screen.width / 2 - ((700 + lbStatus.width + 40)/2) : screen.width / 2 - ((530 + lbStatus.width + 40)/2)
+            x: (btFullScreen.opacity == 1) ? screen.width / 2 - ((700 + lbStatus.width + 40)/2) : screen.width / 2 - ((530 + lbStatus.width + 40)/2)
 
-            function toggleFullscreen() {
+            function toggleFullScreen() {
                 if (videoWrapper.state == "windowed") {
                     videoWrapper.state = "fullscreen"
                 } else {
@@ -258,10 +258,10 @@ TabPage {
             }
 
             Button{
-                id:btFullscreen
+                id:btFullScreen
                 anchors.left: lbStatus.right
                 anchors.leftMargin: 10
-                buttonText: i18n("Fullscreen")
+                buttonText: i18n("Full-screen")
                 buttonNumber: ""
                 buttonImage: ("../img/fullscreen.png")
                 shortcut: Qt.Key_F
@@ -270,13 +270,13 @@ TabPage {
                 width: 170
                 buttonLayout: Qt.Horizontal
                 opacity: videoFlip.flipped ? 1 : 0
-                onButtonClick: parent.toggleFullscreen();
+                onButtonClick: parent.toggleFullScreen();
             }
 
             Button{
                 id: btStop
                 anchors.left: lbStatus.right
-                anchors.leftMargin: (btFullscreen.opacity == 1) ? 20 + btFullscreen.width : 10
+                anchors.leftMargin: (btFullScreen.opacity == 1) ? 20 + btFullScreen.width : 10
                 buttonText: i18n("Stop")
                 buttonNumber: ""
                 buttonImage: ("../img/stop.png")
