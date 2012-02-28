@@ -31,8 +31,29 @@ TabPage {
         playVideos.source = path
         videoFlip.flipped = true
 
-        console.debug("Really playing "+path)
         playVideos.play()
+    }
+
+    function msToStr(time) {
+        var seconds = Math.floor(time / 1000)
+        var minutes = Math.floor(seconds / 60)
+        var hours = Math.floor(minutes / 60)
+        minutes = minutes - hours*60
+        seconds = seconds - minutes*60
+
+        if (hours < 10) hours = "0" + hours
+        if (minutes < 10) minutes = "0" + minutes
+        if (seconds < 10) seconds = "0" + seconds
+
+        return hours + ":" + minutes + ":" + seconds
+    }
+    function updateTime() {
+        var max;
+        if (playVideos.status >= 3)
+            max = msToStr(playVideos.duration)
+        else
+            max = "00:00:00"
+        lbStatus.text = msToStr(playVideos.position)+ " / " + max
     }
 
     onOpacityChanged: {
@@ -99,6 +120,7 @@ TabPage {
                             }
                     }
                     onCurrentItemChanged: {
+                        playVideos.stop()
                         playVideos.source = currentItem.fullPath
                     }
                 }
@@ -170,23 +192,14 @@ TabPage {
 
                         onStatusChanged: {
                             console.debug("State changed: " + status)
+                            //updateTime()
                         }
 
                         onPositionChanged: {
-                            function msToStr(time) {
-                                var seconds = Math.floor(time / 1000)
-                                var minutes = Math.floor(seconds / 60)
-                                var hours = Math.floor(minutes / 60)
-                                minutes = minutes - hours*60
-                                seconds = seconds - minutes*60
+                            console.debug("Pos: "+playVideos.position)
+                            updateTime()
 
-                                if (hours < 10) hours = "0" + hours
-                                if (minutes < 10) minutes = "0" + minutes
-                                if (seconds < 10) seconds = "0" + seconds
-
-                                return hours + ":" + minutes + ":" + seconds
-                            }
-                            lbStatus.text = msToStr(playVideos.position)+ " / " + msToStr(playVideos.duration)
+                            console.debug("Position changed: " + lbStatus.text)
                         }
 
                         MouseArea {
@@ -241,6 +254,7 @@ TabPage {
                 buttonLayout: Qt.Horizontal
                 onButtonClick: {
                     videoFlip.flipped = true
+                    playVideos.source = lvVideos.currentItem.fullPath
                     playVideos.play()
                 }
 

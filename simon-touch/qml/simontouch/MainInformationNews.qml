@@ -90,6 +90,7 @@ TabPage {
         function displayFeed()
         {
             rssFlip.flipped = true
+            lvFeed.currentIndex = 0
         }
 
         AutoFlippable {
