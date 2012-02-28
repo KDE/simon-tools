@@ -92,6 +92,12 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
 }
 
+void QMLSimonTouchView::checkOn(const QString &target)
+{
+    qDebug() << "Checking: " << target;
+    m_logic->checkOn(target);
+}
+
 void QMLSimonTouchView::readAloud(const QString& message)
 {
     qDebug() << "Reading aloud " << message;

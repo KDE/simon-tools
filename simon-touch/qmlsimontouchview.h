@@ -57,6 +57,8 @@ public slots:
 
     void playVideo(const QString& video);
 
+    void checkOn(const QString& target);
+
 private:
     QWidget *dlg;
     KDeclarative *decl;

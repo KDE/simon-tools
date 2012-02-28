@@ -106,6 +106,8 @@ public:
 
     QWidget *getVideoCallWidget();
 
+    void checkOn(const QString& target);
+
     ~SimonTouch();
 };
 

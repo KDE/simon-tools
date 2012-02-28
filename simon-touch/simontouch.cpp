@@ -211,3 +211,13 @@ void SimonTouch::requestVideoPlayback(const QString& path)
     qDebug() << "Requesting video playback for path: " << path;
     emit playVideo(path);
 }
+
+void SimonTouch::checkOn(const QString& target)
+{
+    QDBusMessage m = QDBusMessage::createMethodCall("info.echord.Astromobile.AstroLogic",
+                                                    "/AstroLogic",
+                                                    "info.echord.Astromobile.AstroLogic",
+                                                    "checkup");
+    m.setArguments(QList<QVariant>() << target);
+    QDBusConnection::systemBus().send(m);
+}
