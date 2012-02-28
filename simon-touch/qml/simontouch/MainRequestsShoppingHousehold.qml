@@ -530,6 +530,14 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
+            onButtonClick: {
+                var list="";
+                for (i=0; i<lvShoppingDrinksSelectionModel.count; i++)
+                    list += lvShoppingDrinksSelectionModel.get(i).amount + "x " + lvShoppingDrinksSelectionModel.get(i).name + "\n"
+                simonTouch.sendHouseholdShoppingOrder(list)
+                //TODO: clear selection
+                back()
+            }
         }
     }
 }

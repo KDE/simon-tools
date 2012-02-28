@@ -39,6 +39,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.taxiNumber())
+                }
             }
             Button {
                 objectName: "btRequestsTransportAmbulance"
@@ -48,6 +52,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.ambulanceNumber())
+                }
             }
             Button {
                 objectName: "btRequestsTransportPrivate"
@@ -57,6 +65,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Transport.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.privateTransportNumber())
+                }
             }
         }
     }

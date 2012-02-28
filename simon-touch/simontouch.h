@@ -22,6 +22,8 @@
 
 #include <QObject>
 
+class Configuration;
+
 class ImagesModel;
 class VideosModel;
 class MusicModel;
@@ -50,6 +52,7 @@ signals:
     void playVideo(const QString& path);
 
 private:
+    Configuration *m_cfg;
     ImagesModel *m_images;
     MusicModel *m_music;
     VideosModel *m_videos;
@@ -69,7 +72,12 @@ public slots:
     void enteredState(const QString& state);
 
 public:
-    SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);
+    enum OrderType {
+        Household=1,
+        Medicine=2
+    };
+
+    SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);
     ImagesModel* images() const { return m_images; }
     MusicModel* music() const { return m_music; }
     VideosModel* videos() const { return m_videos; }
@@ -78,6 +86,8 @@ public:
     MessageModel *messages() const;
     QStringList rssFeedNames() const;
     QStringList rssFeedIcons() const;
+
+    Configuration* config() const { return m_cfg; }
 
     void fetchRssFeed(int id);
 
@@ -92,6 +102,7 @@ public:
 
     void requestVideoPlayback(const QString& path);
 
+    void callHandle(const QString& user);
     void callSkype(const QString& user);
     void callPhone(const QString& user);
     void pickUp();
@@ -107,6 +118,8 @@ public:
     QWidget *getVideoCallWidget();
 
     void checkOn(const QString& target);
+
+    void order(OrderType type, const QString& items);
 
     ~SimonTouch();
 };

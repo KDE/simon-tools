@@ -379,6 +379,14 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
+            onButtonClick: {
+                var list="";
+                for (i=0; i<lvShoppingMedicineSelectionModel.count; i++)
+                    list += lvShoppingMedicineSelectionModel.get(i).amount + "x " + lvShoppingMedicineSelectionModel.get(i).name + "\n"
+                simonTouch.sendMedicineShoppingOrder(list)
+                //TODO: clear selection
+                back()
+            }
         }
     }
 }

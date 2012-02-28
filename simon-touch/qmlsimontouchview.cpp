@@ -24,6 +24,7 @@
 #include "musicmodel.h"
 #include "videosmodel.h"
 #include "contactsmodel.h"
+#include "configuration.h"
 #include "messagemodel.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
@@ -33,6 +34,7 @@
 #include <QDebug>
 #include <QDeclarativeComponent>
 #include <kdeclarative.h>
+#include <KLocalizedString>
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), dlg(new QWidget()),
@@ -50,6 +52,7 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     viewer->rootContext()->setContextProperty("rssFeed", logic->rssFeed());
     viewer->rootContext()->setContextProperty("contactsModel", logic->contacts());
     viewer->rootContext()->setContextProperty("messagesModel", logic->messages());
+    viewer->rootContext()->setContextProperty("configuration", logic->config());
     viewer->rootContext()->setContextProperty("simonTouch", this);
 
     viewer->setOrientation(QmlApplicationViewer::ScreenOrientationAuto);
@@ -90,6 +93,25 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
 
     dlg->show();
     connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
+}
+
+
+void QMLSimonTouchView::callHandle(const QString& number)
+{
+    qDebug() << "Calling handle: " << number;
+    m_logic->callHandle(number);
+}
+
+void QMLSimonTouchView::sendHouseholdShoppingOrder(const QString& orderedItems)
+{
+    qDebug() << "Ordering household items: " << orderedItems;
+    m_logic->order(SimonTouch::Household, i18n("Please bring me the following items:\n%1\n\nThank you!", orderedItems));
+}
+
+void QMLSimonTouchView::sendMedicineShoppingOrder(const QString& orderedItems)
+{
+    qDebug() << "Ordering medicine: " << orderedItems;
+    m_logic->order(SimonTouch::Medicine, i18n("I require the following medicine:\n%1\n\nThank you!", orderedItems));
 }
 
 void QMLSimonTouchView::checkOn(const QString &target)

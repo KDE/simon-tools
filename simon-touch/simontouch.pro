@@ -32,7 +32,8 @@ SOURCES += main.cpp \
     voipprovider.cpp \
     voipproviderfactory.cpp \
     skypevoipprovider.cpp \
-    mail.cpp
+    mail.cpp \
+    configuration.cpp
 
 
 # Please do not modify the following two lines. Required for deployment.
@@ -63,7 +64,8 @@ HEADERS += \
     voipprovider.h \
     voipproviderfactory.h \
     skypevoipprovider.h \
-    mail.h
+    mail.h \
+    configuration.h
 
 OTHER_FILES += \
     simontouch.xml
@@ -72,3 +74,5 @@ LIBS += -lakonadi-kabc -lkabc -lkmime -lkdecore -lsoprano -lkdeui \
         -lakonadi-kde -lakonadi-contact -lakonadi-kmime \
         -leventsimulation -lnepomuk -lnepomukquery \
         -lmailtransport -lkpimidentities -lskype -lkdeclarative
+
+

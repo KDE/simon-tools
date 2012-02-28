@@ -25,6 +25,7 @@
 #include <QtDBus/QDBusConnection>
 #include "qmlsimontouchview.h"
 #include "qmlapplicationviewer.h"
+#include "configuration.h"
 #include "imagesmodel.h"
 #include "musicmodel.h"
 #include "videosmodel.h"
@@ -41,10 +42,10 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 			  ki18n("Copyright (c) 2011-2012 Peter Grasch, Mathias Stieger") );
 
     KCmdLineOptions options;
-    options.add("+images", ki18n("Path to images"));
-    options.add("+music", ki18n("Path to music"));
-    options.add("+videos", ki18n("Path to videos"));
-    options.add("+feeds", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,..."));
+    options.add("images <folder>", ki18n("Path to images"));
+    options.add("music <folder>", ki18n("Path to music"));
+    options.add("videos <folder>", ki18n("Path to videos"));
+    options.add("feeds <description>", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,..."));
     KCmdLineArgs::addCmdLineOptions(options);
     
     KCmdLineArgs::init(argc, argv, &aboutData);
@@ -52,15 +53,12 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     KGlobal::locale()->insertCatalog("libskype");
 
-    if (KCmdLineArgs::parsedArgs()->count() < 4) {
-    	qWarning() << i18n("Call with: <path to images> <path to music> <path to videos> <feeds>");
-	return -1;
-    }
+    Configuration cfg;
 
-    ImagesModel img(KCmdLineArgs::parsedArgs()->arg(0));
-    MusicModel music(KCmdLineArgs::parsedArgs()->arg(1));
-    VideosModel vids(KCmdLineArgs::parsedArgs()->arg(2));
-    QStringList feeds = KCmdLineArgs::parsedArgs()->arg(3).split(';');
+    ImagesModel img(cfg.imagePath());
+    MusicModel music(cfg.musicPath());
+    VideosModel vids(cfg.videosPath());
+    QStringList feeds = cfg.feeds().split(';');
 
     QStringList titles, urls, icons;
     foreach (const QString& feed, feeds) {
@@ -76,7 +74,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
 
     RSSFeeds rssFeeds(titles, urls, icons);
 
-    SimonTouch touch(&img, &music, &vids, &rssFeeds);
+    SimonTouch touch(&cfg, &img, &music, &vids, &rssFeeds);
 
     new SimonTouchAdapter(&touch);
     QDBusConnection connection = QDBusConnection::sessionBus();
