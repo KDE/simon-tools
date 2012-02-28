@@ -149,10 +149,10 @@ TabPage {
                         anchors.top: videoWrapper.top
                         anchors.horizontalCenter: videoWrapper.horizontalCenter
                         objectName: "btStopFullScreen"
-                        buttonText: i18n("FullScreen")
+                        buttonText: i18n("Full-screen")
                         buttonNumber: ""
                         buttonImage: ("../img/go-down.svgz")
-        //                shortcut: Qt.Key_F
+                        shortcut: Qt.Key_F
                         spokenText: true
                         height: 50
                         width: 200

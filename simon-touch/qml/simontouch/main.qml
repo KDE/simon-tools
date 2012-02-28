@@ -94,7 +94,7 @@ Rectangle {
         x: (parent.width / 2) - (calculatorButton.width + 10)
         btKeyCalcButtonText: (state == "collapsed") ? i18n("Calculator") : i18n("Close calculator")
         btKeyCalcButtonImage: ("../img/calculator.png")
-        spokenText: true
+        spokenText: false
         shortcut: Qt.Key_0
         onButtonClick: {
             if (state == "collapsed")
@@ -111,7 +111,7 @@ Rectangle {
         x: (parent.width / 2) + 10
         btKeyCalcButtonText: (state == "collapsed") ? i18n("Keyboard") : i18n("Close keyboard")
         btKeyCalcButtonImage: ("../img/keyboard.png")
-        spokenText: true
+        spokenText: false
         shortcut: Qt.Key_9
         onButtonClick: {
             if (state == "collapsed")

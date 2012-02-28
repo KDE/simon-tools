@@ -519,8 +519,7 @@ TabPage {
             height: 50
             id: drinkDeselect
             buttonText: i18n("Order")
-            spokenText: true
-            shortcut: Qt.Key_Enter
+            spokenText: false
             buttonLayout: Qt.Horizontal
             buttonImage: "../img/Button_Anfragen_Bestellung.png"
             horizontalIconAlign: "left"
@@ -530,6 +529,8 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
+	    buttonNumber: i18n("Ok")
+            shortcut: Qt.Key_Return
             onButtonClick: {
                 var list="";
                 for (i=0; i<lvShoppingDrinksSelectionModel.count; i++)
