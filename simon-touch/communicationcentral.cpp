@@ -35,6 +35,7 @@
 #include <akonadi/collectionfetchscope.h>
 #include <akonadi/searchcreatejob.h>
 #include <akonadi/itemfetchjob.h>
+#include <akonadi/itemsearchjob.h>
 #include <akonadi/itemfetchscope.h>
 #include <akonadi/entitydisplayattribute.h>
 
@@ -281,11 +282,21 @@ void CommunicationCentral::messageCollectionSearchJobFinished(KJob *job)
                                              Nepomuk::Query::ComparisonTerm::Equal);
     Nepomuk::Query::ComparisonTerm addressTerm(Nepomuk::Vocabulary::NCO::hasEmailAddress(), valueTerm,
                                              Nepomuk::Query::ComparisonTerm::Equal);
-
     Nepomuk::Query::ComparisonTerm personTerm(Nepomuk::Vocabulary::NMO::from(),
                                               addressTerm, Nepomuk::Query::ComparisonTerm::Equal);
 
-    Nepomuk::Query::Query query(personTerm);
+    Nepomuk::Query::Query query;
+
+    Nepomuk::Query::AndTerm outerGroup;
+    const Nepomuk::Types::Class cl( Nepomuk::Vocabulary::NMO::Email() );
+    const Nepomuk::Query::ResourceTypeTerm typeTerm( cl );
+    const Nepomuk::Query::Query::RequestProperty itemIdProperty( Akonadi::ItemSearchJob::akonadiItemIdUri(), false );
+    
+    outerGroup.addSubTerm( personTerm );
+    outerGroup.addSubTerm( typeTerm );
+    query.setTerm( outerGroup );
+    query.addRequestProperty( itemIdProperty );
+
     qDebug() << "Executing sparql query: " << query.toSparqlQuery();
 
     Akonadi::SearchCreateJob *searchJob = new Akonadi::SearchCreateJob( m_messageCollectionName,
