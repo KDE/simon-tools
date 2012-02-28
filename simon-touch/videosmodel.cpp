@@ -21,6 +21,6 @@
 #include <QStringList>
 
 VideosModel::VideosModel(const QString& path) :
-    FlatFilesystemModel(path, QStringList() << "*.avi" << "*.mkv" << "*.mp4" << "*.flv" << "*.mov")
+    FlatFilesystemModel(path, QStringList() << "*.avi" << "*.mkv" << "*.mp4" << "*.flv" << "*.mov" << "*.ogg" << "*.ogm" << "*.mkv")
 {
 }
