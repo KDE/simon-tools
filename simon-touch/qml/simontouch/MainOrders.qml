@@ -26,9 +26,16 @@ TabPage {
     objectName: "MainOrders"
     stateName: "Orders"
 
+    function checkOn(target) {
+        moCheck.target = target
+        setScreen("MainOrdersCheck")
+        simonTouch.checkOn(target)
+    }
+
     Page {
         stateName: parent.stateName
         title: i18nc("Tell the robot to check the environment","Check")
+
         PageGrid {
             id: pageGrid
             Button {
@@ -38,6 +45,8 @@ TabPage {
                 buttonImage: ("../img/Button_Auftraege_Wasser.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                shortcut: Qt.Key_1
+                onButtonClick: checkOn(i18n("Water"))
             }
             Button {
                 objectName: "btOrdersDoors"
@@ -46,6 +55,8 @@ TabPage {
                 buttonImage: ("../img/Button_Auftraege_Tueren.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                shortcut: Qt.Key_2
+                onButtonClick: checkOn(i18n("Doors"))
             }
             Button {
                 objectName: "btOrdersCooker"
@@ -54,6 +65,8 @@ TabPage {
                 buttonImage: ("../img/Button_Auftraege_Herd.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                shortcut: Qt.Key_3
+                onButtonClick: checkOn(i18n("Cooker"))
             }
             Button {
                 objectName: "btOrdersGas"
@@ -62,7 +75,14 @@ TabPage {
                 buttonImage: ("../img/Button_Auftraege_Gas.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                shortcut: Qt.Key_4
+                onButtonClick: checkOn(i18n("Gas"))
             }
         }
+    }
+
+    MainOrdersCheck {
+        id: moCheck
+        objectName: "MainOrdersCheck"
     }
 }

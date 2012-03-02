@@ -368,8 +368,8 @@ TabPage {
             height: 50
             id: medicineDeselect
             buttonText: i18n("Order")
-            spokenText: true
-            shortcut: Qt.Key_Enter
+            spokenText: false
+            shortcut: Qt.Key_Return
             buttonLayout: Qt.Horizontal
             buttonImage: "../img/Button_Anfragen_Bestellung.png"
             horizontalIconAlign: "left"
@@ -378,6 +378,15 @@ TabPage {
                 left: addAmount.right
                 leftMargin: 10
                 topMargin: 10
+            }
+	    buttonNumber: i18n("Ok")
+            onButtonClick: {
+                var list="";
+                for (i=0; i<lvShoppingMedicineSelectionModel.count; i++)
+                    list += lvShoppingMedicineSelectionModel.get(i).amount + "x " + lvShoppingMedicineSelectionModel.get(i).name + "\n"
+                simonTouch.sendMedicineShoppingOrder(list)
+                //TODO: clear selection
+                back()
             }
         }
     }

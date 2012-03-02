@@ -31,6 +31,7 @@
 #include <QTimer>
 #include <QDBusConnection>
 #include <QNetworkRequest>
+#include <QDir>
 #include <KDebug>
 #include <KProcess>
 #include <KUrl>
@@ -69,11 +70,12 @@ Astrocam::Astrocam() :
     kDebug() << "Setup completed";
 }
 
-void Astrocam::startRecordingToFile()
+QString Astrocam::startRecordingToFile()
 {
     emit recordingVideoToFile();
     kDebug() << "Starting to record to file";
     m_network->get(QNetworkRequest(KUrl("http://localhost:9090/requests/vlm_cmd.xml?command=control%20webcamfile%20play")));
+    return QDir::currentPath()+QDir::separator()+"webcam.mp4";
 }
 
 void Astrocam::stopRecordingToFile()

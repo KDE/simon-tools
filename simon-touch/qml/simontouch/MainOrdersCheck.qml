@@ -19,31 +19,24 @@
  */
 
 import QtQuick 1.1
+import "parts"
 
-Flipable {
-    id: flipable
-    property bool flipped: false
+TabPage {
+    objectName: "MainOrdersCheck"
+    stateName: "Checking"
 
-    states: State {
-        name: "back"
-        PropertyChanges { target: rotation; angle: 180 }
-        when: flipable.flipped
-    }
+    property string target: ""
 
-    transform: Rotation {
-            id: rotation
-            origin.x: flipable.width/2
-            origin.y: flipable.height/2
-            axis.x: 0; axis.y: 1; axis.z: 0     // set axis.y to 1 to rotate around y-axis
-            angle: 0    // the default angle
-    }
+    Page {
+        stateName: parent.stateName
+        title: i18nc("Checking up on something", "Checking")
+        anchors.fill: parent
 
-    transitions: Transition {
-        NumberAnimation {
-            target: rotation;
-            property: "angle";
-            duration: 200;
+
+        Text {
+            anchors.centerIn: parent
+            text: i18nc("Surveying %1", "Checking: %1", target)
+            font.pointSize: 18
         }
     }
-
 }

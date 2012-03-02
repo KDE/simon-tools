@@ -18,6 +18,7 @@
  */
 
 #include "simontouch.h"
+#include "configuration.h"
 #include "imagesmodel.h"
 #include "musicmodel.h"
 #include "videosmodel.h"
@@ -34,8 +35,9 @@
 #include <QDBusInterface>
 #include <KLocalizedString>
 
-SimonTouch::SimonTouch(ImagesModel *img, MusicModel *music, VideosModel *videos,
-                       RSSFeeds* feeds) :
+SimonTouch::SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music,
+                       VideosModel *videos, RSSFeeds* feeds) :
+    m_cfg(cfg),
     m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
     m_currentRssFeed(new RSSFeed()), m_communicationCentral(new CommunicationCentral(this)),
     m_rssLoader(new QNetworkAccessManager(this)),
@@ -162,6 +164,11 @@ MessageModel* SimonTouch::messages() const
     return m_communicationCentral->getMessageModel();
 }
 
+void SimonTouch::callHandle(const QString& user)
+{
+    m_communicationCentral->callHandle(user);
+}
+
 void SimonTouch::callSkype(const QString& user)
 {
     m_communicationCentral->callSkype(user);
@@ -204,4 +211,34 @@ void SimonTouch::readMessage(int messageIndex)
 QWidget* SimonTouch::getVideoCallWidget()
 {
     return m_communicationCentral->getVideoCallWidget();
+}
+
+void SimonTouch::requestVideoPlayback(const QString& path)
+{
+    qDebug() << "Requesting video playback for path: " << path;
+    emit playVideo(path);
+}
+
+void SimonTouch::checkOn(const QString& target)
+{
+    QDBusMessage m = QDBusMessage::createMethodCall("info.echord.Astromobile.AstroLogic",
+                                                    "/AstroLogic",
+                                                    "info.echord.Astromobile.AstroLogic",
+                                                    "checkup");
+    m.setArguments(QList<QVariant>() << target);
+    QDBusConnection::systemBus().send(m);
+}
+
+void SimonTouch::order(OrderType type, const QString& items)
+{
+    QString recipient;
+    switch (type) {
+      case Household:
+        recipient = m_cfg->householdMailAddress();
+        break;
+    case Medicine:
+        recipient = m_cfg->medicineMailAddress();
+        break;
+    }
+    m_communicationCentral->sendMailToHandle(recipient, items);
 }

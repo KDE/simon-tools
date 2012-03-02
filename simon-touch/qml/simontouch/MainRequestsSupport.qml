@@ -39,6 +39,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.doctorNumber())
+                }
             }
             Button {
                 objectName: "btRequestsSupportAmbulance"
@@ -48,6 +52,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.ambulanceNumber())
+                }
             }
             Button {
                 objectName: "btRequestsSupportCarer"
@@ -57,6 +65,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.carerNumber())
+                }
             }
             Button {
                 objectName: "btRequestsSupportPrivate"
@@ -66,6 +78,10 @@ TabPage {
                 buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
                 width: screen.width / 4
                 height: screen.height / 3
+                onButtonClick: {
+                    back()
+                    simonTouch.callHandle(configuration.knownPersonNumber())
+                }
             }
         }
     }

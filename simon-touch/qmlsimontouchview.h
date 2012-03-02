@@ -44,6 +44,7 @@ public slots:
 
     void callSkype(const QString& user);
     void callPhone(const QString& user);
+    void callHandle(const QString& number);
     void hangUp();
     void pickUp();
     void fetchMessages(const QString& user);
@@ -54,6 +55,13 @@ public slots:
 
     void readAloud(const QString& message);
     void interruptReading();
+
+    void playVideo(const QString& video);
+
+    void checkOn(const QString& target);
+
+    void sendHouseholdShoppingOrder(const QString& orderedItems);
+    void sendMedicineShoppingOrder(const QString& orderedItems);
 
 private:
     QWidget *dlg;

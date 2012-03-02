@@ -33,13 +33,17 @@ class SimonTouchAdapter : public QDBusAbstractAdaptor
                 "<signal name=\"statusChanged\" />\n"
                 "<method name=\"currentStatus\">\n"
                    "<arg type=\"s\" direction=\"out\"/>\n"
-                "</signal>\n"
+                "</method>\n"
+                "<method name=\"playVideo\">\n"
+                   "<arg name=\"path\" type=\"s\" direction=\"in\"/>\n"
+                "</method>\n"
                 "</interface>\n"
                 )
 signals:
     void statusChanged();
 
 private:
+    SimonTouch *m_logic;
     QString m_status;
 
 public:
@@ -50,6 +54,7 @@ private slots:
 
 public slots:
     QString currentStatus();
+    void playVideo(QString path);
 };
 
 #endif // SIMONTOUCHADAPTER_H

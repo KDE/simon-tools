@@ -55,10 +55,11 @@ private:
     QDBusInterface *m_navigator;
     QDBusInterface *m_locator;
     QDBusInterface *m_astrocam;
+    QDBusInterface *m_simontouch;
     
     void stopWebVideo();
     
-    void startRecordingToFile();
+    QString startRecordingToFile();
     void stopRecordingToFile();
 
 private slots:

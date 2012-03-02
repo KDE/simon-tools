@@ -21,7 +21,8 @@
 #include "simontouch.h"
 
 SimonTouchAdapter::SimonTouchAdapter(SimonTouch *parent)
-    : QDBusAbstractAdaptor(parent)
+    : QDBusAbstractAdaptor(parent),
+      m_logic(parent)
 {
     // constructor
     setAutoRelaySignals(true);
@@ -37,4 +38,9 @@ void SimonTouchAdapter::relayStatus(const QString& state)
 QString SimonTouchAdapter::currentStatus()
 {
     return m_status;
+}
+
+void SimonTouchAdapter::playVideo(QString path)
+{
+    m_logic->requestVideoPlayback(path);
 }

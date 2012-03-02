@@ -4,7 +4,9 @@
 <signal name="broadcastingVideo" />
 <signal name="recordingVideoToFile" />
 <signal name="recordingStopped" />
-<method name="startRecordingToFile" />
+<method name="startRecordingToFile">
+  <arg type="s" direction="out" />
+</method>
 <method name="stopRecordingToFile" />
 <method name="startWebVideo" />
 <method name="stopWebVideo" />

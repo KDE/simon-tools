@@ -26,6 +26,11 @@ TabPage {
     objectName: "MainInformation"
     stateName: "Information"
 
+    function playVideo(path) {
+        setScreen("MainInformationVideos")
+        pgMainInformationVideos.playVideo(path)
+    }
+
     Page {
         stateName: parent.stateName
         title: i18n("Information")
@@ -86,6 +91,7 @@ TabPage {
     }
     MainInformationVideos {
         objectName: "MainInformationVideos"
+        id: pgMainInformationVideos
     }
     MainInformationNews {
         objectName: "MainInformationNews"

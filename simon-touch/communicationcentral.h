@@ -52,11 +52,13 @@ public:
 
     void callSkype(const QString& user);
     void callPhone(const QString& user);
+    void callHandle(const QString& handle);
     void hangUp();
     void pickUp();
     void getMessages(const QString& user);
     void sendSMS(const QString& user, const QString& message);
     void sendMail(const QString& user, const QString& message);
+    void sendMailToHandle(const QString& addr, const QString& message);
     void readMessage(int messageIndex);
 
     QWidget *getVideoCallWidget();

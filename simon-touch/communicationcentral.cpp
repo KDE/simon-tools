@@ -35,6 +35,7 @@
 #include <akonadi/collectionfetchscope.h>
 #include <akonadi/searchcreatejob.h>
 #include <akonadi/itemfetchjob.h>
+#include <akonadi/itemsearchjob.h>
 #include <akonadi/itemfetchscope.h>
 #include <akonadi/entitydisplayattribute.h>
 
@@ -96,8 +97,15 @@ void CommunicationCentral::handleCall(const QString& user, VoIPProvider::CallSta
 {
     qDebug() << "Receiving incoming call from user: " << user;
     KABC::Addressee a = m_contacts->getContactBySkypeHandle(user);
-    QString name = m_contacts->getName(a);
-    QString avatar = m_contacts->getAvatar(a);
+    QString name, avatar;
+
+    if (a.isEmpty()) {
+        name = user;
+        avatar = "";
+    } else {
+        name = m_contacts->getName(a);
+        avatar = m_contacts->getAvatar(a);
+    }
 
     switch (state)
     {
@@ -281,11 +289,21 @@ void CommunicationCentral::messageCollectionSearchJobFinished(KJob *job)
                                              Nepomuk::Query::ComparisonTerm::Equal);
     Nepomuk::Query::ComparisonTerm addressTerm(Nepomuk::Vocabulary::NCO::hasEmailAddress(), valueTerm,
                                              Nepomuk::Query::ComparisonTerm::Equal);
-
     Nepomuk::Query::ComparisonTerm personTerm(Nepomuk::Vocabulary::NMO::from(),
                                               addressTerm, Nepomuk::Query::ComparisonTerm::Equal);
 
-    Nepomuk::Query::Query query(personTerm);
+    Nepomuk::Query::Query query;
+
+    Nepomuk::Query::AndTerm outerGroup;
+    const Nepomuk::Types::Class cl( Nepomuk::Vocabulary::NMO::Email() );
+    const Nepomuk::Query::ResourceTypeTerm typeTerm( cl );
+    const Nepomuk::Query::Query::RequestProperty itemIdProperty( Akonadi::ItemSearchJob::akonadiItemIdUri(), false );
+    
+    outerGroup.addSubTerm( personTerm );
+    outerGroup.addSubTerm( typeTerm );
+    query.setTerm( outerGroup );
+    query.addRequestProperty( itemIdProperty );
+
     qDebug() << "Executing sparql query: " << query.toSparqlQuery();
 
     Akonadi::SearchCreateJob *searchJob = new Akonadi::SearchCreateJob( m_messageCollectionName,
@@ -343,14 +361,18 @@ void CommunicationCentral::callSkype(const QString& user)
 {
     qDebug() << "Calling skype: " << user;
 
-    m_voipProvider->newCall(m_contacts->getContact(user).custom("KADDRESSBOOK", "skype"));
-
+    callHandle(m_contacts->getContact(user).custom("KADDRESSBOOK", "skype"));
 }
 
 void CommunicationCentral::callPhone(const QString& user)
 {
     qDebug() << "Calling phone: " + user;
-    m_voipProvider->newCall(m_contacts->getContact(user).phoneNumbers().first().number());
+    callHandle(m_contacts->getContact(user).phoneNumbers().first().number());
+}
+
+void CommunicationCentral::callHandle(const QString& user)
+{
+    m_voipProvider->newCall(user);
 }
 
 void CommunicationCentral::hangUp()
@@ -364,11 +386,17 @@ void CommunicationCentral::sendSMS(const QString& user, const QString& message)
     m_voipProvider->sendSMS(m_contacts->getContact(user).phoneNumbers().first().number(), message);
 }
 
+
 void CommunicationCentral::sendMail(const QString& user, const QString& message)
 {
     qDebug() << "Sending mail: " <<  user << message;
     QString targetMail = m_contacts->getContact(user).emails().first();
 
+    sendMailToHandle(targetMail, message);
+}
+
+void CommunicationCentral::sendMailToHandle(const QString& addr, const QString& message)
+{
     KMime::Message::Ptr msg(new KMime::Message());
     KMime::Headers::ContentType *ct = msg->contentType();
     ct->setMimeType("text/plain");
@@ -379,7 +407,7 @@ void CommunicationCentral::sendMail(const QString& user, const QString& message)
     KPIMIdentities::Identity identity = KPIMIdentities::IdentityManager(true, this).defaultIdentity();
 
     msg->from()->fromUnicodeString(QString("%1 <%2>").arg(identity.fullName(), identity.emailAddr()), "utf-8");
-    msg->to()->fromUnicodeString(targetMail, "utf-8");
+    msg->to()->fromUnicodeString(addr, "utf-8");
     msg->date()->setDateTime(KDateTime::currentLocalDateTime());
     msg->subject()->fromUnicodeString(i18n("Message from %1").arg(identity.fullName()), "utf-8");
 
@@ -393,7 +421,7 @@ void CommunicationCentral::sendMail(const QString& user, const QString& message)
     job->transportAttribute().setTransportId(MailTransport::TransportManager::self()->defaultTransportId());
 
     job->addressAttribute().setFrom(identity.emailAddr());
-    job->addressAttribute().setTo(QStringList() <<  targetMail);
+    job->addressAttribute().setTo(QStringList() <<  addr);
     connect( job, SIGNAL(result(KJob*)), this, SLOT(emailSent(KJob*)) );
     job->start();
 }
