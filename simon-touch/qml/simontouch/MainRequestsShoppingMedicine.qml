@@ -337,7 +337,7 @@ TabPage {
             width: 50
             height: 50
             id: decreaseAmount
-            buttonText: i18n("-")
+            buttonText: "-"
             shortcut: Qt.Key_Minus
             spokenText: true
             anchors {
@@ -352,7 +352,7 @@ TabPage {
             width: 50
             height: 50
             id: addAmount
-            buttonText: i18n("+")
+            buttonText: "+"
             shortcut: Qt.Key_Plus
             spokenText: true
             anchors {
