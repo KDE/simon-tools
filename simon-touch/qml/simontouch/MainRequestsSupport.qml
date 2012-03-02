@@ -36,7 +36,7 @@ TabPage {
                 buttonText: i18n("Doctor")
                 buttonNumber: "1"
                 shortcut: Qt.Key_1
-                buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
+                buttonImage: ("../img/doctor-icon.png")
                 width: screen.width / 4
                 height: screen.height / 3
                 onButtonClick: {
@@ -49,7 +49,7 @@ TabPage {
                 buttonText: i18n("Ambulance")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
-                buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
+                buttonImage: ("../img/ambulance-icon.png")
                 width: screen.width / 4
                 height: screen.height / 3
                 onButtonClick: {
@@ -62,7 +62,7 @@ TabPage {
                 buttonText: i18n("Carer")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
-                buttonImage: ("../img/Button_Anfragen_Unterstuetzung.png")
+                buttonImage: ("../img/nurse-icon.png")
                 width: screen.width / 4
                 height: screen.height / 3
                 onButtonClick: {
