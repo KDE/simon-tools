@@ -5,8 +5,8 @@ add_subdirectory(benefit)
 add_subdirectory(common)
 
 message(WARNING "-------------------------- README ------------------------------\n" 
-                "This will NOT compile all of simon-tools but exclude" 
-		 "simon-touch and simone." 
+                "This will NOT compile all of simon-tools but exclude " 
+		 "simon-touch and simone. " 
 		 "Please use the individual subfolders to build those " 
 		 "projects.")
 
