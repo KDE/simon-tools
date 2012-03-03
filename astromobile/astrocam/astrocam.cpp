@@ -102,14 +102,14 @@ void Astrocam::vlcOutput()
 {
   while (m_vlc->canReadLine()) {
     QByteArray line = m_vlc->readLine().trimmed();
-    if (line.endsWith("Accepted incoming connection for /webcam")) {
+    if (line.endsWith("Accepted incoming connection for /webcam")) { // krazy:exclude=strings
       kDebug() << line;
       ++m_refCount;
       m_stopTimer.stop();
       kDebug() << "New client connected; We now have " << m_refCount << " active clients";
       continue;
     }
-    if (line.endsWith("Closing connection for /webcam")) {
+    if (line.endsWith("Closing connection for /webcam")) { // krazy:exclude=strings
       kDebug() << line;
       m_refCount = qMax(0, m_refCount-1);
       if (m_refCount == 0)

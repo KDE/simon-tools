@@ -37,8 +37,7 @@ int main(int argc, char **argv)
   KApplication app;
   SpeechCal *cal = new SpeechCal();
 
-  // krazy:exclude=crashy
-  cal->exec();
+  cal->exec(); // krazy:exclude=crashy
 
   return app.exec();
 }

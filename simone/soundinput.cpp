@@ -45,7 +45,7 @@ SoundInput::SoundInput(int channels, int sampleRate, QObject *parent) :
     waitingForSampleToFinish(false),
     currentlyRecordingSample(false)
 {
-    open(QIODevice::ReadWrite|QIODevice::Unbuffered);
+    open(QIODevice::ReadWrite|QIODevice::Unbuffered); // krazy:exclude=syscalls
 }
 
 bool SoundInput::init()

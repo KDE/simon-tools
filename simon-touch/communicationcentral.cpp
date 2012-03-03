@@ -409,7 +409,7 @@ void CommunicationCentral::sendMailToHandle(const QString& addr, const QString& 
     msg->from()->fromUnicodeString(QString("%1 <%2>").arg(identity.fullName(), identity.emailAddr()), "utf-8");
     msg->to()->fromUnicodeString(addr, "utf-8");
     msg->date()->setDateTime(KDateTime::currentLocalDateTime());
-    msg->subject()->fromUnicodeString(i18n("Message from %1").arg(identity.fullName()), "utf-8");
+    msg->subject()->fromUnicodeString(i18n("Message from %1", identity.fullName()), "utf-8");
 
     msg->contentType()->setCharset("utf-8");
     msg->fromUnicodeString(message);

@@ -50,7 +50,7 @@ AstroLogic::AstroLogic()
     m_astrocam = new QDBusInterface("info.echord.Astromobile.Astrocam", "/Astrocam", "info.echord.Astromobile.Astrocam", QDBusConnection::systemBus());
     m_simontouch = new QDBusInterface("org.simon-listens.SimonTouch", "/Main", "local.SimonTouch", QDBusConnection::sessionBus());
     
-    connect(m_locator, SIGNAL(robotLocation(int, int, const QString&)), this, SLOT(processRobotLocation(int, int, const QString&)));
+    connect(m_locator, SIGNAL(robotLocation(int, int, QString)), this, SLOT(processRobotLocation(int, int, QString)));
     
     connect(m_astrocam, SIGNAL(broadcastingVideo()), this, SLOT(videoBroadcastStarted()));
     connect(m_astrocam, SIGNAL(recordingVideoToFile()), this, SLOT(videoRecordingToFileStarted()));
