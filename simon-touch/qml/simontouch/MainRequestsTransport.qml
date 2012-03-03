@@ -49,7 +49,7 @@ TabPage {
                 buttonText: i18n("Ambulance")
                 buttonNumber: "2"
                 shortcut: Qt.Key_2
-                buttonImage: ("../img/Button_Anfragen_Transport.png")
+                buttonImage: ("../img/ambulance-icon.png")
                 width: screen.width / 4
                 height: screen.height / 3
                 onButtonClick: {
@@ -62,7 +62,7 @@ TabPage {
                 buttonText: i18n("Private transport")
                 buttonNumber: "3"
                 shortcut: Qt.Key_3
-                buttonImage: ("../img/Button_Anfragen_Transport.png")
+                buttonImage: ("../img/mini.png")
                 width: screen.width / 4
                 height: screen.height / 3
                 onButtonClick: {
