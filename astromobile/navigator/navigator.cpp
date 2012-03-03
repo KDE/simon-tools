@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2011, simon listens, Scuola Superiore SantÂ´Anna
- * All rights reserved.
+ * Copyright (c) 2011-2012, simon listens <office@simon-listens.org>
+ * Copyright (c) 2011-2012, Scuola Superiore Sant´Anna <urp@sssup.it>
  * 
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -9,7 +9,7 @@
  *  * Redistributions in binary form must reproduce the above copyright
  *  notice, this list of conditions and the following disclaimer in the
  *  documentation and/or other materials provided with the distribution.
- *  * Neither the name of the <organization> nor the
+ *  * Neither the name of the organizations nor the
  *  names of its contributors may be used to endorse or promote products
  *  derived from this software without specific prior written permission.
  *
