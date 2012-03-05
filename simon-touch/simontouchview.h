@@ -45,6 +45,7 @@ public slots:
     QString rssFeedIcon(int id);
     void fetchRSSFeed(int id);
     void showKeyboard();
+    void showCalendar();
     void showCalculator();
     void hideKeyboard();
     void hideCalculator();

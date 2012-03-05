@@ -57,6 +57,11 @@ void SimonTouchView::showKeyboard()
     m_logic->showKeyboard();
 }
 
+void SimonTouchView::showCalendar()
+{
+    m_logic->showCalendar();
+}
+
 void SimonTouchView::showCalculator()
 {
     m_logic->showCalculator();

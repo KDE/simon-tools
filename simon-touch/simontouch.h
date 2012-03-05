@@ -92,6 +92,7 @@ public:
     void fetchRssFeed(int id);
 
     void showKeyboard();
+    void showCalendar();
     void showCalculator();
     void hideKeyboard();
     void hideCalculator();

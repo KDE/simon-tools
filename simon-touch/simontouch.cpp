@@ -105,6 +105,11 @@ void SimonTouch::showKeyboard()
     m_keyboardProcess->start("onboard");
 }
 
+void SimonTouch::showCalendar()
+{
+    m_keyboardProcess->start("speechcal");
+}
+
 void SimonTouch::showCalculator()
 {
     QDBusMessage m = QDBusMessage::createMethodCall("org.simon-listens.ActionManager",

@@ -26,6 +26,7 @@ Item {
     property alias btKeyCalcButtonImage: btInternal.buttonImage
     property alias spokenText: btInternal.spokenText
     property alias shortcut: btInternal.shortcut
+    property bool expandable: true
 
     signal buttonClick()
     state: "collapsed"
@@ -35,7 +36,7 @@ Item {
             name: "collapsed"
             PropertyChanges {
                 target: btKeyCalcButton
-                width: main.width / 4
+                width: main.width / 6 - (20 / 3)
                 height: 90
             }
         },
@@ -62,14 +63,16 @@ Item {
         return btInternal.handleKey(key)
     }
 
-    SideButton {
+    Button {
         id: btInternal
         x: 0
         y: 1
         width: parent.width - 2
         height: parent.height + 10
         onButtonClick: {
-            btKeyCalcButton.state = (btKeyCalcButton.state == "collapsed") ? "open" : "collapsed";
+            if (parent.expandable) {
+                btKeyCalcButton.state = (btKeyCalcButton.state == "collapsed") ? "open" : "collapsed";
+            }
             btKeyCalcButton.buttonClick()
         }
     }

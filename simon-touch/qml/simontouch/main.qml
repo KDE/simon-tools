@@ -91,8 +91,7 @@ Rectangle {
         id: calculatorButton
         z: (keyboardButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        x: (parent.width / 2) - (calculatorButton.width + 10)
-        btKeyCalcButtonText: (state == "collapsed") ? i18n("Calculator") : i18n("Close calculator")
+        x: (parent.width / 2) - (width) - (width / 2) - 20
         btKeyCalcButtonImage: ("../img/calculator.png")
         spokenText: false
         shortcut: Qt.Key_0
@@ -102,25 +101,36 @@ Rectangle {
             else
                 simonTouch.showCalculator()
         }
-        width: main.width / 4
     }
+
     KeyCalcButton {
         id: keyboardButton
         z: (calculatorButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        x: (parent.width / 2) + 10
-        btKeyCalcButtonText: (state == "collapsed") ? i18n("Keyboard") : i18n("Close keyboard")
+        x: (parent.width / 2) - (width / 2)
         btKeyCalcButtonImage: ("../img/keyboard.png")
         spokenText: false
-        shortcut: Qt.Key_9
         onButtonClick: {
             if (state == "collapsed")
                 simonTouch.hideKeyboard()
             else
                 simonTouch.showKeyboard()
         }
-        width: main.width / 4
     }
+    KeyCalcButton {
+        id: calendarButton
+        anchors.bottom: parent.bottom
+        x: (parent.width / 2) + (width / 2) + 20
+        btKeyCalcButtonImage: ("../img/view-calendar.svgz")
+        spokenText: false
+        shortcut: Qt.Key_0
+        expandable: false
+        onButtonClick: {
+                simonTouch.showCalendar()
+        }
+    }
+
+
     Rectangle {
         id: closebutton
         anchors.top: parent.top
