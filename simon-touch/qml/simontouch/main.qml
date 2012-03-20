@@ -37,8 +37,9 @@ Rectangle {
     }
 
     function changeButtonVisibility(visibility) {
-            keyboardButton.opacity = visibility;
-            calculatorButton.opacity = visibility;
+        keyboardButton.opacity = visibility;
+        calculatorButton.opacity = visibility;
+        calendarButton.opacity = visibility;
     }
     function activeCall() {
         console.debug("Receiving active call...");
