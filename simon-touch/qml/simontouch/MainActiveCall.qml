@@ -80,7 +80,7 @@ TabPage {
                     anchors.top: activeCallRow.bottom
                     anchors.topMargin: 10
                     onButtonClick: simonTouch.pickUp()
-		    shortcut: Qt.Key_A
+            shortcut: Qt.Key_Return
                 }
                 Button {
                     id: declineCall
@@ -93,7 +93,7 @@ TabPage {
                     anchors.top: activeCallRow.bottom
                     anchors.topMargin: 10
                     onButtonClick: simonTouch.hangUp()
-		    shortcut: Qt.Key_H
+            shortcut: Qt.Key_S
                 }
             }
         }
