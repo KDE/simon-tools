@@ -419,7 +419,7 @@ TabPage {
             id: lvCursorUp
             anchors.top: lvShoppingDrinks.bottom
             anchors.topMargin: 10
-            x: screen.width / 2 - ((5*150)+100+60) / 2
+            x: screen.width / 2 - (lvCursorUp.width + lvCursorDown.width + categoryLeft.width + categoryRight.width + decreaseAmount.width + addAmount.width + drinkDeselect.width + 60) / 2
             anchors.rightMargin: 10
             width: 150
             height: 50
@@ -450,7 +450,7 @@ TabPage {
 
         Button {
             id: categoryLeft
-            width: lvCursorUp.width
+            width: 170
             height: 50
             buttonText: i18n("Left")
             spokenText: true
@@ -468,7 +468,7 @@ TabPage {
         }
         Button {
             id: categoryRight
-            width: lvCursorUp.width
+            width: categoryLeft.width
             height: 50
             buttonText: i18n("Right")
             spokenText: true
@@ -515,13 +515,12 @@ TabPage {
             onButtonClick: parent.addAmount()
         }
         Button {
-            width: lvCursorUp.width
+            width: 160
             height: 50
             id: drinkDeselect
             buttonText: i18n("Order")
             spokenText: false
             buttonLayout: Qt.Horizontal
-            buttonImage: "../img/Button_Anfragen_Bestellung.png"
             horizontalIconAlign: "left"
             anchors {
                 top: lvShoppingDrinks.bottom

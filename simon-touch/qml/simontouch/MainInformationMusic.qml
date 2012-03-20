@@ -1,4 +1,4 @@
-/*
+     /*
  *   Copyright (C) 2011-2012 Mathias Stieger <m.stieger@simon-listens.org>
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
  *
@@ -102,7 +102,7 @@ TabPage {
                 spokenText: true
                 shortcut: Qt.Key_Up
                 height: 50
-                width: 170
+                width: 140
                 buttonLayout: Qt.Horizontal
                 onButtonClick: if (lvMusic.currentIndex > 0) lvMusic.currentIndex -= 1
             }
@@ -119,7 +119,7 @@ TabPage {
                 buttonImage: ("../img/play.png")
                 spokenText: false
                 height: 50
-                width: 170
+                width: 240
                 shortcut: Qt.Key_Return
                 buttonLayout: Qt.Horizontal
                 onButtonClick: playMusic.play()
@@ -153,7 +153,7 @@ TabPage {
                 shortcut: Qt.Key_S
                 spokenText: true
                 height: 50
-                width: 170
+                width: 140
                 buttonLayout: Qt.Horizontal
                 onButtonClick: playMusic.stop()
             }
@@ -172,7 +172,7 @@ TabPage {
                 shortcut: Qt.Key_Down
                 spokenText: true
                 height: 50
-                width: 170
+                width: 140
                 buttonLayout: Qt.Horizontal
                 onButtonClick: nextTitle()
             }
