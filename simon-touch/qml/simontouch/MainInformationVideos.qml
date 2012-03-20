@@ -214,7 +214,7 @@ TabPage {
             id: buttonRectangle
             anchors.top: videoFlip.bottom
             anchors.topMargin: 10
-            x: (btFullScreen.opacity == 1) ? screen.width / 2 - ((700 + lbStatus.width + 40)/2) : screen.width / 2 - ((530 + lbStatus.width + 40)/2)
+            x: (btFullScreen.opacity == 1) ? screen.width / 2 - ((btVideosUp.width + btVideosPlay.width + btFullScreen.width + btStop.width + btVideosDown.width + lbStatus.width + 40)/2) : screen.width / 2 - ((btVideosUp.width + btVideosPlay.width + btStop.width + btVideosDown.width + lbStatus.width + 40)/2)
 
             function toggleFullScreen() {
                 if (videoWrapper.state == "windowed") {
@@ -250,7 +250,7 @@ TabPage {
                 shortcut: Qt.Key_Return
                 spokenText: false
                 height: 50
-                width: 170
+                width: 210
                 buttonLayout: Qt.Horizontal
                 onButtonClick: {
                     videoFlip.flipped = true
