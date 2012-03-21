@@ -32,6 +32,8 @@ TabPage {
         simonTouch.checkOn(target)
     }
 
+    onOpacityChanged: if (opacity == 0) setScreen("MainScreen")
+
     Page {
         stateName: parent.stateName
         title: i18nc("Tell the robot to check the environment","Check")

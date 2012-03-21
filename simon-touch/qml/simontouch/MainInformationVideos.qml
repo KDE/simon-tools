@@ -57,7 +57,10 @@ TabPage {
     }
 
     onOpacityChanged: {
-        if (opacity == 0) playVideos.stop()
+        if (opacity == 0) {
+             playVideos.stop()
+             videoFlip.flipped = false
+        }
         else lvVideos.focus = (opacity == 1)
     }
 
