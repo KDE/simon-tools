@@ -31,6 +31,7 @@
 #include <QObject>
 #include <QDBusInterface>
 #include <QStringList>
+#include "location.h"
 
 class AstroLogic : public QObject
 {
@@ -49,6 +50,7 @@ public slots:
 
 public:
     AstroLogic();
+    ~AstroLogic();
     
 private:
     QDBusInterface *m_tts;
@@ -56,11 +58,14 @@ private:
     QDBusInterface *m_locator;
     QDBusInterface *m_astrocam;
     QDBusInterface *m_simontouch;
+    QList<Location*> m_locations;
     
     void stopWebVideo();
     
     QString startRecordingToFile();
     void stopRecordingToFile();
+    QPoint resolveLocation(const QString& location);
+    void setupLocations();
 
 private slots:
     void processRobotLocation(int x, int y, const QString& text);

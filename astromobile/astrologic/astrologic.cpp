@@ -27,8 +27,11 @@
 
 #include "astrologic.h"
 #include "astromobileadaptor.h"
-#include <QApplication>
 #include <unistd.h>
+#include <QApplication>
+#include <QDomElement>
+#include <QDomDocument>
+#include <QCoreApplication>
 #include <KDebug>
 #include <KStandardDirs>
 #include <KLocalizedString>
@@ -58,6 +61,34 @@ AstroLogic::AstroLogic()
 
     //initialization
     m_tts->call("initialize");
+
+
+    //setting up locations
+    setupLocations();
+}
+
+void AstroLogic::setupLocations()
+{
+    QFile f(KStandardDirs::locate("appdata", "locations.xml"));
+    if (!f.open(QIODevice::ReadOnly)) {
+      qWarning() << "Failed to read locations";
+      return;
+    }
+
+    QDomDocument doc;
+    doc.setContent(f.readAll());
+
+    doc.documentElement();
+
+    QDomElement locationElem = doc.documentElement().firstChildElement("location");
+    while (!locationElem.isNull()) {
+      QDomElement nameElem = locationElem.firstChildElement("name");
+      QDomElement xElem = locationElem.firstChildElement("x");
+      QDomElement yElem = locationElem.firstChildElement("y");
+
+      m_locations << new Location(nameElem.text(), xElem.text().toInt(), yElem.text().toInt());
+      locationElem = locationElem.nextSiblingElement("location");
+    }
 }
 
 void AstroLogic::videoBroadcastStarted()
@@ -77,7 +108,6 @@ void AstroLogic::videoRecordingToFileStarted()
 void AstroLogic::processRobotLocation(int x, int y, const QString& text)
 {
     kDebug() << "Received robot location: " << x << y << text;
-    //TODO: Act on this information
 
     //re-publish info for ui
     emit robotLocation(x, y, text);
@@ -140,7 +170,10 @@ bool AstroLogic::checkup(const QString& location)
   QString path = startRecordingToFile();
   
   // 3. wait a couple of seconds
-  sleep(15);
+  for (int i=1; i < 15; i++) {
+    sleep(1);
+    QCoreApplication::processEvents();
+  }
   
   // 4. stop recording
   stopRecordingToFile();
@@ -156,21 +189,36 @@ bool AstroLogic::checkup(const QString& location)
 bool AstroLogic::navigateTo(const QString& location)
 {
   kDebug() << "Navigating to: " << location;
-  // 0. TODO: parse location to something the navigator understands
-  // 1. TODO: tell navigator to go there
-  sleep(2);
+  QPoint dest = resolveLocation(location);
+  if (dest.isNull())
+    return false;
+    
+  m_navigator->call("navigateTo", dest.x(), dest.y());
+  
+  sleep(2); //FIXME: wait until we're there
   return true;
+}
+
+QPoint AstroLogic::resolveLocation(const QString& location)
+{
+  foreach (Location* l, m_locations)
+    if (l->name().compare(location, Qt::CaseInsensitive))
+      return l->destination();
+  kDebug() << "Invalid location" << location;
+  return QPoint();
 }
 
 QStringList AstroLogic::getLocations()
 {
-  //FIXME
   QStringList locations;
-  locations << i18n("Kitchen");
-  locations << i18n("Bedroom");
-  locations << i18n("Bathroom");
-  locations << i18nc("user refers to the patient", "User");
+  
+  foreach (Location* l, m_locations)
+    locations << l->name();
 
   return locations;
 }
 
+AstroLogic::~AstroLogic()
+{
+  qDeleteAll(m_locations);
+}
