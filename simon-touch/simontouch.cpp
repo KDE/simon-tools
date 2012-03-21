@@ -107,7 +107,7 @@ void SimonTouch::showKeyboard()
 
 void SimonTouch::showCalendar()
 {
-    m_keyboardProcess->start("speechcal");
+    QProcess::startDetached("speechcal", QStringList() << "--stylesheet" << "/opt/astro/astro.qss");
 }
 
 void SimonTouch::showCalculator()
