@@ -55,7 +55,7 @@ Astrocam::Astrocam() :
                       "10" << "--no-sout-mp4-faststart" << "--sout-asf-title" << 
                       "\"Astromobile\"" << "--vlm-conf" << 
                       KStandardDirs::locate("appdata", "vlm.conf") << 
-                      "--input-slave" << "pulse://" <<
+                      "--input-slave" << "pulse://" << "--sout-mux-caching" << "3000" <<
                       "--http-port" << "9090" << "--network-caching" << "1000" <<
                       "--http-host=0.0.0.0" << "-vvv");
     m_vlc->start();
