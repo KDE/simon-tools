@@ -83,7 +83,7 @@ TabPage {
         function moveDown() {
             if (lvShoppingDrinks.activeFocus && lvShoppingDrinks.currentIndex < lvShoppingDrinksModel.count-1) {
                 ++lvShoppingDrinks.currentIndex
-            } else if (lvShoppingDrinksSelection.activeFocus && lvShoppingDrinksSelection.currentIndex >= lvShoppingDrinksSelectionModel.count-1){
+            } else if (lvShoppingDrinksSelection.activeFocus && lvShoppingDrinksSelection.currentIndex < lvShoppingDrinksSelectionModel.count-1){
                 ++lvShoppingDrinksSelection.currentIndex
             } else { return; }
         }
