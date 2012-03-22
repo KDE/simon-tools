@@ -82,7 +82,7 @@ TabPage {
         function moveDown() {
             if (lvShoppingMedicine.activeFocus && lvShoppingMedicine.currentIndex < lvShoppingMedicineModel.count-1) {
                 ++lvShoppingMedicine.currentIndex
-            } else if (lvShoppingMedicineSelection.activeFocus && lvShoppingMedicineSelection.currentIndex >= lvShoppingMedicineSelectionModel.count-1){
+            } else if (lvShoppingMedicineSelection.activeFocus && lvShoppingMedicineSelection.currentIndex < lvShoppingMedicineSelectionModel.count-1){
                 ++lvShoppingMedicineSelection.currentIndex
             } else { return; }
         }
