@@ -25,53 +25,24 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifndef ASTROLOGIC_h
-#define ASTROLOGIC_h
+#ifndef LOCATION_H
+#define LOCATION_H
+#include <QString>
+#include <QPoint>
 
-#include <QObject>
-#include <QDBusInterface>
-#include <QStringList>
-#include "location.h"
-
-class AstroLogic : public QObject
+class Location
 {
-Q_OBJECT
-Q_CLASSINFO("AstroLogic", "info.echord.Astromobile.AstroLogic")
-
-signals:
-    void robotLocation(int x, int y, const QString& text);
-
-public slots:
-    void startWebVideo();
-    bool checkup(const QString& location);
-    bool navigateTo(const QString& location);
-    
-    QStringList getLocations();
-
 public:
-    AstroLogic();
-    ~AstroLogic();
+    Location(const QString& name, int x, int y);
+    
+    QString name() const { return m_name; }
+    int x() const  { return m_destination.x(); }
+    int y() const  { return m_destination.y(); }
+    QPoint destination() const { return m_destination; }
     
 private:
-    QDBusInterface *m_tts;
-    QDBusInterface *m_navigator;
-    QDBusInterface *m_locator;
-    QDBusInterface *m_astrocam;
-    QDBusInterface *m_simontouch;
-    QList<Location*> m_locations;
-    
-    void stopWebVideo();
-    
-    QString startRecordingToFile();
-    void stopRecordingToFile();
-    QPoint resolveLocation(const QString& location);
-    void setupLocations();
-
-private slots:
-    void processRobotLocation(int x, int y, const QString& text);
-    void videoBroadcastStarted();
-    void videoRecordingToFileStarted();
-    void videoRecordingStopped();
+    QString m_name;
+    QPoint m_destination;
 };
 
-#endif
+#endif // LOCATION_H
