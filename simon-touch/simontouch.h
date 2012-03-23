@@ -61,12 +61,13 @@ private:
 
     CommunicationCentral *m_communicationCentral;
 
-    QNetworkAccessManager *m_rssLoader;
+    //QNetworkAccessManager *m_rssLoader;
 
     QProcess *m_keyboardProcess;
+    void parseRss(const QString& path);
 
 private slots:
-    void parseRss();
+    void rssFetchJobFinished();
 
 public slots:
     void enteredState(const QString& state);

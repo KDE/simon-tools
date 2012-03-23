@@ -34,13 +34,16 @@
 #include <QDBusMessage>
 #include <QDBusInterface>
 #include <KLocalizedString>
+#include <KStandardDirs>
+#include <kio/job.h>
+#include <kio/jobuidelegate.h>
 
 SimonTouch::SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music,
                        VideosModel *videos, RSSFeeds* feeds) :
     m_cfg(cfg),
     m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
     m_currentRssFeed(new RSSFeed()), m_communicationCentral(new CommunicationCentral(this)),
-    m_rssLoader(new QNetworkAccessManager(this)),
+    //m_rssLoader(new QNetworkAccessManager(this)),
     m_keyboardProcess(new QProcess(this))
 {
     setupCommunication();
@@ -69,9 +72,23 @@ void SimonTouch::fetchRssFeed(int id)
 {
     m_currentRssFeed->clear();
 
-    QNetworkReply *reply = m_rssLoader->get(QNetworkRequest(m_rssFeeds->url(id)));
-    connect(reply, SIGNAL(error(QNetworkReply::NetworkError)), this, SIGNAL(rssFeedError()));
-    connect(reply, SIGNAL(finished()), this, SLOT(parseRss()));
+    KUrl url = KUrl(m_rssFeeds->url(id));
+    KIO::FileCopyJob *job = KIO::file_copy(url, KStandardDirs::locateLocal("tmp", "simontouch-feed-"+url.fileName()), -1, KIO::Overwrite);
+
+    connect(job, SIGNAL(result(KJob*)), this, SLOT(rssFetchJobFinished()));
+    if (!job->exec()) {
+      rssFeedError();
+    }
+}
+
+void SimonTouch::rssFetchJobFinished()
+{
+    KIO::FileCopyJob *job = static_cast<KIO::FileCopyJob*>(sender());
+
+    if (job->error()) {
+        rssFeedError();
+    } else
+        parseRss(job->destUrl().path());
 }
 
 void SimonTouch::enteredState(const QString& state)
@@ -80,13 +97,13 @@ void SimonTouch::enteredState(const QString& state)
     emit currentStatus(state);
 }
 
-void SimonTouch::parseRss()
+void SimonTouch::parseRss(const QString& path)
 {
-    QNetworkReply *reply = qobject_cast<QNetworkReply*>(sender());
-    if (!reply) return;
+    QFile f(path);
+    if (!f.open(QIODevice::ReadOnly)) rssFeedError();
 
     QDomDocument doc;
-    QByteArray xml = reply->readAll();
+    QByteArray xml = f.readAll();
     doc.setContent(xml);
     QDomElement rssElem = doc.firstChildElement("rss");
     QDomElement channelElem = rssElem.firstChildElement("channel");
