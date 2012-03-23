@@ -18,7 +18,7 @@ function enqueueURL() {
 	if (vlc != null) {
 		vlc.playlist.stop();
 	}
-	setTimeout("startPlayback()",3000)
+	setTimeout("startPlayback()",4500)
 }
 function startPlayback() {
 	var vlc = document.getElementById("vlc");
@@ -76,7 +76,7 @@ function navigate() {
 <param name="uiMode" value="none"/>
 <param name="autostart" value="0"/>
 <param name="scale" value="tofit"/>
-<param name="URL" value="mms://192.168.0.91:8080/webcam"/>
+<param name="URL" value="mms://192.168.1.104:8080/webcam"/>
 </object>
 <![endif]-->
 
@@ -88,7 +88,7 @@ function navigate() {
 <param name="autoplay" value="true" />
 <param name="loop" value="true" />
 <param name="fullscreen" value="false" />
-<param name="mrl" value="mmsh://192.168.0.91:8080/webcam" />
+<param name="mrl" value="mmsh://192.168.1.104:8080/webcam" />
 </object>
 </div>
 

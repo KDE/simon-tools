@@ -15,6 +15,7 @@ $locationSelector = '<select name="location" id="locationSelector">';
 foreach ($locations->getData() as $loc) 
   $locationSelector .= '<option value="'.$loc.'" >'.$loc.'</option>';
 
+$locationSelector .= '<option value="User">User</option>';
 $locationSelector .= '</select>';
 
 $content = preg_replace("/{{locationselector}}/i", $locationSelector, $content);

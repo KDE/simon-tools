@@ -4,7 +4,8 @@ $proxy = $dbus->createProxy("info.echord.Astromobile.AstroLogic",
 				"/AstroLogic",
 				"info.echord.Astromobile.AstroLogic");
 
-if ($proxy->navigateTo($_POST['location']))
+if (($_POST['location'] == "User") && ($proxy->navigateToUser()) || 
+      ($proxy->navigateTo($_POST['location'])))
   echo "OK";
 else
   echo "FAILED";
