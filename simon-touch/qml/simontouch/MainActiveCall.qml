@@ -34,6 +34,13 @@ TabPage {
 
     onOpacityChanged: changeButtonVisibility(screen.opacity < 0.5)
 
+    Keys.onPressed: {
+        if (event.key == Qt.Key_Escape) {
+            event.accepted = true
+            return
+        }
+    }
+
     Page {
         stateName: parent.stateName
         title: ""
