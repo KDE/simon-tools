@@ -1,32 +1,32 @@
 <locations>
   <location>
     <name>Kitchen</name>
-    <x>3200</x>
-    <y>2800</y>
+    <x>32</x>
+    <y>28</y>
   </location>
   <location>
     <name>Little bed room</name>
-    <x>-1400</x>
-    <y>-2700</y>
+    <x>-14</x>
+    <y>-27</y>
   </location>
   <location>
     <name>Bed room</name>
-    <x>-6000</x>
-    <y>-2700</y>
+    <x>-60</x>
+    <y>-27</y>
   </location>
   <location>
     <name>Big bath</name>
-    <x>-7000</x>
+    <x>-70</x>
     <y>0</y>
   </location>
   <location>
     <name>Before little bath</name>
-    <x>-5600</x>
-    <y>3400</y>
+    <x>-56</x>
+    <y>34</y>
   </location>
   <location>
     <name>Little bath</name>
-    <x>-7000</x>
-    <y>3400</y>
+    <x>-70</x>
+    <y>34</y>
   </location>
 </locations>

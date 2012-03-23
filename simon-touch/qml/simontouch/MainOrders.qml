@@ -48,7 +48,7 @@ TabPage {
                 width: screen.width / 4
                 height: screen.height / 3
                 shortcut: Qt.Key_1
-                onButtonClick: checkOn(i18n("Water"))
+                onButtonClick: checkOn(i18n("Kitchen"))
             }
             Button {
                 objectName: "btOrdersDoors"
@@ -58,7 +58,7 @@ TabPage {
                 width: screen.width / 4
                 height: screen.height / 3
                 shortcut: Qt.Key_2
-                onButtonClick: checkOn(i18n("Doors"))
+                onButtonClick: checkOn(i18n("Kitchen"))
             }
             Button {
                 objectName: "btOrdersCooker"
@@ -68,7 +68,7 @@ TabPage {
                 width: screen.width / 4
                 height: screen.height / 3
                 shortcut: Qt.Key_3
-                onButtonClick: checkOn(i18n("Cooker"))
+                onButtonClick: checkOn(i18n("Kitchen"))
             }
             Button {
                 objectName: "btOrdersGas"
@@ -78,7 +78,7 @@ TabPage {
                 width: screen.width / 4
                 height: screen.height / 3
                 shortcut: Qt.Key_4
-                onButtonClick: checkOn(i18n("Gas"))
+                onButtonClick: checkOn(i18n("Kitchen"))
             }
         }
     }
