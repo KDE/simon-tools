@@ -38,13 +38,19 @@ class AstroLogic : public QObject
 Q_OBJECT
 Q_CLASSINFO("AstroLogic", "info.echord.Astromobile.AstroLogic")
 
-signals:
-    void robotLocation(int x, int y, const QString& text);
-
 public slots:
     void startWebVideo();
     bool checkup(const QString& location);
     bool navigateTo(const QString& location);
+    bool navigateToUser();
+
+    void moveForward();
+    void moveBackward();
+    void turnLeft();
+    void turnRight();
+    void turnAround();
+
+    void lookAround();
     
     QStringList getLocations();
 
@@ -66,9 +72,9 @@ private:
     void stopRecordingToFile();
     QPoint resolveLocation(const QString& location);
     void setupLocations();
+    void qsleep(int seconds);
 
 private slots:
-    void processRobotLocation(int x, int y, const QString& text);
     void videoBroadcastStarted();
     void videoRecordingToFileStarted();
     void videoRecordingStopped();

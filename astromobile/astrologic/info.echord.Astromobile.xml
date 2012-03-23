@@ -14,10 +14,16 @@
   <arg name="location" type="s" direction="in" />
   <arg name="result" type="b" direction="out" />
 </method>
+<method name="navigateToUser" />
 <method name="startWebVideo" />
 <method name="getLocations">
   <arg name="locations" type="as" direction="out" />
 </method>
+<method name="moveForward" />
+<method name="moveBackward" />
+<method name="turnAround" />
+<method name="turnLeft" />
+<method name="turnRight" />
 </interface>
 </node>
 

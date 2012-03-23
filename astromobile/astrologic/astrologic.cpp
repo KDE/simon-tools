@@ -53,15 +53,12 @@ AstroLogic::AstroLogic()
     m_astrocam = new QDBusInterface("info.echord.Astromobile.Astrocam", "/Astrocam", "info.echord.Astromobile.Astrocam", QDBusConnection::systemBus());
     m_simontouch = new QDBusInterface("org.simon-listens.SimonTouch", "/Main", "local.SimonTouch", QDBusConnection::sessionBus());
     
-    connect(m_locator, SIGNAL(robotLocation(int, int, QString)), this, SLOT(processRobotLocation(int, int, QString)));
-    
     connect(m_astrocam, SIGNAL(broadcastingVideo()), this, SLOT(videoBroadcastStarted()));
     connect(m_astrocam, SIGNAL(recordingVideoToFile()), this, SLOT(videoRecordingToFileStarted()));
     connect(m_astrocam, SIGNAL(recordingStopped()), this, SLOT(videoRecordingStopped()));
 
     //initialization
     m_tts->call("initialize");
-
 
     //setting up locations
     setupLocations();
@@ -102,15 +99,6 @@ void AstroLogic::videoRecordingStopped()
 void AstroLogic::videoRecordingToFileStarted()
 {
     m_tts->call("say", i18n("Starting to record surveillance video"));
-}
-
-
-void AstroLogic::processRobotLocation(int x, int y, const QString& text)
-{
-    kDebug() << "Received robot location: " << x << y << text;
-
-    //re-publish info for ui
-    emit robotLocation(x, y, text);
 }
 
 //void AstroLogic::goToKitchen()
@@ -169,11 +157,8 @@ bool AstroLogic::checkup(const QString& location)
   // 2. start recording to file (astrocam)
   QString path = startRecordingToFile();
   
-  // 3. wait a couple of seconds
-  for (int i=1; i < 15; i++) {
-    sleep(1);
-    QCoreApplication::processEvents();
-  }
+  // 3. look around
+  lookAround();
   
   // 4. stop recording
   stopRecordingToFile();
@@ -186,6 +171,55 @@ bool AstroLogic::checkup(const QString& location)
   return true;
 }
 
+void AstroLogic::moveForward()
+{
+  m_navigator->call("moveForward");
+}
+
+void AstroLogic::moveBackward()
+{
+  m_navigator->call("moveBackward");
+}
+
+void AstroLogic::turnAround()
+{
+  for (int i = 0; i < 4; i++) {
+    turnLeft();
+    sleep(1);
+  }
+}
+
+void AstroLogic::turnLeft()
+{
+  m_navigator->call("turnLeft");
+}
+
+void AstroLogic::turnRight()
+{
+  m_navigator->call("turnRight");
+}
+
+
+void AstroLogic::qsleep(int seconds)
+{
+  for (int i=1; i < seconds; i++) {
+    sleep(1);
+    QCoreApplication::processEvents();
+  }
+}
+
+void AstroLogic::lookAround()
+{
+  m_navigator->call("turn", "-60");
+  qsleep(5);
+
+  m_navigator->call("turn", "120");
+  qsleep(5);
+
+  m_navigator->call("turn", "-60");
+  qsleep(5);
+}
+
 bool AstroLogic::navigateTo(const QString& location)
 {
   kDebug() << "Navigating to: " << location;
@@ -193,9 +227,16 @@ bool AstroLogic::navigateTo(const QString& location)
   if (dest.isNull())
     return false;
     
-  m_navigator->call("navigateTo", dest.x(), dest.y());
+  m_navigator->call("goTo", dest.x(), dest.y(), 0);
   
-  sleep(2); //FIXME: wait until we're there
+  return true;
+}
+
+bool AstroLogic::navigateToUser()
+{
+  kDebug() << "Navigating to user";
+  m_navigator->call("goToUser");
+  
   return true;
 }
 

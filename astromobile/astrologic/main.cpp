@@ -29,11 +29,22 @@
 
 #include <KDebug>
 #include <KAboutData>
-#include <QCoreApplication>
+#include <KCmdLineArgs>
+#include <KGlobal>
+#include <KApplication>
 
 int main(int argc, char** argv)
 {
-    QCoreApplication app(argc, argv);
+    KAboutData aboutData( "astrologic", "astromobile",
+        ki18n("astrologic"), "0.1",
+        ki18n("Astrologic logic module"),
+        KAboutData::License_BSD,
+        ki18n("Copyright (c) 2011-2012 Peter Grasch <grasch@simon-listens.org>\n"
+ 	      "Copyright (c) 2011-2012 Scuola Superiore Sant´Anna <urp@sssup.it>"));
+
+    KCmdLineArgs::init(argc, argv, &aboutData);
+    KApplication app(false);
+    
     AstroLogic al;
     return app.exec();
 }
