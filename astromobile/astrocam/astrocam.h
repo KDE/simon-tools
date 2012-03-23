@@ -53,7 +53,8 @@ public slots:
 public:
     Astrocam();
     
-private slots:
+private slots: 
+    void startVlc();
     void allClientsDisconnected();
     void vlcOutput();
         

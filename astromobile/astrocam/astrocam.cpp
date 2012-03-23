@@ -58,6 +58,7 @@ Astrocam::Astrocam() :
                       "--input-slave" << "pulse://" << "--sout-mux-caching" << "3000" <<
                       "--http-port" << "9090" << "--network-caching" << "1000" <<
                       "--http-host=0.0.0.0" << "-vvv");
+    connect(m_vlc, SIGNAL(finished(int, QProcess::ExitStatus)), this, SLOT(startVlc()));
     m_vlc->start();
     m_vlc->waitForStarted();
     connect(m_vlc, SIGNAL(readyRead()), this, SLOT(vlcOutput()));
@@ -67,6 +68,11 @@ Astrocam::Astrocam() :
     connect(&m_stopTimer, SIGNAL(timeout()), this, SLOT(allClientsDisconnected()));
     
     kDebug() << "Setup completed";
+}
+
+void Astrocam::startVlc()
+{
+    m_vlc->start();
 }
 
 QString Astrocam::startRecordingToFile()
@@ -102,6 +108,7 @@ void Astrocam::vlcOutput()
 {
   while (m_vlc->canReadLine()) {
     QByteArray line = m_vlc->readLine().trimmed();
+    kDebug() << line;
     if (line.endsWith("Accepted incoming connection for /webcam")) { // krazy:exclude=strings
       kDebug() << line;
       ++m_refCount;

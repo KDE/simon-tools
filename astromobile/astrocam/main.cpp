@@ -28,6 +28,8 @@
 #include <QObject>
 
 #include <KDebug>
+#include <KLocale>
+#include <KGlobal>
 #include <KAboutData>
 #include <QCoreApplication>
 #include <KApplication>
@@ -36,12 +38,11 @@
 
 int main(int pArgc, char* pArgv[])
 {
-    KAboutData aboutData( "astrocam", "astrocam",
-        ki18n("navigator"), "0.1",
+    KAboutData aboutData( "astrocam", "astrologic",
+        ki18n("astrocam"), "0.1",
         ki18n("Controller for Astros webcam"),
-        KAboutData::License_GPL,
+        KAboutData::License_BSD,
         ki18n("Copyright (c) 2012 Peter Grasch <grasch@simon-listens.org (2011)") );
-
 
     KCmdLineArgs::init(pArgc, pArgv, &aboutData);
     KApplication app(false);
