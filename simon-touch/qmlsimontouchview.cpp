@@ -32,9 +32,12 @@
 #include <QGraphicsObject>
 #include <QMetaObject>
 #include <QDebug>
+#include <QDate>
 #include <QDeclarativeComponent>
 #include <kdeclarative.h>
 #include <KLocalizedString>
+#include <KGlobal>
+#include <KLocale>
 
 QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     SimonTouchView(logic), dlg(new QWidget()),
@@ -95,6 +98,10 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
 }
 
+QString QMLSimonTouchView::date()
+{
+    return KGlobal::locale()->formatDate(QDate::currentDate(), KLocale::LongDate);
+}
 
 void QMLSimonTouchView::callHandle(const QString& number)
 {

@@ -29,7 +29,7 @@ TabPage {
 
     Page {
         stateName: parent.stateName
-        title: Qt.formatDateTime(new Date(), "dddd, dd. MMMM yyyy")
+        title: simonTouch.date(); //Qt.formatDateTime(new Date(), "dddd, dd. MMMM yyyy")
         PageGrid {
             id: pageGrid
             Button {

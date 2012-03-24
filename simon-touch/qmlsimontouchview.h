@@ -56,6 +56,8 @@ public slots:
     void readAloud(const QString& message);
     void interruptReading();
 
+    QString date();
+
     void playVideo(const QString& video);
 
     void checkOn(const QString& target);
