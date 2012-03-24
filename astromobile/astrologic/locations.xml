@@ -1,32 +1,44 @@
 <locations>
   <location>
     <name>Kitchen</name>
-    <x>32</x>
-    <y>28</y>
+    <x>-20</x>
+    <y>40</y>
+    <angle>90</angle>
   </location>
   <location>
     <name>Little bed room</name>
     <x>-14</x>
     <y>-27</y>
+    <angle>0</angle>
   </location>
   <location>
     <name>Bed room</name>
     <x>-60</x>
     <y>-27</y>
+    <angle>0</angle>
   </location>
   <location>
     <name>Big bath</name>
     <x>-70</x>
     <y>0</y>
+    <angle>0</angle>
   </location>
   <location>
     <name>Before little bath</name>
     <x>-56</x>
     <y>34</y>
+    <angle>0</angle>
   </location>
   <location>
     <name>Little bath</name>
     <x>-70</x>
     <y>34</y>
+    <angle>0</angle>
+  </location>
+  <location>
+    <name>User2</name>
+    <x>50</x>
+    <y>0</y>
+    <angle>-90</angle>
   </location>
 </locations>

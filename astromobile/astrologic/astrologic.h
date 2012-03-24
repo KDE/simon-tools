@@ -70,7 +70,7 @@ private:
     
     QString startRecordingToFile();
     void stopRecordingToFile();
-    QPoint resolveLocation(const QString& location);
+    Location* resolveLocation(const QString& location);
     void setupLocations();
     void qsleep(int seconds);
 

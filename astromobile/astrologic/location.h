@@ -33,16 +33,18 @@
 class Location
 {
 public:
-    Location(const QString& name, int x, int y);
+    Location(const QString& name, int x, int y, int angle);
     
     QString name() const { return m_name; }
     int x() const  { return m_destination.x(); }
     int y() const  { return m_destination.y(); }
+    int angle() const  { return m_angle; }
     QPoint destination() const { return m_destination; }
     
 private:
     QString m_name;
     QPoint m_destination;
+    int m_angle;
 };
 
 #endif // LOCATION_H

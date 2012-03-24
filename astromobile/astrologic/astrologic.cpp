@@ -82,8 +82,9 @@ void AstroLogic::setupLocations()
       QDomElement nameElem = locationElem.firstChildElement("name");
       QDomElement xElem = locationElem.firstChildElement("x");
       QDomElement yElem = locationElem.firstChildElement("y");
+      QDomElement angleElem = locationElem.firstChildElement("angle");
 
-      m_locations << new Location(nameElem.text(), xElem.text().toInt(), yElem.text().toInt());
+      m_locations << new Location(nameElem.text(), xElem.text().toInt(), yElem.text().toInt(), angleElem.text().toInt());
       locationElem = locationElem.nextSiblingElement("location");
     }
 }
@@ -164,7 +165,7 @@ bool AstroLogic::checkup(const QString& location)
   stopRecordingToFile();
   
   // 5. go back
-  navigateTo(i18nc("user refers to the patient", "User"));
+  navigateTo("User2");
 
   // 6. tell ui to show video
   m_simontouch->call("playVideo", path);
@@ -210,25 +211,31 @@ void AstroLogic::qsleep(int seconds)
 
 void AstroLogic::lookAround()
 {
-  m_navigator->call("turn", "-60");
   qsleep(5);
 
-  m_navigator->call("turn", "120");
-  qsleep(5);
+  turnLeft();
+  sleep(5);
 
-  m_navigator->call("turn", "-60");
-  qsleep(5);
+  turnRight();
+  sleep(5);
+
+  turnRight();
+  sleep(5);
+
+  turnLeft();
+  sleep(5);
 }
 
 bool AstroLogic::navigateTo(const QString& location)
 {
   kDebug() << "Navigating to: " << location;
-  QPoint dest = resolveLocation(location);
-  if (dest.isNull())
+  Location *l = resolveLocation(location);
+  if (!l)
     return false;
     
-  m_navigator->call("goTo", dest.x(), dest.y(), 0);
+  m_navigator->call("goTo", l->destination().x(), l->destination().y(), l->angle());
   
+  sleep(48);
   return true;
 }
 
@@ -240,13 +247,15 @@ bool AstroLogic::navigateToUser()
   return true;
 }
 
-QPoint AstroLogic::resolveLocation(const QString& location)
+Location* AstroLogic::resolveLocation(const QString& location)
 {
-  foreach (Location* l, m_locations)
-    if (l->name().compare(location, Qt::CaseInsensitive))
-      return l->destination();
+  foreach (Location* l, m_locations) {
+    if (l->name().compare(location, Qt::CaseInsensitive)==0) {
+      return l;
+    }
+  }
   kDebug() << "Invalid location" << location;
-  return QPoint();
+  return 0;
 }
 
 QStringList AstroLogic::getLocations()

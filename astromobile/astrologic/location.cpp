@@ -27,8 +27,8 @@
 
 #include "location.h"
 
-Location::Location(const QString& name, int x, int y)
+Location::Location(const QString& name, int x, int y, int angle)
  :
-  m_name(name), m_destination(QPoint(x,y))
+  m_name(name), m_destination(QPoint(x,y)), m_angle(angle)
 {
 }
