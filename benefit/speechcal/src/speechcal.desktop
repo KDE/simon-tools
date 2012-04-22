@@ -2,6 +2,7 @@
 Name=speechcal
 Name[de]=SpeechCal
 Name[es]=speechcal
+Name[fr]=speechcal
 Name[ga]=speechcal
 Name[nl]=speechcal
 Name[pl]=speechcal
@@ -18,6 +19,7 @@ Type=Application
 GenericName=Speech controlled calendar
 GenericName[de]=Sprachgesteuerter Kalender
 GenericName[es]=Calendario controlado por la voz
+GenericName[fr]=Calendrier contrôlé par la parole
 GenericName[nl]=Spraakgestuurde agenda
 GenericName[pl]=Kalendarz sterowany głosem
 GenericName[pt]=Calendário controlado pela fala
