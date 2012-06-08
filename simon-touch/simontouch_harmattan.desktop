@@ -15,6 +15,7 @@ Name[pt_BR]=simon-touch
 Name[sv]=Simon-touch
 Name[uk]=simon-touch
 Name[x-test]=xxsimon-touchxx
+Name[zh_TW]=simon 觸控
 Exec=/usr/bin/single-instance /opt/simon-touch/bin/simon-touch
 Icon=/usr/share/icons/hicolor/80x80/apps/simon-touch80.png
 X-Window-Icon=

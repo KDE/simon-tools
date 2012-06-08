@@ -15,6 +15,7 @@ Name[pt_BR]=simon-touch
 Name[sv]=Simon-touch
 Name[uk]=simon-touch
 Name[x-test]=xxsimon-touchxx
+Name[zh_TW]=simon 觸控
 Exec=/opt/simon-touch/bin/simon-touch
 Icon=simon-touch64
 X-Window-Icon=
