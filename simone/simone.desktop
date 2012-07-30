@@ -3,6 +3,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=simone
+Name[ca]=simone
 Name[cs]=simone
 Name[de]=Simone
 Name[es]=simone
