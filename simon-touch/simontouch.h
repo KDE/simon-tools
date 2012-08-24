@@ -28,6 +28,7 @@ class ImagesModel;
 class VideosModel;
 class MusicModel;
 
+class RSSGroups;
 class RSSFeeds;
 class RSSFeed;
 class QNetworkAccessManager;
@@ -56,6 +57,7 @@ private:
     ImagesModel *m_images;
     MusicModel *m_music;
     VideosModel *m_videos;
+    RSSGroups *m_rssGroups;
     RSSFeeds *m_rssFeeds;
     RSSFeed *m_currentRssFeed;
 
@@ -78,7 +80,7 @@ public:
         Medicine=2
     };
 
-    SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds);
+    SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music, VideosModel *videos, RSSFeeds* rssFeeds, RSSGroups* rssGroups);
     ImagesModel* images() const { return m_images; }
     MusicModel* music() const { return m_music; }
     VideosModel* videos() const { return m_videos; }
@@ -87,6 +89,10 @@ public:
     MessageModel *messages() const;
     QStringList rssFeedNames() const;
     QStringList rssFeedIcons() const;
+    QStringList rssFeedGroups() const;
+    QStringList rssFeedGroupNames() const;
+    QStringList rssFeedGroupHandles() const;
+    QStringList rssFeedGroupIcons() const;
 
     Configuration* config() const { return m_cfg; }
 

@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (c) 2012 Claus Zotter <claus.zotter@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -19,16 +20,107 @@
 
 #include "simontouchview.h"
 #include "simontouch.h"
+#include <QList>
 #include <QStringList>
+#include <QDebug>
+#include <KApplication>
+#include <KLocalizedString>
+#include <KCmdLineArgs>
+#include <KAboutData>
+#include <QtGui/QApplication>
+#include <QtDBus/QDBusConnection>
+#include <QApplication>
+#include <QProcess>
 
 SimonTouchView::SimonTouchView(SimonTouch *logic) :
     m_logic(logic)
 {
 }
 
+void SimonTouchView::restart()
+{
+    qDebug() << qApp->arguments()[0];
+    qApp->quit();
+    QProcess::startDetached(qApp->arguments()[0]);
+}
+
+void SimonTouchView::setCurrentGroup(int id)
+{
+    rssFeedCurrentGroup = id;
+}
+
+int SimonTouchView::getCurrentGroup()
+{
+    return rssFeedCurrentGroup;
+}
+
 int SimonTouchView::availableRssFeedsCount()
 {
     return m_logic->rssFeedNames().count();
+}
+
+int SimonTouchView::availableRssGroupCount()
+{
+    return m_logic->rssFeedGroupNames().count();
+}
+
+QList<int> SimonTouchView::getFeedsFromGroup(int id)
+{
+    QList<int> feeds;
+    feeds.clear();
+
+    int count = 0;
+
+    for (int i = 0; i <= m_logic->rssFeedNames().count() -1; i++)
+    {
+        if(m_logic->rssFeedGroups()[i] == m_logic->rssFeedGroupHandles()[id])
+        {
+            feeds.append(i);
+            count++;
+        }
+    }
+
+    return feeds;
+}
+
+int SimonTouchView::availableRssFeedsInGroup(int id)
+{
+    int count = 0;
+    // qWarning() << "availableRssFeedsInGroup()";
+    for (int i = 0; i <= m_logic->rssFeedNames().count() - 1; i++)
+    {
+        if (m_logic->rssFeedGroups()[i] == m_logic->rssFeedGroupHandles()[id])
+        {
+            count++;
+        }
+    }
+    return count;
+}
+
+
+
+QString SimonTouchView::rssGroupTitle(int id)
+{
+    if (id >= availableRssGroupCount())
+        return QString();
+
+    return m_logic->rssFeedGroupNames()[id];
+}
+
+QString SimonTouchView::rssGroupIcon(int id)
+{
+    if (id >= availableRssGroupCount())
+        return QString();
+
+    return m_logic->rssFeedGroupIcons()[id];
+}
+
+QString SimonTouchView::rssGroupHandle(int id)
+{
+    if (id >= availableRssGroupCount())
+        return QString();
+
+    return m_logic->rssFeedGroupHandles()[id];
 }
 
 QString SimonTouchView::rssFeedTitle(int id)

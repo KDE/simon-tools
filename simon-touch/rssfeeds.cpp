@@ -20,11 +20,12 @@
 #include "rssfeeds.h"
 #include <QStringList>
 
-RSSFeeds::RSSFeeds(const QStringList& names, const QStringList& urls, const QStringList& icons) :
-    m_names(names), m_urls(urls), m_icons(icons)
+RSSFeeds::RSSFeeds(const QStringList& names, const QStringList& urls, const QStringList& icons, const QStringList& groups) :
+    m_names(names), m_urls(urls), m_icons(icons), m_groups(groups)
 {
     Q_ASSERT(m_names.count() == m_urls.count());
     Q_ASSERT(m_names.count() == m_icons.count());
+    Q_ASSERT(m_names.count() == m_groups.count());
 }
 
 QStringList RSSFeeds::names() const
@@ -37,6 +38,11 @@ QStringList RSSFeeds::icons() const
     return m_icons;
 }
 
+QStringList RSSFeeds::groups() const
+{
+    return m_groups;
+}
+
 QString RSSFeeds::name(int i) const
 {
     return m_names[i];
@@ -45,6 +51,11 @@ QString RSSFeeds::name(int i) const
 QString RSSFeeds::url(int i) const
 {
     return m_urls[i];
+}
+
+QString RSSFeeds::group(int i) const
+{
+    return m_groups[i];
 }
 
 int RSSFeeds::count() const

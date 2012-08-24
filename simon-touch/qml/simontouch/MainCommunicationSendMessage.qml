@@ -48,18 +48,67 @@ TabPage {
         id: sendMessagePage
         opacity: 0
 
+        Rectangle {
+            id: rectMenu
+            width: screen.width/6
+            height: 500
+            anchors.verticalCenter: parent.verticalCenter
+            color: "#FFFBC7"
+
+            Image {
+                id: menuImage
+                source: ("../simontouch/img/Button_Communication.png")
+                anchors{
+                    bottom: menuHeader.top
+                    bottomMargin: 0
+                    horizontalCenter: parent.horizontalCenter
+                }
+                width: 100
+                height: 100
+
+                fillMode: Image.PreserveAspectFit
+                smooth: true
+            }
+
+            Text {
+                id: menuHeader
+                text: i18n("Voice Commands")
+                anchors{
+                    bottom: lbtZurueck.top
+                    horizontalCenter: parent.horizontalCenter
+                }
+                x: 20
+                font.family: "Arial"
+                font.pointSize: 20
+                font.bold: true
+            }
+
+            ListButton{
+                id: lbtZurueck
+                width: screen.width/6
+                anchors.left: parent.left
+                anchors.top: parent.top
+                shortcut: Qt.Key_Escape
+                anchors.topMargin: 150
+                buttonText: i18n("BACK")
+                onButtonClick: back()
+
+            }
+        }
+
         Column {
             id:sendMessageColumn
             spacing: 10
             anchors {
-                left: parent.left
+                left: rectMenu.right
                 top: parent.top
                 bottom: parent.bottom
                 margins: 160
                 topMargin: 130
                 rightMargin: 0
+                leftMargin: 100
             }
-            width: screen.width - 320
+            width: screen.width - screen.width/6 - 100
             Column {
                 spacing: 10
                 width: parent.width

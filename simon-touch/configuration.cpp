@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Claus Zotter <claus.zotter@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -44,10 +45,15 @@ Configuration::Configuration()
     else
         m_musicPath = information.readEntry("music", ".");
 
+    if (parsedArgs->isSet("groups"))
+        m_groups = parsedArgs->getOption("groups");
+    else
+        m_groups = information.readEntry("groups", ",,");
+
     if (parsedArgs->isSet("feeds"))
         m_feeds = parsedArgs->getOption("feeds");
     else
-        m_feeds = information.readEntry("feeds", ",,");
+        m_feeds = information.readEntry("feeds", ",,,");
 
     KConfigGroup requests(KGlobal::config(), "requests");
     m_householdMailAddress = requests.readEntry("householdMailAddress", "");

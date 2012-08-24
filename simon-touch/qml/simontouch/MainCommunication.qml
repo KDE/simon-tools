@@ -34,6 +34,55 @@ TabPage {
         title: i18n("Communication")
         state: "noCall"
         id: mainCommunication
+
+        Rectangle {
+            id: rectMenu
+            width: screen.width/6
+            height: 500
+            anchors.verticalCenter: parent.verticalCenter
+            color: "#FFFBC7"
+
+            Image {
+                id: menuImage
+                source: ("../simontouch/img/Button_Communication.png")
+                anchors{
+                    bottom: menuHeader.top
+                    bottomMargin: 0
+                    horizontalCenter: parent.horizontalCenter
+                }
+                width: 100
+                height: 100
+
+                fillMode: Image.PreserveAspectFit
+                smooth: true
+            }
+
+            Text {
+                id: menuHeader
+                text: i18n("Voice Commands")
+                anchors{
+                    bottom: lbtZurueck.top
+                    horizontalCenter: parent.horizontalCenter
+                }
+                x: 20
+                font.family: "Arial"
+                font.pointSize: 20
+                font.bold: true
+            }
+
+            ListButton{
+                id: lbtZurueck
+                width: screen.width/6
+                anchors.left: parent.left
+                anchors.top: parent.top
+                shortcut: Qt.Key_Escape
+                anchors.topMargin: 150
+                buttonText: i18n("BACK")
+                onButtonClick: back()
+
+            }
+        }
+
         Component {
             id: contactsDelegate
             Item {
@@ -107,22 +156,23 @@ TabPage {
             Component {
                 id: highlight
                 Rectangle {
-                        color: "#FEF57B" // "lightsteelblue"
-                        radius: 5
-                        width: parent.width -2
-                        border.color: "#8A8A8A"
-                        border.width: 1
+                    color: "#FEF57B" // "lightsteelblue"
+                    radius: 5
+                    width: parent.width -2
+                    border.color: "#8A8A8A"
+                    border.width: 1
                 }
             }
             highlight: highlight
 
             anchors {
-                left: parent.left
+                left: rectMenu.right
                 top: parent.top
                 bottom: parent.bottom
-                margins: 160
-                topMargin: 160
+                margins: 100
+                topMargin: 220
                 rightMargin: 0
+                bottomMargin: 200
             }
             width: screen.width / 2 - 210
             model: contactsModel
@@ -170,7 +220,7 @@ TabPage {
             anchors.left: lvContactsView.left
             anchors.bottomMargin: 10
             width: lvContactsView.width
-            height: 50
+            height: 65
             buttonImage: "../img/go-up.svgz"
             buttonText: i18n("Up")
             shortcut: Qt.Key_Up
@@ -185,7 +235,7 @@ TabPage {
             anchors.left: lvContactsView.left
             anchors.topMargin: 10
             width: lvContactsView.width
-            height: 50
+            height: 65
             buttonImage: "../img/go-down.svgz"
             buttonText: i18n("Down")
             shortcut: Qt.Key_Down
@@ -201,7 +251,7 @@ TabPage {
             anchors.leftMargin: 20
             buttonText: i18n("Call on computer")
             width: lvContactsView.width
-            height: 50
+            height: 65
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal
@@ -221,7 +271,7 @@ TabPage {
             anchors.topMargin: 10
             buttonText: i18n("Call on phone")
             width: lvContactsView.width
-            height: 50
+            height: 65
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal
@@ -240,7 +290,7 @@ TabPage {
             buttonText: i18n("Send message")
             width: lvContactsView.width
             anchors.topMargin: 10
-            height: 50
+            height: 65
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal
@@ -258,7 +308,7 @@ TabPage {
             buttonText: i18n("Read messages")
             width: lvContactsView.width
             anchors.topMargin: 10
-            height: 50
+            height: 65
             buttonImage: "../img/go-down.svgz"
             spokenText: false
             buttonLayout: Qt.Horizontal

@@ -28,12 +28,15 @@ private:
     QStringList m_names;
     QStringList m_urls;
     QStringList m_icons;
+    QStringList m_groups;
 public:
-    RSSFeeds(const QStringList& names, const QStringList& urls, const QStringList& icons);
+    RSSFeeds(const QStringList& names, const QStringList& urls, const QStringList& icons, const QStringList& groups);
     QString name(int i) const;
     QString url(int i) const;
+    QString group(int i) const;
     QStringList names() const;
     QStringList icons() const;
+    QStringList groups() const;
     int count() const;
 };
 

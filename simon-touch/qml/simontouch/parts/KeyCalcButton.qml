@@ -46,7 +46,7 @@ Item {
                 target: btKeyCalcButton
                 width: main.width / 4 * 3
                 height: 350
-                x: (main.width / 2) - (btKeyCalcButton.width / 2)
+                x: (main.width / 2)  - (btKeyCalcButton.width / 2)
             }
         }
     ]

@@ -26,6 +26,7 @@
 #include "contactsmodel.h"
 #include "configuration.h"
 #include "messagemodel.h"
+#include "rssgroups.h"
 #include "rssfeed.h"
 #include "declarativeimageprovider.h"
 #include <QDeclarativeContext>
@@ -62,9 +63,9 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     viewer->setMainQmlFile(QLatin1String("qml/simontouch/main.qml"));
 
     connect(logic, SIGNAL(rssFeedReady()),
-            viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"), SLOT(displayFeed()));
+            viewer->rootObject()->findChild<QObject*>("MainNewsFeed"), SLOT(displayFeed()));
     connect(logic, SIGNAL(rssFeedError()),
-            viewer->rootObject()->findChild<QObject*>("MainInformationNewsFeed"),
+            viewer->rootObject()->findChild<QObject*>("MainNewsFeed"),
             SLOT(feedFetchError()));
     connect(logic, SIGNAL(activeCall(QString,QString,bool)),
             this, SLOT(activeCall(QString,QString,bool)));
@@ -94,7 +95,7 @@ QMLSimonTouchView::QMLSimonTouchView(SimonTouch *logic) :
     dlg->setLayout(layout);
     layout->setContentsMargins(0,0,0,0);
 
-    dlg->show();
+    dlg->showFullScreen();
     connect(viewer->engine(), SIGNAL(quit()), dlg, SLOT(close()));
 }
 

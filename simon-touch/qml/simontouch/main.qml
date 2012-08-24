@@ -32,14 +32,13 @@ Rectangle {
 
         //stop music?
 
-        tabs.setScreen("MainInformation")
+        tabs.setScreen("MainVideos")
         pgInformation.playVideo(path)
     }
 
     function changeButtonVisibility(visibility) {
         keyboardButton.opacity = visibility;
         calculatorButton.opacity = visibility;
-        calendarButton.opacity = visibility;
     }
     function activeCall() {
         console.debug("Receiving active call...");
@@ -60,11 +59,6 @@ Rectangle {
         MainScreen {
             objectName: "MainScreen"
             backAvailable: false
-        }
-
-        MainInformation {
-            id: pgInformation
-            objectName: "MainInformation"
         }
 
         MainActiveCall {
@@ -92,7 +86,7 @@ Rectangle {
         id: calculatorButton
         z: (keyboardButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        x: (parent.width / 2) - (width) - (width / 2) - 20
+        x: (parent.width / 2) - (width) - (width / 2) + 90
         btKeyCalcButtonImage: ("../img/calculator.png")
         spokenText: false
         shortcut: Qt.Key_0
@@ -108,7 +102,7 @@ Rectangle {
         id: keyboardButton
         z: (calculatorButton.state == "collapsed") ? 1 : 0
         anchors.bottom: parent.bottom
-        x: (parent.width / 2) - (width / 2)
+        x: (parent.width / 2) - (width / 2) + 110
         btKeyCalcButtonImage: ("../img/keyboard.png")
         spokenText: false
         onButtonClick: {
@@ -116,18 +110,6 @@ Rectangle {
                 simonTouch.hideKeyboard()
             else
                 simonTouch.showKeyboard()
-        }
-    }
-    KeyCalcButton {
-        id: calendarButton
-        anchors.bottom: parent.bottom
-        x: (parent.width / 2) + (width / 2) + 20
-        btKeyCalcButtonImage: ("../img/view-calendar.svgz")
-        spokenText: false
-        shortcut: Qt.Key_0
-        expandable: false
-        onButtonClick: {
-                simonTouch.showCalendar()
         }
     }
 
@@ -155,6 +137,32 @@ Rectangle {
             anchors.topMargin: 0
             anchors.fill: parent
             onClicked: Qt.quit()
+        }
+    }
+    Rectangle {
+        id: resetButton
+        anchors.top: closebutton.bottom
+        anchors.topMargin: 10
+        anchors.right: parent.right
+        width: 75
+        height: 50
+        color: Qt.darker("#FFFBC7", 1.1)
+        Text {
+            anchors.centerIn: parent
+            text: "Reset"
+
+        }
+
+        MouseArea{
+            id: resetMouseArea
+            x: 0
+            y: 0
+            anchors.rightMargin: 0
+            anchors.bottomMargin: 0
+            anchors.leftMargin: 0
+            anchors.topMargin: 0
+            anchors.fill: parent
+            onClicked: simonTouch.restart()
         }
     }
 }
