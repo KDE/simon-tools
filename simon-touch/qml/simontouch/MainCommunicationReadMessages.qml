@@ -61,7 +61,7 @@ TabPage {
 
             Text {
                 id: menuHeader
-                text: i18n("Voic Commands")
+                text: i18n("Voice Commands")
                 anchors{
                     bottom: lbtZurueck.top
                     horizontalCenter: parent.horizontalCenter

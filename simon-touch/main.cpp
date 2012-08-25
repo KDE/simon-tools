@@ -47,8 +47,8 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     options.add("images <folder>", ki18n("Path to images"));
     options.add("music <folder>", ki18n("Path to music"));
     options.add("videos <folder>", ki18n("Path to videos"));
-    options.add("feeds <description>", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>,<group>;<title 2>,..."));
-    options.add("groups <description>", ki18n("RSS feed groups (e.g. different newspapers) to use; format: \"<grouphandle 1>,<groupname 1>,<groupicon 1>;<grouphandle 2>,..."));
+    options.add("feeds <description>", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>,<group>;<title 2>,...\""));
+    options.add("groups <description>", ki18n("RSS feed groups (e.g. different newspapers) to use; format: \"<grouphandle 1>,<groupname 1>,<groupicon 1>;<grouphandle 2>,...\""));
     KCmdLineArgs::addCmdLineOptions(options);
     
     KCmdLineArgs::init(argc, argv, &aboutData);
@@ -80,7 +80,7 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     foreach (const QString& feed, feeds) {
         QStringList details = feed.split(',');
         if (details.count() != 4)  {
-            qWarning() << i18n("RSS feed format: \"<title 1>,<url 1>,<icon 1>.<group>;<title 2>,...\"");
+            qWarning() << i18n("RSS feed format: \"<title 1>,<url 1>,<icon 1>,<group>;<title 2>,...\"");
 	    return -1;
 	}
         titles << details[0];
