@@ -379,7 +379,7 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
-	    buttonNumber: i18n("Ok")
+	    buttonNumber: i18n("OK")
             onButtonClick: {
                 var list="";
                 for (i=0; i<lvShoppingMedicineSelectionModel.count; i++)
