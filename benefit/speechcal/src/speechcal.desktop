@@ -1,5 +1,6 @@
 [Desktop Entry]
 Name=speechcal
+Name[bs]=speechcal
 Name[ca]=speechcal
 Name[de]=SpeechCal
 Name[es]=speechcal
@@ -23,6 +24,7 @@ Icon=speechcal
 Type=Application
 #X-DocPath=speechcal/index.html
 GenericName=Speech controlled calendar
+GenericName[bs]=Kalendar upravljan govorom
 GenericName[ca]=Calendari controlat per la veu
 GenericName[de]=Sprachgesteuerter Kalender
 GenericName[es]=Calendario controlado por la voz
