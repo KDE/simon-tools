@@ -2,6 +2,7 @@
 Name=speechcal
 Name[bs]=speechcal
 Name[ca]=speechcal
+Name[ca@valencia]=speechcal
 Name[de]=SpeechCal
 Name[es]=speechcal
 Name[et]=speechcal
@@ -26,6 +27,7 @@ Type=Application
 GenericName=Speech controlled calendar
 GenericName[bs]=Kalendar upravljan govorom
 GenericName[ca]=Calendari controlat per la veu
+GenericName[ca@valencia]=Calendari controlat per la veu
 GenericName[de]=Sprachgesteuerter Kalender
 GenericName[es]=Calendario controlado por la voz
 GenericName[et]=Kõnega juhitav kalender

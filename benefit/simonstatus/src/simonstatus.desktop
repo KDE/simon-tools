@@ -2,6 +2,7 @@
 Name=simonstatus
 Name[bs]=simonstatus
 Name[ca]=simonstatus
+Name[ca@valencia]=simonstatus
 Name[de]=Simon-Status
 Name[es]=simonstatus
 Name[et]=Simoni olek
@@ -27,6 +28,7 @@ Type=Application
 GenericName=simon status widget
 GenericName[bs]=simonstatus statusna kontrola
 GenericName[ca]=Estri de l'estat de «simon»
+GenericName[ca@valencia]=Estri de l'estat de «simon»
 GenericName[de]=Simon-Statusanzeige
 GenericName[es]=Elemento gráfico del estado de simon
 GenericName[et]=Simoni oleku vidin
