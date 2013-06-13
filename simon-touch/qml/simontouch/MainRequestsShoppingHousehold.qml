@@ -528,7 +528,7 @@ TabPage {
                 leftMargin: 10
                 topMargin: 10
             }
-	    buttonNumber: i18n("Ok")
+	    buttonNumber: i18n("OK")
             shortcut: Qt.Key_Return
             onButtonClick: {
                 var list="";

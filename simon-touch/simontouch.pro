@@ -33,7 +33,8 @@ SOURCES += main.cpp \
     voipproviderfactory.cpp \
     skypevoipprovider.cpp \
     mail.cpp \
-    configuration.cpp
+    configuration.cpp \
+    rssgroups.cpp
 
 
 # Please do not modify the following two lines. Required for deployment.
@@ -65,7 +66,8 @@ HEADERS += \
     voipproviderfactory.h \
     skypevoipprovider.h \
     mail.h \
-    configuration.h
+    configuration.h \
+    rssgroups.h
 
 OTHER_FILES += \
     simontouch.xml

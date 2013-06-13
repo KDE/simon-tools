@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Claus Zotter <claus.zotter@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -34,6 +35,7 @@ public slots:
     QString musicPath() { return m_musicPath; }
     QString videosPath() { return m_videosPath; }
     QString feeds() { return m_feeds; }
+    QString groups() { return m_groups; }
     QString householdMailAddress() { return m_householdMailAddress; }
     QString medicineMailAddress() { return m_medicineMailAddress; }
     QString taxiNumber() { return m_taxiNumber; }
@@ -47,6 +49,7 @@ private:
     QString m_imagePath;
     QString m_musicPath;
     QString m_videosPath;
+    QString m_groups;
     QString m_feeds;
     QString m_householdMailAddress;
     QString m_medicineMailAddress;

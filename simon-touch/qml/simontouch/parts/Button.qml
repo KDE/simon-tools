@@ -38,7 +38,7 @@ Rectangle {
     property bool activeHover: true
     signal buttonClick()
 
-    width: 240
+    width: 200
     height: 250
     radius: 10
     smooth: true
@@ -50,7 +50,7 @@ Rectangle {
         text: buttonText
 
         font.family: "Arial"
-        font.pointSize: 16
+        font.pointSize: 45
         anchors.bottom: (buttonLayout == Qt.Vertical) ? parent.bottom : undefined
         anchors.left: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true && horizontalIconAlign == "left") ? mainButtonImage.right : undefined
         anchors.verticalCenter: (buttonLayout == Qt.Horizontal && horizontalMiddleText == true) ? parent.verticalCenter : undefined
@@ -68,7 +68,7 @@ Rectangle {
         anchors.right: (buttonLayout == Qt.Horizontal) ? parent.right : undefined
         anchors.margins: (buttonLayout == Qt.Horizontal) ? 9 : 0
         font.family: "Arial"
-        font.pointSize: (buttonLayout == Qt.Horizontal) ? 16 : 44
+        font.pointSize: (buttonLayout == Qt.Horizontal) ? 60 : 80
         color: "#000099"
         visible: (buttonNumber == "" || extraSpokenText == false) ? 0 : 1
     }

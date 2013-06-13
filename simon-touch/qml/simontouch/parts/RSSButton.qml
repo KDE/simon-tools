@@ -20,14 +20,14 @@
 
 import QtQuick 1.1
 
-Button {
+NewsButton {
     property int index: 0
     buttonText: simonTouch.rssFeedTitle(index)
-    buttonNumber: index+1
+    buttonNumber: "0"
     buttonImage: simonTouch.rssFeedIcon(index)
 
     onButtonClick: {
-        mainInformationNews.setScreen("MainInformationNewsFeed")
+        mainNewsFeeds.setScreen("MainNewsFeed")
         simonTouch.fetchRSSFeed(index)
     }
 }

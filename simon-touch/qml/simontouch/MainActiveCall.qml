@@ -79,7 +79,8 @@ TabPage {
                 Button {
                     id: acceptCall
                     buttonText: i18n("Accept")
-                    height: 50
+                    height: 65
+                    width: 200
                     buttonImage: "../img/call-start.svgz"
                     spokenText: true
                     buttonLayout: Qt.Horizontal
@@ -92,7 +93,8 @@ TabPage {
                 Button {
                     id: declineCall
                     buttonText: i18n("Hang up")
-                    height: 50
+                    height: 65
+                    width: 200
                     buttonImage: "../img/call-stop.svgz"
                     spokenText: true
                     buttonLayout: Qt.Horizontal

@@ -22,6 +22,7 @@
 #include "imagesmodel.h"
 #include "musicmodel.h"
 #include "videosmodel.h"
+#include "rssgroups.h"
 #include "rssfeeds.h"
 #include "rssfeed.h"
 #include "communicationcentral.h"
@@ -39,9 +40,9 @@
 #include <kio/jobuidelegate.h>
 
 SimonTouch::SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music,
-                       VideosModel *videos, RSSFeeds* feeds) :
+                       VideosModel *videos, RSSFeeds* feeds, RSSGroups* groups) :
     m_cfg(cfg),
-    m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds),
+    m_images(img), m_music(music), m_videos(videos), m_rssFeeds(feeds), m_rssGroups(groups),
     m_currentRssFeed(new RSSFeed()), m_communicationCentral(new CommunicationCentral(this)),
     //m_rssLoader(new QNetworkAccessManager(this)),
     m_keyboardProcess(new QProcess(this))
@@ -56,6 +57,26 @@ SimonTouch::SimonTouch(Configuration *cfg, ImagesModel *img, MusicModel *music,
 SimonTouch::~SimonTouch()
 {
     delete m_currentRssFeed;
+}
+
+QStringList SimonTouch::rssFeedGroupNames() const
+{
+    return m_rssGroups->groupnames();
+}
+
+QStringList SimonTouch::rssFeedGroups() const
+{
+    return m_rssFeeds->groups();
+}
+
+QStringList SimonTouch::rssFeedGroupIcons() const
+{
+    return m_rssGroups->groupicons();
+}
+
+QStringList SimonTouch::rssFeedGroupHandles() const
+{
+    return m_rssGroups->grouphandles();
 }
 
 QStringList SimonTouch::rssFeedNames() const

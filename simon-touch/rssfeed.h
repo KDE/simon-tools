@@ -31,6 +31,7 @@ class RSSFeed : public QAbstractListModel
 private:
     QStringList m_headings;
     QStringList m_articles;
+    //QStringList m_groups;
     void init();
 
 public:
@@ -43,6 +44,7 @@ public:
     int count() const;
     QString heading(int i) const;
     QString article(int i) const;
+    //QString group(int i) const;
 
     virtual QVariant data (const QModelIndex & index, int role = Qt::DisplayRole) const;
     QModelIndex parent(const QModelIndex &child) const {

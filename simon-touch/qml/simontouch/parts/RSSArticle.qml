@@ -39,7 +39,7 @@ Item {
         smooth: true
         anchors {
             left: parent.left
-            right: parent.right
+            right: parent.righ
             top: headingText.bottom
             topMargin: 20
             bottom: parent.bottom

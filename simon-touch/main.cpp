@@ -1,5 +1,6 @@
 /*
  *   Copyright (C) 2011-2012 Peter Grasch <grasch@simon-listens.org>
+ *   Copyright (C) 2012 Claus Zotter <claus.zotter@gmail.com>
  *
  *   This program is free software; you can redistribute it and/or modify
  *   it under the terms of the GNU General Public License version 2,
@@ -29,6 +30,7 @@
 #include "imagesmodel.h"
 #include "musicmodel.h"
 #include "videosmodel.h"
+#include "rssgroups.h"
 #include "rssfeeds.h"
 #include "simontouch.h"
 #include "simontouchadapter.h"
@@ -39,13 +41,14 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     			  ki18n("simon-touch"), "0.1",
     			  ki18n("Voice controlled media center and personal communication portal"),
 			  KAboutData::License_GPL,
-			  ki18n("Copyright (c) 2011-2012 Peter Grasch, Mathias Stieger") );
+              ki18n("Copyright (c) 2011-2012 Peter Grasch, Mathias Stieger, Claus Zotter") );
 
     KCmdLineOptions options;
     options.add("images <folder>", ki18n("Path to images"));
     options.add("music <folder>", ki18n("Path to music"));
     options.add("videos <folder>", ki18n("Path to videos"));
-    options.add("feeds <description>", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,..."));
+    options.add("feeds <description>", ki18n("RSS feeds to use; Feed format: \"<title 1>,<url 1>,<icon 1>,<group>;<title 2>,...\""));
+    options.add("groups <description>", ki18n("RSS feed groups (e.g. different newspapers) to use; format: \"<grouphandle 1>,<groupname 1>,<groupicon 1>;<grouphandle 2>,...\""));
     KCmdLineArgs::addCmdLineOptions(options);
     
     KCmdLineArgs::init(argc, argv, &aboutData);
@@ -58,23 +61,39 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     ImagesModel img(cfg.imagePath());
     MusicModel music(cfg.musicPath());
     VideosModel vids(cfg.videosPath());
+    QStringList groups = cfg.groups().split(';');
     QStringList feeds = cfg.feeds().split(';');
 
-    QStringList titles, urls, icons;
+    QStringList grouphandles, groupnames, groupicons;
+    foreach (const QString& group, groups) {
+        QStringList groupdetails = group.split(',');
+        if (groupdetails.count() != 3) {
+            qWarning() << i18n("RSS feed groups format: \"<grouphandle 1>,<groupname 1>,<groupicon 1>;<grouphandle 2>,...\"");
+        return -1;
+    }
+        grouphandles << groupdetails[0];
+        groupnames << groupdetails[1];
+        groupicons << groupdetails[2];
+    }
+
+    QStringList titles, urls, icons, feedgroups;
     foreach (const QString& feed, feeds) {
         QStringList details = feed.split(',');
-        if (details.count() != 3)  {
-            qWarning() << i18n("RSS feed format: \"<title 1>,<url 1>,<icon 1>;<title 2>,...\"");
+        if (details.count() != 4)  {
+            qWarning() << i18n("RSS feed format: \"<title 1>,<url 1>,<icon 1>,<group>;<title 2>,...\"");
 	    return -1;
 	}
         titles << details[0];
         urls << details[1];
         icons << details[2];
+        feedgroups << details[3];
     }
 
-    RSSFeeds rssFeeds(titles, urls, icons);
+    RSSGroups rssGroups(grouphandles, groupnames, groupicons);
 
-    SimonTouch touch(&cfg, &img, &music, &vids, &rssFeeds);
+    RSSFeeds rssFeeds(titles, urls, icons, feedgroups);
+
+    SimonTouch touch(&cfg, &img, &music, &vids, &rssFeeds, &rssGroups);
 
     new SimonTouchAdapter(&touch);
     QDBusConnection connection = QDBusConnection::sessionBus();
@@ -86,7 +105,9 @@ Q_DECL_EXPORT int main(int argc, char *argv[])
     QObject::connect(&view, SIGNAL(enterState(QString)), &touch, SLOT(enteredState(QString)));
     QObject::connect(&touch, SIGNAL(playVideo(QString)), &view, SLOT(playVideo(QString)));
 
+
     touch.enteredState("Main");
+
 
     return app.exec();
 }

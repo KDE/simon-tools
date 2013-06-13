@@ -89,5 +89,6 @@ import QtQuick 1.1
          opacity: backAvailable && tabWidget.opacity
          onButtonClick: back()
          spokenText: true
+         visible: false
      }
  }
