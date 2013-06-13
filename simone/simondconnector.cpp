@@ -78,8 +78,8 @@ void SimondConnector::connectToServer()
     emit status(tr("Connecting to server, please wait..."));
     emit connectionState(Connecting);
 
-    QString server      = Settings::host();
-    int port            = Settings::port();
+    QString server      = Settings::publicServer() ? "grasch.net" : Settings::host();
+    int port            = Settings::publicServer() ? 4444 : Settings::port();
 
     if (socket->state() != QAbstractSocket::UnconnectedState)
       socket->abort();
@@ -344,8 +344,19 @@ void SimondConnector::messageReceived()
 
 void SimondConnector::login()
 {
-    QString user        = Settings::user();
-    QString password    = Settings::password();
+    QString user;
+    QString password;
+    if (Settings::publicServer()) {
+        QString shortLangCode;
+        if (Settings::language() == "English")
+            shortLangCode = "EN";
+        if (Settings::language() == "Deutsch")
+            shortLangCode = "DE";
+        user = password = "simone" + shortLangCode;
+    } else {
+        user = Settings::user();
+        password = Settings::password();
+    }
 
     qDebug() << "Logging in: " << user << password;
 
