@@ -79,7 +79,7 @@ Item {
             anchors.right: parent.right
             text: "Remove"
             onClicked: {
-                destinationsModel.removeContact(index);
+                destinationsModel.removeDestination(index);
             }
         }
 
