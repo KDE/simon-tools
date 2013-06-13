@@ -227,6 +227,7 @@ void QMLSimoneView::restoreConfiguration()
     rootObject->findChild<QObject*>("slMinimumSampleLength")->setProperty("value", Settings::minimumSampleLength());
 
     rootObject->findChild<QObject*>("cbBackToMain")->setProperty("currentText", Settings::backToMainTrigger());
+    rootObject->findChild<QObject*>("btBackToMain")->setProperty("text", Settings::backToMainTrigger());
     rootObject->findChild<QObject*>("cbContacts")->setProperty("checked", Settings::callControl());
     rootObject->findChild<QObject*>("cbContactTrigger")->setProperty("currentText", Settings::callTrigger());
     rootObject->findChild<QObject*>("cbContactAcceptCall")->setProperty("currentText", Settings::answerCallTrigger());
@@ -264,6 +265,7 @@ void QMLSimoneView::storeConfiguration()
     Settings::setMinimumSampleLength(rootObject->findChild<QObject*>("slMinimumSampleLength")->property("value").toInt());
 
     Settings::setBackToMainTrigger(rootObject->findChild<QObject*>("cbBackToMain")->property("currentText").toString());
+    rootObject->findChild<QObject*>("btBackToMain")->setProperty("text", Settings::backToMainTrigger());
     Settings::setCallControl(rootObject->findChild<QObject*>("cbContacts")->property("checked").toBool());
     Settings::setCallTrigger(rootObject->findChild<QObject*>("cbContactTrigger")->property("currentText").toString());
     Settings::setAnswerCallTrigger(rootObject->findChild<QObject*>("cbContactAcceptCall")->property("currentText").toString());
@@ -335,16 +337,16 @@ void QMLSimoneView::buildStaticCommandList()
         currentLanguagePublicCommands << "Nine";
     }
     if (language == "Deutsch") {
-        currentLanguagePublicCommands << "Nummer w�hlen";
+        currentLanguagePublicCommands << QString::fromUtf8("Nummer wählen");
         currentLanguagePublicCommands << "Anruf annehmen";
         currentLanguagePublicCommands << "Navigation starten";
         currentLanguagePublicCommands << "Navigation stoppen";
-        currentLanguagePublicCommands << "Zur�ck";
+        currentLanguagePublicCommands << QString::fromUtf8("Zurück");
         currentLanguagePublicCommands << "Eins";
         currentLanguagePublicCommands << "Zwei";
         currentLanguagePublicCommands << "Drei";
         currentLanguagePublicCommands << "Vier";
-        currentLanguagePublicCommands << "F�nf";
+        currentLanguagePublicCommands << QString::fromUtf8("Fünf");
         currentLanguagePublicCommands << "Sechs";
         currentLanguagePublicCommands << "Sieben";
         currentLanguagePublicCommands << "Acht";
