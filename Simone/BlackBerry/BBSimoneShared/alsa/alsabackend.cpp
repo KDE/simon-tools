@@ -236,7 +236,11 @@ QStringList ALSABackend::getDevices(SimonSound::SoundDeviceType type)
 snd_pcm_t* ALSABackend::openDevice(SimonSound::SoundDeviceType type, const QString& device, int channels, int samplerate)
 {
   // remove everything up to (
+#if QT_VERSION >= 0x050000
+  QByteArray internalDeviceName = device.mid(device.lastIndexOf("(")+1).toLatin1();
+#else
   QByteArray internalDeviceName = device.mid(device.lastIndexOf("(")+1).toAscii();
+#endif
   // remove )
   internalDeviceName = internalDeviceName.left(internalDeviceName.length()-1);
 

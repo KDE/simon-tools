@@ -16,18 +16,20 @@ unix:!blackberry {
 
 SOURCES += simondconnector.cpp \
         settings.cpp \
-        qmlapplicationviewer/qmlapplicationviewer.cpp \
         soundinput.cpp \
         recognitionresult.cpp \
         soundbackend.cpp
 
 HEADERS += simondconnector.h \
         simone.h \
-        qmlapplicationviewer/qmlapplicationviewer.h \
         settings.h \
         simonprotocol.h \
         soundinput.h \
         recognitionresult.h \
-        soundbackend.h \
         soundbackendclient.h \
         soundbackend.h
+
+contains(QT_VERSION, ^4.*) {
+  SOURCES += qmlapplicationviewer/qmlapplicationviewer.cpp
+  HEADERS += qmlapplicationviewer/qmlapplicationviewer.h
+}

@@ -88,12 +88,12 @@ void SimondConnector::connectToServer()
         socket->abort();
     }
 
-    if (false) { //SSL
-      socket->setProtocol(QSsl::TlsV1);
-      socket->connectToHostEncrypted( server, port );
-    } else {
+    //if (false) { //SSL
+      //socket->setProtocol(QSsl::TlsV1);
+      //socket->connectToHostEncrypted( server, port );
+    //} else {
       socket->connectToHost(server, port);
-    }
+    //}
 
     timeoutTimer->start();
 }
