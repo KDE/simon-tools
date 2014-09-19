@@ -43,7 +43,7 @@ signals:
 
     void microphoneLevel(int level, int min, int max);
     void listening();
-    void recognizing();
+    void recognizing(qint64 startTime, qint64 endTime);
     void recognized(const QString&);
     void recognized(const RecognitionResultList&);
 
@@ -76,6 +76,7 @@ private slots:
     void soundDataAvailable();
 
     void configurationChanged();
+    void commitRecording(qint64 startTime, qint64 endTime);
 
 public:
     explicit SimondConnector(QObject *parent = 0);
@@ -86,7 +87,6 @@ public slots:
     void disconnectFromServer();
 
     void startRecording();
-    void commitRecording();
 
 };
 

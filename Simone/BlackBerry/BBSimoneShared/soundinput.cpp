@@ -38,6 +38,7 @@ SoundInput::SoundInput(int channels, int sampleRate, QObject *parent) :
     lastLevel(0),
     lastTimeUnderLevel(0),
     lastTimeOverLevel(0),
+    sampleStartTime(0),
     waitingForSampleToStart(true),
     waitingForSampleToFinish(false),
     currentlyRecordingSample(false)
@@ -152,12 +153,11 @@ int SoundInput::getLengthFactor()
 
 void SoundInput::process(QByteArray& data)
 {
+    qint64 thisTime = bytesToLength(data.count());
     analyzeSoundProperties(data);
 
     if (!Settings::voiceActivityDetection())
         return;
-
-    m_currentTime += bytesToLength(data.count());
 
     int levelThreshold = Settings::cutoffLevel();
     int headMargin = Settings::headMargin();
@@ -173,7 +173,7 @@ void SoundInput::process(QByteArray& data)
 
         //stayed above level
         if (waitingForSampleToStart) {
-          if (m_currentTime - lastTimeUnderLevel > shortSampleCutoff) {
+          if (m_currentTime + thisTime - lastTimeUnderLevel > shortSampleCutoff) {
             waitingForSampleToStart = false;
             waitingForSampleToFinish = true;
             if (!currentlyRecordingSample) {
@@ -187,33 +187,44 @@ void SoundInput::process(QByteArray& data)
         }
       } else {
         //crossed upward
-        currentSample += data;
+	if (waitingForSampleToInit) {
+	  sampleStartTime = lastTimeUnderLevel - headMargin;
+	  waitingForSampleToInit = false;
+	}
+	currentSample += data;
+	if (waitingForSampleToFinish)
+	  passDataThrough = true;
       }
-      lastTimeOverLevel = m_currentTime;
+      lastTimeOverLevel = m_currentTime + thisTime;
     } else {
-      waitingForSampleToStart = true;
-      if (lastLevel < levelThreshold) {
-        //stayed below level
-        if (waitingForSampleToFinish) {
-          //still append data during tail margin
-          currentSample += data;
-          passDataThrough = true;
-          if (m_currentTime - lastTimeOverLevel > tailMargin) {
-            currentlyRecordingSample = false;
-            waitingForSampleToFinish = false;
-            qDebug() << "Sample finalized and sent.";
-            emit complete();
-          }
-        } else {
-          //get a bit of data before the first level cross
-          currentSample += data;
-          currentSample = currentSample.right(lengthToBytes(headMargin));
-        }
-      } else {
-        //crossed downward
-        currentSample += data;
+      bool silentLongerThanTailMargin = (m_currentTime + thisTime - lastTimeOverLevel > tailMargin);
+
+      if (waitingForSampleToFinish) {
+	//still append data during tail margin
+	currentSample += data;
+	passDataThrough = true;
+	if (silentLongerThanTailMargin) {
+	  currentlyRecordingSample = false;
+	  waitingForSampleToFinish = false;
+	  waitingForSampleToStart  = true;
+	  waitingForSampleToInit = true;
+	  emit complete(sampleStartTime, m_currentTime + thisTime);
+	}
+      } else if (waitingForSampleToInit) {
+	//get a bit of data before the first level cross
+	currentSample += data;
+	currentSample = currentSample.right(lengthToBytes(headMargin));
+      } else if (waitingForSampleToStart && !waitingForSampleToInit) {
+	if (silentLongerThanTailMargin) {
+	  waitingForSampleToInit = true;
+	  waitingForSampleToStart = true;
+	  currentSample = currentSample.right(lengthToBytes(headMargin));
+	} else {
+	  currentSample += data;
+	}
       }
-      lastTimeUnderLevel = m_currentTime;
+
+      lastTimeUnderLevel = m_currentTime + thisTime;
     }
 
     lastLevel = peak();
@@ -223,6 +234,8 @@ void SoundInput::process(QByteArray& data)
       currentSample.clear();
     } else
         data.clear();
+
+    m_currentTime += thisTime;
 }
 
 qint64 SoundInput::writeData(const char* data, qint64 maxSize)

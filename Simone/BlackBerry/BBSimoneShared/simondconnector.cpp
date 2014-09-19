@@ -52,7 +52,7 @@ SimondConnector::SimondConnector(QObject *parent) :
     connect(mic, SIGNAL(error(QString)), this, SIGNAL(error(QString)));
     connect(mic, SIGNAL(microphoneLevel(int,int,int)), this, SIGNAL(microphoneLevel(int,int,int)));
     connect(mic, SIGNAL(listening()), this, SLOT(startRecording()));
-    connect(mic, SIGNAL(complete()), this, SLOT(commitRecording()));
+    connect(mic, SIGNAL(complete(qint64, qint64)), this, SLOT(commitRecording(qint64, qint64)));
     connect(mic, SIGNAL(readyRead()), this, SLOT(soundDataAvailable()));
 
     connect(timeoutTimer, SIGNAL(timeout()), this, SLOT(timeoutReached()));
@@ -232,10 +232,10 @@ void SimondConnector::startRecording()
     passThroughSound = true;
 }
 
-void SimondConnector::commitRecording()
+void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
 {
     qDebug() << "Committing recording";
-    emit recognizing();
+    emit recognizing(startTime, endTime);
     passThroughSound = false;
 
     QByteArray body;

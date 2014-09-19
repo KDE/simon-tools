@@ -34,7 +34,7 @@ signals:
     void error(const QString& error);
 
     void listening();
-    void complete();
+    void complete(qint64 start, qint64 end);
 
 private:
     SoundBackend *m_input;
@@ -58,6 +58,9 @@ private:
     qint64 lastTimeUnderLevel;
     qint64 lastTimeOverLevel;
 
+    qint64 sampleStartTime;
+
+    bool waitingForSampleToInit;
     bool waitingForSampleToStart;
     bool waitingForSampleToFinish;
     bool currentlyRecordingSample;
