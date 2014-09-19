@@ -65,9 +65,17 @@ bool SoundInput::init()
     }
 
     emit microphoneLevel(0, 0, maxAmp());
-
-    m_input->startRecording(this);
     return true;
+}
+
+bool SoundInput::startRecording()
+{
+    return m_input->startRecording(this);
+}
+
+bool SoundInput::stopRecording()
+{
+    return m_input->stopRecording();
 }
 
 void SoundInput::errorOccured(SimonSound::Error err)

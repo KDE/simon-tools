@@ -64,7 +64,7 @@ void SimondConnector::init()
 {
     if (Settings::autoConnect())
         connectToServer();
-    if (!mic->init())
+    if (!mic->init() || !mic->startRecording())
         qWarning() << "Failed to initialize audio device";
 }
 
@@ -221,9 +221,11 @@ void SimondConnector::configurationChanged()
 
 void SimondConnector::startRecording()
 {
+    if (state != Active)
+        return;
+
     qDebug() << "Starting recording";
     emit listening();
-
     QByteArray body;
     QDataStream bodyStream(&body, QIODevice::WriteOnly|QIODevice::Unbuffered);
     bodyStream << (qint8) 1 /* mic id */ << mic->channels() << mic->sampleRate();
@@ -234,6 +236,9 @@ void SimondConnector::startRecording()
 
 void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
 {
+    if (state != Active)
+        return;
+
     qDebug() << "Committing recording";
     emit recognizing(startTime, endTime);
     passThroughSound = false;
@@ -247,7 +252,7 @@ void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
 
 void SimondConnector::soundDataAvailable()
 {
-    if (!passThroughSound) {
+    if (!passThroughSound || state != Active) {
         mic->dropCache(); // drop current data
         return;
     }

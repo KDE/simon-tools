@@ -86,6 +86,8 @@ public:
     ~SoundInput();
 
     bool init();
+    bool startRecording();
+    bool stopRecording();
 
     qint8 channels() { return m_channels; }
     qint32 sampleRate() { return m_sampleRate; }
