@@ -87,6 +87,7 @@ public slots:
     void disconnectFromServer();
 
     void startRecording();
+    void commitRecording();
 
 };
 

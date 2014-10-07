@@ -250,6 +250,11 @@ void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
     sendRequest(Simond::RecognitionSampleFinished, body, false);
 }
 
+void SimondConnector::commitRecording()
+{
+    commitRecording(-1,-1);
+}
+
 void SimondConnector::soundDataAvailable()
 {
     if (!passThroughSound || state != Active) {
