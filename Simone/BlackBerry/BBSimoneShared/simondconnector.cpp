@@ -338,17 +338,22 @@ void SimondConnector::messageReceived()
         for (int i=0; i < sentenceCount; i++) {
           QByteArray word, sampa, samparaw;
           QList<float> confidenceScores;
+          float arousal;
           *response >> word;
           *response >> sampa;
           *response >> samparaw;
+          *response >> arousal;
           *response >> confidenceScores;
           recognitionResults.append(RecognitionResult(QString::fromUtf8(word),
             QString::fromUtf8(sampa),
             QString::fromUtf8(samparaw),
+            arousal,
             confidenceScores));
         }
-        if (!recognitionResults.isEmpty())
+        if (!recognitionResults.isEmpty()) {
+            emit recognized(recognitionResults);
             emit recognized(recognitionResults.first().sentence());
+        }
         break;
     }
 
