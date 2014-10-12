@@ -115,7 +115,7 @@ qint64 SoundInput::readData(char* data, qint64 maxSize)
     QMutexLocker l(&bufferLock);
     int length = qMin((int) maxSize, localBuffer.count());
     memcpy(data, localBuffer.data(), length);
-    localBuffer.clear();
+    localBuffer = localBuffer.mid(length);
     return length;
 }
 
@@ -173,11 +173,11 @@ void SoundInput::process(QByteArray& data)
     int shortSampleCutoff = Settings::minimumSampleLength();
 
     bool passDataThrough = false;
+    bool doneRecording = false;
 
-
+    currentSample += data;
     if (peak() > levelThreshold) {
       if (lastLevel > levelThreshold) {
-        currentSample += data;                      // cache data (waiting for sample) or send it (if already sending)
 
         //stayed above level
         if (waitingForSampleToStart) {
@@ -199,7 +199,6 @@ void SoundInput::process(QByteArray& data)
 	  sampleStartTime = lastTimeUnderLevel - headMargin;
 	  waitingForSampleToInit = false;
 	}
-	currentSample += data;
 	if (waitingForSampleToFinish)
 	  passDataThrough = true;
       }
@@ -209,28 +208,24 @@ void SoundInput::process(QByteArray& data)
 
       if (waitingForSampleToFinish) {
 	//still append data during tail margin
-	currentSample += data;
 	passDataThrough = true;
 	if (silentLongerThanTailMargin) {
 	  currentlyRecordingSample = false;
 	  waitingForSampleToFinish = false;
 	  waitingForSampleToStart  = true;
 	  waitingForSampleToInit = true;
-	  emit complete(sampleStartTime, m_currentTime + thisTime);
+          doneRecording = true;
 	}
       } else if (waitingForSampleToInit) {
 	//get a bit of data before the first level cross
-	currentSample += data;
 	currentSample = currentSample.right(lengthToBytes(headMargin));
       } else if (waitingForSampleToStart && !waitingForSampleToInit) {
 	if (silentLongerThanTailMargin) {
 	  waitingForSampleToInit = true;
 	  waitingForSampleToStart = true;
 	  currentSample = currentSample.right(lengthToBytes(headMargin));
-	} else {
-	  currentSample += data;
 	}
-      }
+     }
 
       lastTimeUnderLevel = m_currentTime + thisTime;
     }
@@ -243,6 +238,8 @@ void SoundInput::process(QByteArray& data)
     } else
         data.clear();
 
+    if (doneRecording)
+      emit complete(sampleStartTime, m_currentTime + thisTime);
     m_currentTime += thisTime;
 }
 

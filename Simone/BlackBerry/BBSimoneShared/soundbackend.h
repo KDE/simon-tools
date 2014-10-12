@@ -20,9 +20,9 @@
 #ifndef SIMON_SOUNDBACKEND_H_BAC60651BE6A419EA6156220815A2AAD
 #define SIMON_SOUNDBACKEND_H_BAC60651BE6A419EA6156220815A2AAD
 
-#include <QObject>
+#include <simonsound.h>
 #include <QStringList>
-#include "simonsound.h"
+#include <QObject>
 
 class SoundBackendClient;
 
