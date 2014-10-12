@@ -19,13 +19,14 @@
 
 #include "soundbackend.h"
 
+#ifdef Q_OS_LINUX
+#include "alsa/alsabackend.h"
+#endif
+#ifdef Q_OS_MAC
+#include "coreaudio/coreaudiobackend.h"
+#endif
 #ifdef Q_OS_WIN32
 #include "directsound/directsoundbackend.h"
-#endif
-#ifdef Q_OS_QNX
-#include "qnx/qsabackend.h"
-#else
-#include "alsa/alsabackend.h"
 #endif
 
 SoundBackend::SoundBackend() : m_client(0), m_error(SimonSound::NoError), m_state(SimonSound::IdleState)
@@ -36,13 +37,14 @@ SoundBackend::SoundBackend() : m_client(0), m_error(SimonSound::NoError), m_stat
 
 SoundBackend* SoundBackend::createObject()
 {
-#ifdef Q_OS_WIN32
-  return new DirectSoundBackend;
+#ifdef Q_OS_LINUX
+  return new ALSABackend();
 #endif
-#ifdef Q_OS_BLACKBERRY
-  return new QSABackend;
-#else
-  return new ALSABackend;
+#ifdef Q_OS_MAC
+  return new CoreAudioBackend();
+#endif
+#ifdef Q_OS_WIN32
+  return new DirectSoundBackend();
 #endif
 }
 

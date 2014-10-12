@@ -224,6 +224,7 @@ void SimondConnector::startRecording()
     if (state != Active)
         return;
 
+    passThroughSound = true;
     qDebug() << "Starting recording";
     emit listening();
     QByteArray body;
@@ -231,7 +232,6 @@ void SimondConnector::startRecording()
     bodyStream << (qint8) 1 /* mic id */ << mic->channels() << mic->sampleRate();
 
     sendRequest(Simond::RecognitionStartSample, body);
-    passThroughSound = true;
 }
 
 void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
@@ -241,6 +241,7 @@ void SimondConnector::commitRecording(qint64 startTime, qint64 endTime)
 
     qDebug() << "Committing recording";
     emit recognizing(startTime, endTime);
+    soundDataAvailable();
     passThroughSound = false;
 
     QByteArray body;
