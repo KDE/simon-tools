@@ -3,6 +3,7 @@ Version=1.0
 Type=Application
 Terminal=false
 Name=simon-touch
+Name[ast]=simon-touch
 Name[bs]=simon-touch
 Name[ca]=simon-touch
 Name[ca@valencia]=simon-touch
